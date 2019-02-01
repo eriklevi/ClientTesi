@@ -10,7 +10,7 @@ import {Router} from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  private userName: string;
+  userName: string;
   constructor(
     private userService: UserService,
     private authenticationService: AuthenticationService,
@@ -26,5 +26,17 @@ export class HomeComponent implements OnInit {
 
   userIsAdmin() {
     return this.authenticationService.currentUserValue.authorities.includes('ADMIN');
+  }
+
+  navigateProbes() {
+    this.router.navigate(['/probes']);
+  }
+
+  navigateUsers() {
+    this.router.navigate(['/users']);
+  }
+
+  navigateHome() {
+    this.router.navigate(['']);
   }
 }

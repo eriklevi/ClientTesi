@@ -1,0 +1,26 @@
+ <div class="row">
+   <div class="col s7">
+     <table class="striped responsive-table">
+       <thead>
+       <tr>
+         <th>Username</th>
+         <th>Email</th>
+         <th>Roles</th>
+       </tr>
+       </thead>
+       <tbody>
+       <tr *ngFor="let u of userList">
+         <td>{{u.username}}</td>
+         <td>{{u.mail}}</td>
+         <td>{{u.roles}}</td>
+         <td><button class="btn cyan darken-3 waves-effect" (click)="updateUser(u.id)">Update</button></td>
+         <td><button class="btn cyan darken-3 waves-effect" (click)="deleteUser(u.id)">Delete</button></td>
+       </tr>
+       </tbody>
+     </table>
+   </div>
+    <div class="col s5 offset-s7">
+      <a routerLink="/create/user" class="btn waves-effect cyan darken-3"><i class="material-icons">add_circle_outline</i>NEW USER</a>
+    </div>
+  </div>
+

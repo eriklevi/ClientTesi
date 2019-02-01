@@ -1,0 +1,28 @@
+<div class="row">
+  <form [formGroup]="newUser" (ngSubmit)="createUser()" class="col s6">
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="mail" type="text" class="validate" formControlName="mail">
+        <label for="mail">E Mail</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="username" type="text" class="validate" formControlName="username">
+        <label for="username">Username</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="password" type="password" class="validate" formControlName="password">
+        <label for="password">Password</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field">
+        <button class="btn waves-effect cyan darken-3 hoverable" style="margin-right: 15px" type="submit">Confirm</button>
+        <button class="btn waves-effect red hoverable" type="reset">Clear</button>
+    </div>
+    </div>
+  </form>
+</div>

@@ -5,9 +5,10 @@ import { map } from 'rxjs/operators';
 import * as jwt from 'jwt-decode';
 
 import { LoginUser } from '../_models/loginUser';
+import {environment} from '../../environments/environment';
 
-const host = '192.168.1.44';
-const port = 8762;
+const host = environment.host;
+const port = environment.port;
 
 @Injectable({
   providedIn: 'root',

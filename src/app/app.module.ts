@@ -7,9 +7,17 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { AlertComponent } from './alert/alert.component';
-import {HttpClientModule} from '@angular/common/http';
-import {ReactiveFormsModule} from '@angular/forms';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ProbeViewerComponent } from './probe-viewer/probe-viewer.component';
+import { UsersListComponent } from './users-list/users-list.component';
+import { MaterializeModule } from 'angular2-materialize';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import {JwtInterceptor} from './_helpers/jwt.interceptor';
+import {ErrorInterceptor} from './_helpers/error.interceptor';
+import { UserCreatorComponent } from './user-creator/user-creator.component';
+import { UserUpdaterComponent } from './user-updater/user-updater.component';
+import { UserDetailComponent } from './user-detail/user-detail.component';
 
 @NgModule({
   declarations: [
@@ -18,15 +26,25 @@ import { ProbeViewerComponent } from './probe-viewer/probe-viewer.component';
     HomeComponent,
     RegisterComponent,
     AlertComponent,
-    ProbeViewerComponent
+    ProbeViewerComponent,
+    UsersListComponent,
+    DashboardComponent,
+    UserCreatorComponent,
+    UserUpdaterComponent,
+    UserDetailComponent
   ],
   imports: [
     BrowserModule,
+    MaterializeModule,
     ReactiveFormsModule,
     HttpClientModule,
-    routing
+    routing,
+    FormsModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
