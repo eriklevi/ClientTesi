@@ -5,4 +5,5 @@ export class Sniffer {
   building: string;
   room: string;
   location: any;
+  status: string;
 }

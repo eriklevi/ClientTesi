@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProbeViewerComponent } from './probe-viewer.component';
+import { SnifferCreatorComponent } from './sniffer-creator.component';
 
-describe('ProbeViewerComponent', () => {
-  let component: ProbeViewerComponent;
-  let fixture: ComponentFixture<ProbeViewerComponent>;
+describe('SnifferCreatorComponent', () => {
+  let component: SnifferCreatorComponent;
+  let fixture: ComponentFixture<SnifferCreatorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProbeViewerComponent ]
+      declarations: [ SnifferCreatorComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProbeViewerComponent);
+    fixture = TestBed.createComponent(SnifferCreatorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

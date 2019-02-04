@@ -9,7 +9,6 @@ import { RegisterComponent } from './register/register.component';
 import { AlertComponent } from './alert/alert.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { ProbeViewerComponent } from './probe-viewer/probe-viewer.component';
 import { UsersListComponent } from './users-list/users-list.component';
 import { MaterializeModule } from 'angular2-materialize';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -18,6 +17,13 @@ import {ErrorInterceptor} from './_helpers/error.interceptor';
 import { UserCreatorComponent } from './user-creator/user-creator.component';
 import { UserUpdaterComponent } from './user-updater/user-updater.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
+import {UserService} from './_services/user.service';
+import {SnifferService} from './_services/sniffer.service';
+import {AuthenticationService} from './_services/authentication.service';
+import {AlertService} from './_services/alert.service';
+import { SnifferListComponent } from './sniffer-list/sniffer-list.component';
+import { SnifferCreatorComponent } from './sniffer-creator/sniffer-creator.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -26,12 +32,13 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
     HomeComponent,
     RegisterComponent,
     AlertComponent,
-    ProbeViewerComponent,
     UsersListComponent,
     DashboardComponent,
     UserCreatorComponent,
     UserUpdaterComponent,
-    UserDetailComponent
+    UserDetailComponent,
+    SnifferListComponent,
+    SnifferCreatorComponent
   ],
   imports: [
     BrowserModule,
@@ -39,9 +46,14 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
     ReactiveFormsModule,
     HttpClientModule,
     routing,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule
   ],
   providers: [
+    UserService,
+    SnifferService,
+    AuthenticationService,
+    AlertService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
   ],

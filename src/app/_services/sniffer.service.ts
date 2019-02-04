@@ -29,9 +29,9 @@ export class SnifferService {
         timeout(7500)
       );
   }
-  deleteSnifferByName(name: string): Observable<any> {
+  deleteSnifferById(id: string): Observable<any> {
     return this.http
-      .delete('http://' + host + ':' + port + '/sniffers/' + name)
+      .delete('http://' + host + ':' + port + '/sniffers/' + id)
       .pipe(
         timeout(7500)
       );

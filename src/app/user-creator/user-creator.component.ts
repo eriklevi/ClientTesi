@@ -13,23 +13,32 @@ export class UserCreatorComponent implements OnInit {
   public newUser: FormGroup;
 
   constructor(
-    private userService:UserService
+    private userService: UserService
   ) {
     this.newUser = new FormGroup({
       'mail': new FormControl('', Validators.compose([Validators.required, Validators.email])),
       'username': new FormControl('', Validators.compose([Validators.required])),
-      'password': new FormControl('', Validators.compose([Validators.required, Validators.minLength(8)]))
+      'password': new FormControl('', Validators.compose([Validators.required, Validators.minLength(8)])),
+      'makeAdmin': new FormControl()
     });
   }
 
   ngOnInit() {
   }
 
-  createUser(form: NgForm) {
+  createUser() {
+    if (this.newUser.invalid) {
+      return;
+    }
     const user: User = new User();
     user.password = this.newUser.get('password').value;
     user.username = this.newUser.get('username').value;
     user.mail = this.newUser.get('mail').value;
+    if (this.newUser.get('makeAdmin').value === true ) {
+      user.roles = ['USER', 'ADMIN', 'SNIFFER'];
+    } else {
+      user.roles = ['USER'];
+    }
     this.userService.createUser(user).subscribe(
       data => {
         console.log('Nuovo utente creato');

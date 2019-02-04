@@ -3,6 +3,7 @@ import {UserService} from '../_services/user.service';
 import {User} from '../_models/user';
 import {error, log} from 'util';
 import {Router} from '@angular/router';
+import {AuthenticationService} from '../_services/authentication.service';
 
 @Component({
   selector: 'app-user-viewer',
@@ -15,12 +16,13 @@ export class UsersListComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private authenticationService: AuthenticationService
   ) {
-    this.fetchUsers();
   }
 
   ngOnInit() {
+    this.fetchUsers();
   }
 
   fetchUsers(): void {

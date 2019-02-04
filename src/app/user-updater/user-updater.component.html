@@ -1,3 +1,46 @@
-<p>
-  user-updater works!
-</p>
+<div class="row">
+  <form materialize [formGroup]="group" (ngSubmit)="updateUser()" class="col s6">
+    <div class="row">
+      <div class="input-field col s12">
+        <input value="{{currentUser.mail}}" id="mail" type="text" class="validate" formControlName="mail">
+        <label class="active" for="mail">E Mail</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <input value="{{currentUser.username}}" id="username" type="text" class="validate" formControlName="username">
+        <label class="active" for="username">Username</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <input placeholder="New Password" id="password" type="password" class="validate" formControlName="password">
+        <label class="active" for="password">Password</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <input type="checkbox" [checked]="isAdmin()" class="filled-in" id="filled-in-1" formControlName="admin"/>
+        <label for="filled-in-1">Admin</label>
+      </div>
+      <div class="col">
+        <input type="checkbox" [checked]="isUser()" class="filled-in" id="filled-in-2" formControlName="user"/>
+        <label for="filled-in-2">User</label>
+      </div>
+      <div class="col">
+        <input type="checkbox" [checked]="isSniffer()" class="filled-in" id="filled-in-3" formControlName="sniffer"/>
+        <label for="filled-in-3">Sniffer</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field">
+        <div class="col">
+          <button class="btn waves-effect cyan darken-3 hoverable" type="submit">Confirm</button>
+        </div>
+        <div class="col">
+          <button class="btn waves-effect red hoverable" type="reset">Clear</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

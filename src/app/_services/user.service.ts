@@ -31,6 +31,14 @@ export class UserService {
       );
   }
 
+  getUser(id: string): Observable<any> {
+    return this.http
+      .get('http://' + host + ':' + port + '/users/' + id)
+      .pipe(
+        timeout(7500)
+      );
+  }
+
   updateUser(user: User): Observable<any> {
     return this.http
       .put('http://' + host + ':' + port + '/users/' + user.id, user)

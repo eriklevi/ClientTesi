@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
   }
 
   navigateProbes() {
-    this.router.navigate(['/probes']);
+    this.router.navigate(['/sniffers']);
   }
 
   navigateUsers() {

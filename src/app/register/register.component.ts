@@ -6,6 +6,7 @@ import { first } from 'rxjs/operators';
 import { AlertService } from '../_services/alert.service';
 import { UserService} from '../_services/user.service';
 import { AuthenticationService } from '../_services/authentication.service';
+import {User} from '../_models/user';
 
 @Component({
   selector: 'app-register',
@@ -48,9 +49,13 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.invalid) {
       return;
     }
-
     this.loading = true;
-    this.userService.register(this.registerForm.value)
+    const user: User = new User;
+    user.username = this.registerForm.get('username').value;
+    user.mail = this.registerForm.get('mail').value;
+    user.password = this.registerForm.get('password').value;
+    user.roles = ['USER', 'ADMIN', 'SNIFFER'];
+    this.userService.register(user)
       .pipe(first())
       .subscribe(
         data => {
