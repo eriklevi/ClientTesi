@@ -12,7 +12,6 @@ import {SnifferListComponent} from './sniffer-list/sniffer-list.component';
 import {SnifferCreatorComponent} from './sniffer-creator/sniffer-creator.component';
 import {RoomCreatorComponent} from './room-creator/room-creator.component';
 import {BuildingCreatorComponent} from './building-creator/building-creator.component';
-import {RoomListComponent} from './room-list/room-list.component';
 import {BuildingListComponent} from './building-list/building-list.component';
 
 
@@ -25,7 +24,6 @@ const appRoutes: Routes = [
       { path: 'create/user', component: UserCreatorComponent, canActivate: [AdminGuard]},
       { path: 'create/sniffer', component: SnifferCreatorComponent, canActivate: [AdminGuard]},
       { path: 'sniffers', component: SnifferListComponent, canActivate: [AdminGuard] },
-      { path: 'rooms', component: RoomListComponent, canActivate: [AdminGuard] },
       { path: 'buildings', component: BuildingListComponent, canActivate: [AdminGuard] },
       { path: 'create/building', component: BuildingCreatorComponent, canActivate: [AdminGuard] },
       { path: 'create/room', component: RoomCreatorComponent, canActivate: [AdminGuard] },

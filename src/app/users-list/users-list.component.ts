@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from '../_services/user.service';
 import {User} from '../_models/user';
-import {error, log} from 'util';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../_services/authentication.service';
 

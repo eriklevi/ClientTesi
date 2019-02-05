@@ -30,7 +30,6 @@ import {RoomService} from './_services/room.service';
 import { RoomCreatorComponent } from './room-creator/room-creator.component';
 import { BuildingCreatorComponent } from './building-creator/building-creator.component';
 import { BuildingListComponent } from './building-list/building-list.component';
-import { RoomListComponent } from './room-list/room-list.component';
 
 @NgModule({
   declarations: [
@@ -48,8 +47,7 @@ import { RoomListComponent } from './room-list/room-list.component';
     SnifferCreatorComponent,
     RoomCreatorComponent,
     BuildingCreatorComponent,
-    BuildingListComponent,
-    RoomListComponent
+    BuildingListComponent
   ],
   imports: [
     BrowserModule,

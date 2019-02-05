@@ -4,8 +4,6 @@ import {Building} from '../_models/building';
 import {Room} from '../_models/room';
 import {SnifferService} from '../_services/sniffer.service';
 import {BuildingService} from '../_services/building.service';
-import {RoomService} from '../_services/room.service';
-import {Sniffer} from '../_models/sniffer';
 
 @Component({
   selector: 'app-room-creator',

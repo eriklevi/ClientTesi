@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {timeout} from 'rxjs/operators';
 import {Room} from '../_models/room';
+import {Building} from '../_models/building';
 
 const host = environment.host;
 const port = environment.port;
@@ -36,6 +37,14 @@ export class BuildingService {
   addRoomToBuildingById(id: string, room: Room): Observable<any> {
     return this.http
       .post('http://' + host + ':' + port + '/buildings/' + id + '/rooms', room)
+      .pipe(
+        timeout(7500)
+      );
+  }
+
+  addBuilding(building: Building): Observable<any> {
+    return this.http
+      .post('http://' + host + ':' + port + '/buildings', building)
       .pipe(
         timeout(7500)
       );

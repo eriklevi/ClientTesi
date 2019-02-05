@@ -1,3 +1,16 @@
-<p>
-  building-creator works!
-</p>
+<div class="row">
+  <form [formGroup]="group" (ngSubmit)="createBuilding()" class="col s6">
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="name" type="text" class="validate" formControlName="name">
+        <label for="name">Name</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field">
+        <button class="btn waves-effect cyan darken-3 hoverable" style="margin-right: 15px" type="submit">Confirm</button>
+        <button class="btn waves-effect red hoverable" type="reset">Clear</button>
+      </div>
+    </div>
+  </form>
+</div>
