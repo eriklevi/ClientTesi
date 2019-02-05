@@ -17,6 +17,12 @@
     <a *ngIf="userIsAdmin()" (click)="navigateUsers()" class="waves-effect"><i class="material-icons">portrait</i>Users</a>
   </li>
   <li>
+    <a *ngIf="userIsAdmin()" routerLink="/buildings" class="waves-effect"><i class="material-icons">portrait</i>Buildings</a>
+  </li>
+  <li>
+    <a *ngIf="userIsAdmin()" routerLink="/rooms" class="waves-effect"><i class="material-icons">portrait</i>Rooms</a>
+  </li>
+  <li>
     <a (click)="logout()" class="waves-effect"><i class="material-icons">exit_to_app</i>Logout</a>
   </li>
 </ul>

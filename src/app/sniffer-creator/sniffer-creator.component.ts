@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {UserService} from '../_services/user.service';
-import {User} from '../_models/user';
-import {validate} from 'codelyzer/walkerFactory/walkerFn';
 import {Sniffer} from '../_models/sniffer';
 import {SnifferService} from '../_services/sniffer.service';
+import {BuildingService} from '../_services/building.service';
+import {Building} from '../_models/building';
+import {Room} from '../_models/room';
+import {RoomService} from '../_services/room.service';
 
 @Component({
   selector: 'app-sniffer-creator',
@@ -14,9 +15,13 @@ import {SnifferService} from '../_services/sniffer.service';
 export class SnifferCreatorComponent implements OnInit {
 
   public group: FormGroup;
+  public buildings: Building[];
+  public rooms: Room[];
 
   constructor(
-      private snifferService: SnifferService
+      private snifferService: SnifferService,
+      private buildingsService: BuildingService,
+      private roomService: RoomService
   ) {
     this.group = new FormGroup({
       'mac': new FormControl('', Validators.compose([Validators.required, Validators.pattern('^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$')])),
@@ -27,6 +32,29 @@ export class SnifferCreatorComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.fetchBuildings();
+  }
+
+  fetchBuildings() {
+    this.buildingsService.getBuildings()
+      .subscribe(
+        data => {
+          this.buildings = data;
+        }, error => {
+          console.error(error.name);
+        }
+      );
+  }
+
+  fetchRooms(e) {
+    this.buildingsService.getRoomsByBuildingId(e.source.value)
+      .subscribe(
+        data => {
+          this.rooms = data;
+        }, error => {
+          console.error(error);
+        }
+      );
   }
 
   createSniffer() {

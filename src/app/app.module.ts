@@ -24,6 +24,13 @@ import {AlertService} from './_services/alert.service';
 import { SnifferListComponent } from './sniffer-list/sniffer-list.component';
 import { SnifferCreatorComponent } from './sniffer-creator/sniffer-creator.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatFormFieldModule, MatOptionModule, MatSelectModule} from '@angular/material';
+import {BuildingService} from './_services/building.service';
+import {RoomService} from './_services/room.service';
+import { RoomCreatorComponent } from './room-creator/room-creator.component';
+import { BuildingCreatorComponent } from './building-creator/building-creator.component';
+import { BuildingListComponent } from './building-list/building-list.component';
+import { RoomListComponent } from './room-list/room-list.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +45,11 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     UserUpdaterComponent,
     UserDetailComponent,
     SnifferListComponent,
-    SnifferCreatorComponent
+    SnifferCreatorComponent,
+    RoomCreatorComponent,
+    BuildingCreatorComponent,
+    BuildingListComponent,
+    RoomListComponent
   ],
   imports: [
     BrowserModule,
@@ -47,13 +58,18 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     HttpClientModule,
     routing,
     FormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatOptionModule
   ],
   providers: [
     UserService,
     SnifferService,
     AuthenticationService,
     AlertService,
+    BuildingService,
+    RoomService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
   ],
