@@ -24,12 +24,14 @@ import {AlertService} from './_services/alert.service';
 import { SnifferListComponent } from './sniffer-list/sniffer-list.component';
 import { SnifferCreatorComponent } from './sniffer-creator/sniffer-creator.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatFormFieldModule, MatOptionModule, MatSelectModule} from '@angular/material';
+import {MatFormFieldModule, MatOptionModule, MatSelectModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule} from '@angular/material';
 import {BuildingService} from './_services/building.service';
 import {RoomService} from './_services/room.service';
 import { RoomCreatorComponent } from './room-creator/room-creator.component';
 import { BuildingCreatorComponent } from './building-creator/building-creator.component';
 import { BuildingListComponent } from './building-list/building-list.component';
+import { MainNavComponent } from './main-nav/main-nav.component';
+import { LayoutModule } from '@angular/cdk/layout';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,8 @@ import { BuildingListComponent } from './building-list/building-list.component';
     SnifferCreatorComponent,
     RoomCreatorComponent,
     BuildingCreatorComponent,
-    BuildingListComponent
+    BuildingListComponent,
+    MainNavComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +62,13 @@ import { BuildingListComponent } from './building-list/building-list.component';
     BrowserAnimationsModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatOptionModule
+    MatOptionModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule
   ],
   providers: [
     UserService,
