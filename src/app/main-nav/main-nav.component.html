@@ -5,9 +5,12 @@
       [opened]="!(isHandset$ | async)">
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item href="#">Link 1</a>
-      <a mat-list-item href="#">Link 2</a>
-      <a mat-list-item href="#">Link 3</a>
+      <a mat-list-item (click)="navigateHome()" class="waves-effect"><i class="material-icons">home</i>Home</a>
+      <a mat-list-item *ngIf="userIsAdmin()" (click)="navigateUsers()" class="waves-effect"><i class="material-icons">portrait</i>Users</a>
+      <a mat-list-item (click)="navigateProbes()" class="waves-effect"><i class="material-icons">wifi_tethering</i>Sniffers</a>
+      <a mat-list-item *ngIf="userIsAdmin()" routerLink="/buildings" class="waves-effect"><i class="material-icons">portrait</i>Buildings</a>
+      <a mat-list-item *ngIf="userIsAdmin()" routerLink="/rooms" class="waves-effect"><i class="material-icons">portrait</i>Rooms</a>
+      <a mat-list-item (click)="logout()" class="waves-effect"><i class="material-icons">exit_to_app</i>Logout</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
