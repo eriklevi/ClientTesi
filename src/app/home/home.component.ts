@@ -18,25 +18,6 @@ export class HomeComponent implements OnInit {
   ) { }
   ngOnInit() {
     this.userName = this.authenticationService.currentUserValue.username;
-  }
-  logout() {
-    this.authenticationService.logout();
-    this.router.navigate(['/login']);
-  }
-
-  userIsAdmin() {
-    return this.authenticationService.currentUserValue.authorities.includes('ADMIN');
-  }
-
-  navigateProbes() {
-    this.router.navigate(['/sniffers']);
-  }
-
-  navigateUsers() {
-    this.router.navigate(['/users']);
-  }
-
-  navigateHome() {
-    this.router.navigate(['']);
+    this.router.navigate(['/dashboard']);
   }
 }

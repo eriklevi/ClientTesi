@@ -43,7 +43,7 @@ export class MainNavComponent {
   }
 
   navigateHome() {
-    this.router.navigate(['']);
+    this.router.navigate(['/dashboard']);
   }
 
 }

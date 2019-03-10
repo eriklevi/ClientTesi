@@ -15,8 +15,8 @@
         <td>{{s.name}}</td>
         <td>{{s.building}}</td>
         <td>{{s.room}}</td>
-        <td><button class="btn cyan darken-3 waves-effect" [routerLink]="[s.id]">Details</button></td>
-        <td><button class="btn cyan darken-3 waves-effect" (click)="deleteSniffer(s.id)">Delete</button></td>
+        <td> <mat-icon [routerLink]="['sniffers', s.id]" color="primary">search</mat-icon></td>
+        <td><mat-icon (click)="deleteSniffer(s.id)" color="warn">delete</mat-icon></td>
       </tr>
       </tbody>
     </table>
