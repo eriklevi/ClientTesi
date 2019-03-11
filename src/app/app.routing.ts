@@ -13,13 +13,14 @@ import {SnifferCreatorComponent} from './sniffer-creator/sniffer-creator.compone
 import {RoomCreatorComponent} from './room-creator/room-creator.component';
 import {BuildingCreatorComponent} from './building-creator/building-creator.component';
 import {BuildingListComponent} from './building-list/building-list.component';
+import {UserUpdaterComponent} from './user-updater/user-updater.component';
 
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard], children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'users', component: UsersListComponent, canActivate: [AdminGuard] },
-      // { path: 'users/:id/update', component: UserUpdaterComponent, canActivate: [AdminGuard]},
+      { path: 'users/:id/update', component: UserUpdaterComponent, canActivate: [AdminGuard]},
       { path: 'users/:id', component: UserDetailComponent, canActivate: [AdminGuard]},
       { path: 'create/user', component: UserCreatorComponent, canActivate: [AdminGuard]},
       { path: 'create/sniffer', component: SnifferCreatorComponent, canActivate: [AdminGuard]},

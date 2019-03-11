@@ -13,7 +13,7 @@
          <td *ngIf="u.username != authenticationService.currentUserValue.username">{{u.username}}</td>
          <td *ngIf="u.username != authenticationService.currentUserValue.username">{{u.mail}}</td>
          <td *ngIf="u.username != authenticationService.currentUserValue.username">{{u.roles}}</td>
-         <td *ngIf="u.username != authenticationService.currentUserValue.username"><button class="btn cyan darken-3 waves-effect" (click)="deleteUser(u.id)">Delete</button></td>
+         <td *ngIf="u.username != authenticationService.currentUserValue.username"><mat-icon (click)="deleteUser(u.id)" color="warn">delete</mat-icon></td>
        </tr>
        </tbody>
      </table>
