@@ -26,7 +26,7 @@ export class AuthenticationService {
 
   login(username: string, password: string) {
     const body = 'username=' + username + '&password=' + password + '&grant_type=password';
-    return this.http.post<any>('http://' + host + ':' + port + 'auth/oauth/token', body, {
+    return this.http.post<any>('http://' + host + ':' + port + '/auth/oauth/token', body, {
       headers : new HttpHeaders({
         'Content-Type' : 'application/x-www-form-urlencoded',
         'Accept' :  'application/json',
