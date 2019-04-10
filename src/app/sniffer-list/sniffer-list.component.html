@@ -1,3 +1,37 @@
+<div fxLayout="row" fxLayout.xs="column"  fxLayoutGap="0.5%" fxLayoutAlign="center">
+  <mat-card class="card" *ngFor="let s of snifferList">
+    <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column">
+      <span fxFlex="80%">{{s.mac | uppercase}}</span>
+    </mat-card-title>
+    <mat-card-subtitle>
+      <span fxFlex="80%">{{s.name}}</span>
+    </mat-card-subtitle>
+    <mat-card-content>
+      <mat-divider></mat-divider>
+      <mat-list>
+        <mat-list-item>
+          Building: {{s.buildingName}}
+        </mat-list-item>
+        <mat-list-item>
+          Room: {{s.roomName}}
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>
+          Status:
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button [routerLink]="['/sniffers/', s.id]">Details</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+
+
+
+<!--
+<img mat-card-image [src]="wifi.gif">
 <div class="row">
   <div class="col s7">
     <table materialize class="striped responsive-table">
@@ -13,8 +47,8 @@
       <tr *ngFor="let s of snifferList">
         <td>{{s.mac}}</td>
         <td>{{s.name}}</td>
-        <td>{{s.building}}</td>
-        <td>{{s.room}}</td>
+        <td>{{s.buildingName}}</td>
+        <td>{{s.roomName}}</td>
         <td> <mat-icon [routerLink]="['sniffers', s.id]" color="primary">search</mat-icon></td>
         <td><mat-icon (click)="deleteSniffer(s.id)" color="warn">delete</mat-icon></td>
       </tr>
@@ -25,3 +59,4 @@
     <a routerLink="/create/sniffer" class="btn waves-effect cyan darken-3">NEW SNIFFER</a>
   </div>
 </div>
+-->

@@ -64,8 +64,10 @@ export class SnifferCreatorComponent implements OnInit {
     const s: Sniffer = new Sniffer();
     s.mac = this.group.get('mac').value;
     s.name = this.group.get('name').value;
-    s.building = this.group.get('building').value;
-    s.room = this.group.get('room').value;
+    s.buildingId = this.group.get('building').value;
+    s.buildingName = this.buildings.filter(x => x.id === s.buildingId ).map(x => x.name).pop();
+    s.roomId = this.group.get('room').value;
+    s.roomName = this.rooms.filter(x => x.id === s.roomId ).map(x => x.name).pop();
     this.snifferService.createSniffer(s).subscribe(
       data => {
         console.log('Nuovo sniffer creato');

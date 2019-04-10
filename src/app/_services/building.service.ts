@@ -20,7 +20,7 @@ export class BuildingService {
 
   getBuildings(): Observable<any> {
     return this.http
-      .get('http://' + host + ':' + port + '/buildings')
+      .get('http://' + host + ':' + port + '/sniffersapi/buildings')
       .pipe(
         timeout(7500)
       );
@@ -28,7 +28,7 @@ export class BuildingService {
 
   getRoomsByBuildingId(id: string): Observable<any> {
     return this.http
-      .get('http://' + host + ':' + port + '/buildings/' + id + '/rooms')
+      .get('http://' + host + ':' + port + '/sniffersapi/buildings/' + id + '/rooms')
       .pipe(
         timeout(7500)
       );
@@ -36,7 +36,7 @@ export class BuildingService {
 
   addRoomToBuildingById(id: string, room: Room): Observable<any> {
     return this.http
-      .post('http://' + host + ':' + port + '/buildings/' + id + '/rooms', room)
+      .post('http://' + host + ':' + port + '/sniffersapi/buildings/' + id + '/rooms', room)
       .pipe(
         timeout(7500)
       );
@@ -44,7 +44,7 @@ export class BuildingService {
 
   addBuilding(building: Building): Observable<any> {
     return this.http
-      .post('http://' + host + ':' + port + '/buildings', building)
+      .post('http://' + host + ':' + port + '/sniffersapi/buildings', building)
       .pipe(
         timeout(7500)
       );

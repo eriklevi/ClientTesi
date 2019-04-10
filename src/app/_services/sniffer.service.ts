@@ -17,35 +17,35 @@ export class SnifferService {
 
   getSniffers(): Observable<any> {
     return this.http
-      .get('http://' + host + ':' + port + '/sniffers')
+      .get('http://' + host + ':' + port + '/sniffersapi/sniffers')
       .pipe(
         timeout(7500)
       );
   }
   getSifferByName(name: string): Observable<any> {
     return this.http
-      .get('http://' + host + ':' + port + '/sniffers/' + name)
+      .get('http://' + host + ':' + port + '/sniffersapi/sniffers/' + name)
       .pipe(
         timeout(7500)
       );
   }
   deleteSnifferById(id: string): Observable<any> {
     return this.http
-      .delete('http://' + host + ':' + port + '/sniffers/' + id)
+      .delete('http://' + host + ':' + port + '/sniffersapi/sniffers/' + id)
       .pipe(
         timeout(7500)
       );
   }
   updateSnifferByName(sniffer: Sniffer): Observable<any> {
     return this.http
-      .put('http://' + host + ':' + port + '/sniffers/' + sniffer.name, sniffer)
+      .put('http://' + host + ':' + port + '/sniffersapi/sniffers/' + sniffer.name, sniffer)
       .pipe(
         timeout(7500)
       );
   }
   createSniffer(sniffer: Sniffer): Observable<any> {
     return this.http
-      .post('http://' + host + ':' + port + '/sniffers', sniffer)
+      .post('http://' + host + ':' + port + '/sniffersapi/sniffers', sniffer)
       .pipe(
         timeout(7500)
       );

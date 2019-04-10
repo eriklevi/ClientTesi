@@ -12,6 +12,8 @@ import {AuthenticationService} from '../_services/authentication.service';
 export class UsersListComponent implements OnInit {
 
   userList: User[];
+  displayedColumns: string[] = ['username', 'mail', 'roles', 'details', 'update', 'delete' ];
+
 
   constructor(
     private userService: UserService,
@@ -30,6 +32,11 @@ export class UsersListComponent implements OnInit {
       .subscribe(
         users => {
           this.userList = users;
+          // we remove the user
+          const index = this.userList.findIndex(x => x.username === this.authenticationService.currentUserValue.username);
+          if (index > -1) {
+            this.userList.splice(index, 1);
+          }
         }, error => {
           console.log(error.name);
         }

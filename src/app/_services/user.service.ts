@@ -17,7 +17,7 @@ export class UserService {
 
   register(user: User) {
     return this.http
-      .post('http://' + host + ':' + port + '/users', user)
+      .post('http://' + host + ':' + port + '/usersapi/restricted/users', user)
       .pipe(
         timeout(7500)
       );
@@ -25,7 +25,7 @@ export class UserService {
 
   getUsers(): Observable<any> {
     return this.http
-      .get('http://' + host + ':' + port + '/users')
+      .get('http://' + host + ':' + port + '/usersapi/restricted/users')
       .pipe(
         timeout(7500)
       );
@@ -33,7 +33,15 @@ export class UserService {
 
   getUser(id: string): Observable<any> {
     return this.http
-      .get('http://' + host + ':' + port + '/users/' + id)
+      .get('http://' + host + ':' + port + '/usersapi/users/' + id)
+      .pipe(
+        timeout(7500)
+      );
+  }
+
+  restrictedGetUser(id: string): Observable<any> {
+    return this.http
+      .get('http://' + host + ':' + port + '/usersapi/restricted/users/' + id)
       .pipe(
         timeout(7500)
       );
@@ -41,7 +49,7 @@ export class UserService {
 
   updateUser(user: User): Observable<any> {
     return this.http
-      .put('http://' + host + ':' + port + '/users/' + user.id, user)
+      .put('http://' + host + ':' + port + '/usersapi/users/' + user.id, user)
       .pipe(
         timeout(7500)
       );
@@ -49,7 +57,7 @@ export class UserService {
 
   deleteUser(id: string): Observable<any> {
     return this.http
-      .delete('http://' + host + ':' + port + '/users/' + id)
+      .delete('http://' + host + ':' + port + '/usersapi/users/' + id)
       .pipe(
         timeout(7500)
       );
@@ -57,7 +65,7 @@ export class UserService {
 
   createUser(user: User): Observable<any> {
     return this.http
-      .post('http://' + host + ':' + port + '/users', user)
+      .post('http://' + host + ':' + port + '/usersapi/users', user)
       .pipe(
         timeout(7500)
       );

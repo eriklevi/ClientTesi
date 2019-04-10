@@ -18,7 +18,7 @@ export class RoomService {
 
   getRoomById(id: string): Observable<any> {
     return this.http
-      .get('http://' + host + ':' + port + '/rooms/' + id)
+      .get('http://' + host + ':' + port + '/sniffersapi/rooms/' + id)
       .pipe(
         timeout(7500)
       );

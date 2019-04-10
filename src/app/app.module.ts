@@ -10,7 +10,6 @@ import { AlertComponent } from './alert/alert.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { UsersListComponent } from './users-list/users-list.component';
-import { MaterializeModule } from 'angular2-materialize';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {JwtInterceptor} from './_helpers/jwt.interceptor';
 import {ErrorInterceptor} from './_helpers/error.interceptor';
@@ -33,7 +32,9 @@ import {
   MatSidenavModule,
   MatIconModule,
   MatListModule,
-  MatCardModule
+  MatCardModule,
+  MatDividerModule,
+  MatCheckboxModule, MatMenuModule, MatInputModule, MatProgressSpinnerModule, MatTableModule
 } from '@angular/material';
 import {BuildingService} from './_services/building.service';
 import {RoomService} from './_services/room.service';
@@ -42,6 +43,8 @@ import { BuildingCreatorComponent } from './building-creator/building-creator.co
 import { BuildingListComponent } from './building-list/building-list.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
+import { SnifferDetailComponent } from './sniffer-detail/sniffer-detail.component';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -60,11 +63,11 @@ import { LayoutModule } from '@angular/cdk/layout';
     RoomCreatorComponent,
     BuildingCreatorComponent,
     BuildingListComponent,
-    MainNavComponent
+    MainNavComponent,
+    SnifferDetailComponent
   ],
   imports: [
     BrowserModule,
-    MaterializeModule,
     ReactiveFormsModule,
     HttpClientModule,
     routing,
@@ -79,7 +82,14 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    MatCardModule
+    MatCardModule,
+    MatDividerModule,
+    MatCheckboxModule,
+    MatMenuModule,
+    MatInputModule,
+    MatProgressSpinnerModule,
+    MatTableModule,
+    FlexLayoutModule
   ],
   providers: [
     UserService,

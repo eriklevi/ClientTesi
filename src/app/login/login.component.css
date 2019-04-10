@@ -1,0 +1,15 @@
+.example-card {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  margin-left: 200px;
+}
+
+.container{
+  position: relative;
+  margin-top: 10%;
+  min-height: 150px;
+  margin-left: 20%;
+  margin-right: 20%;
+  width: auto;
+}
