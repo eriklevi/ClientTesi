@@ -1,30 +1,56 @@
-<div fxLayout="row" fxLayout.xs="column"  fxLayoutGap="0.5%" fxLayoutAlign="center">
-  <mat-card class="card" *ngFor="let s of snifferList">
-    <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column">
-      <span fxFlex="80%">{{s.mac | uppercase}}</span>
-    </mat-card-title>
-    <mat-card-subtitle>
-      <span fxFlex="80%">{{s.name}}</span>
-    </mat-card-subtitle>
-    <mat-card-content>
-      <mat-divider></mat-divider>
-      <mat-list>
-        <mat-list-item>
-          Building: {{s.buildingName}}
-        </mat-list-item>
-        <mat-list-item>
-          Room: {{s.roomName}}
-        </mat-list-item>
+<div fxLayout="row" fxLayoutGap="1%" fxLayout.xs="column">
+  <div fxFlex="50" fxFlex.sm="100" fxLayout="column" >
+    <div fxLayoutGap="10px" fxLayoutAlign="center center">
+    <mat-form-field>
+      <input matInput placeholder="Search Sniffer" type="text" [(ngModel)]="searchString">
+    </mat-form-field>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="searchByMac()">Mac address</button>
+        <button mat-menu-item (click)="searchByName()">Name</button>
+        <button mat-menu-item (click)="searchByBuilding()">Building</button>
+        <button mat-menu-item (click)="searchByRoom()">Room</button>
+      </mat-menu>
+    <button mat-raised-button color="primary" [matMenuTriggerFor]="menu">Search by...</button>
+    </div>
+  </div>
+  <div fxLayout="row" fxFlex.sm="100" fxFlex="50" fxLayoutAlign="center center">
+    <div>
+    <button mat-raised-button color="primary" [routerLink]="['/create/sniffer']">New sniffer</button>
+    </div>
+    <div>
+      <button mat-raised-button color="primary" (click)="fetchSniffers()">Reload</button>
+    </div>
+  </div>
+</div>
+<div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="1%" fxLayoutAlign="left" fxLayoutAlign.sm="center center">
+  <div *ngFor="let s of snifferList" fxFlex.sm="100">
+    <mat-card class="card">
+      <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column">
+        <span >{{s.mac | uppercase}}</span>
+      </mat-card-title>
+      <mat-card-subtitle>
+        <span >{{s.name}}</span>
+      </mat-card-subtitle>
+      <mat-card-content>
         <mat-divider></mat-divider>
-        <mat-list-item>
-          Status:
-        </mat-list-item>
-      </mat-list>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button [routerLink]="['/sniffers/', s.id]">Details</button>
-    </mat-card-actions>
-  </mat-card>
+        <mat-list>
+          <mat-list-item>
+            Building: {{s.buildingName}}
+          </mat-list-item>
+          <mat-list-item>
+            Room: {{s.roomName}}
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item>
+            Status:
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" [routerLink]="['/sniffers/', s.id]">Details</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
 </div>
 
 
