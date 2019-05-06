@@ -6,6 +6,6 @@ export class Sniffer {
   buildingName: string;
   roomId: string;
   roomName: string;
-  location: any;
+  configuration: any;
   status: string;
 }

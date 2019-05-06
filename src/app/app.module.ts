@@ -34,7 +34,7 @@ import {
   MatListModule,
   MatCardModule,
   MatDividerModule,
-  MatCheckboxModule, MatMenuModule, MatInputModule, MatProgressSpinnerModule, MatTableModule, MatDialogModule, MatSnackBarModule
+  MatCheckboxModule, MatMenuModule, MatInputModule, MatProgressSpinnerModule, MatTableModule, MatDialogModule, MatSnackBarModule, MatSliderModule
 } from '@angular/material';
 import {BuildingService} from './_services/building.service';
 import {RoomService} from './_services/room.service';
@@ -91,7 +91,8 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     MatTableModule,
     FlexLayoutModule,
     MatDialogModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSliderModule
   ],
   providers: [
     UserService,

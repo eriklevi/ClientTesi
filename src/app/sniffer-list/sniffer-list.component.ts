@@ -31,9 +31,6 @@ export class SnifferListComponent implements OnInit {
       .subscribe(
         sniffers => {
           this.snifferList = sniffers;
-          for (let i = 0 ; i < 20; i++) {
-            this.snifferList.push(this.snifferList[0]);
-          }
         }, error => {
           console.error(error.name);
         }
