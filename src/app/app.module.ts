@@ -45,6 +45,8 @@ import { MainNavComponent } from './main-nav/main-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { SnifferDetailComponent } from './sniffer-detail/sniffer-detail.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import {ChartsModule} from 'ng2-charts';
+import { CountedPacketsChartComponent } from './counted-packets-chart/counted-packets-chart.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +67,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     BuildingListComponent,
     MainNavComponent,
     SnifferDetailComponent,
+    CountedPacketsChartComponent,
   ],
   imports: [
     BrowserModule,
@@ -92,7 +95,8 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     FlexLayoutModule,
     MatDialogModule,
     MatSnackBarModule,
-    MatSliderModule
+    MatSliderModule,
+    ChartsModule
   ],
   providers: [
     UserService,
