@@ -26,10 +26,10 @@
   <div *ngFor="let s of snifferList" fxFlex.sm="100">
     <mat-card class="card">
       <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column">
-        <span >{{s.mac | uppercase}}</span>
+        <span >{{s.name}}</span>
       </mat-card-title>
       <mat-card-subtitle>
-        <span >{{s.name}}</span>
+        <span >{{s.mac | uppercase}}</span>
       </mat-card-subtitle>
       <mat-card-content>
         <mat-divider></mat-divider>
@@ -42,7 +42,7 @@
           </mat-list-item>
           <mat-divider></mat-divider>
           <mat-list-item>
-            Status:
+            Status: {{s.status}}
           </mat-list-item>
         </mat-list>
       </mat-card-content>

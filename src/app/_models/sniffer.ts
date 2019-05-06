@@ -1,6 +1,7 @@
 export class Sniffer {
   id: string;
   mac: string;
+  macID: string;
   name: string;
   buildingId: string;
   buildingName: string;

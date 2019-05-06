@@ -3,6 +3,7 @@ import {SnifferService} from '../_services/sniffer.service';
 import {Router} from '@angular/router';
 import {Sniffer} from '../_models/sniffer';
 import {MatSnackBar} from '@angular/material';
+import {AlertService} from '../_services/alert.service';
 
 @Component({
   selector: 'app-sniffer-list',
@@ -14,11 +15,13 @@ export class SnifferListComponent implements OnInit {
   snifferList: Sniffer[];
   searchString: string;
   errorMessage: string;
+  connectedClients: string[];
 
   constructor(
     private snifferService: SnifferService,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private alertService: AlertService
   ) { }
 
   ngOnInit() {
@@ -31,6 +34,7 @@ export class SnifferListComponent implements OnInit {
       .subscribe(
         sniffers => {
           this.snifferList = sniffers;
+          this.fetchConnectedClients();
         }, error => {
           console.error(error.name);
         }
@@ -81,5 +85,23 @@ export class SnifferListComponent implements OnInit {
 
   showOkSnackBar(message: string) {
     this.snackBar.open(message,  'Ok', {duration: 5000, horizontalPosition: 'right', verticalPosition: 'top'});
+  }
+
+  private fetchConnectedClients() {
+    this.snifferService
+      .getConnectedSniffers()
+      .subscribe( data => {
+        this.connectedClients = data;
+        this.snifferList.forEach(sniffer => {
+          if (this.connectedClients.includes(sniffer.macID)) {
+              sniffer.status = 'Connected';
+          } else {
+            sniffer.status = 'Disconnected';
+          }
+        });
+      }, error => {
+        this.alertService.error('Unable to fetch connected clients!');
+      });
+
   }
 }

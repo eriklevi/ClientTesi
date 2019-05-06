@@ -50,4 +50,11 @@ export class SnifferService {
         timeout(7500)
       );
   }
+  getConnectedSniffers(): Observable<any> {
+    return this.http
+      .get('http://' + host + ':' + port + '/moquetteapi/clients')
+      .pipe(
+        timeout(7500)
+      );
+  }
 }
