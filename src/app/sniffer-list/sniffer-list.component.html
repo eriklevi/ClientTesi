@@ -47,7 +47,8 @@
         </mat-list>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-raised-button color="primary" [routerLink]="['/sniffers/', s.id]">Details</button>
+        <button mat-raised-button color="primary" [routerLink]="['/sniffers', s.id]">Details</button>
+        <button mat-raised-button color="primary" [routerLink]="['/sniffers', s.id, 'update']">Update</button>
       </mat-card-actions>
     </mat-card>
   </div>

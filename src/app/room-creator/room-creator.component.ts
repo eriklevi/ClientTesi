@@ -4,6 +4,8 @@ import {Building} from '../_models/building';
 import {Room} from '../_models/room';
 import {SnifferService} from '../_services/sniffer.service';
 import {BuildingService} from '../_services/building.service';
+import {AlertService} from '../_services/alert.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-room-creator',
@@ -18,6 +20,8 @@ export class RoomCreatorComponent implements OnInit {
   constructor(
     private snifferService: SnifferService,
     private buildingsService: BuildingService,
+    private alertService: AlertService,
+    private  router: Router
   ) {
     this.group = new FormGroup({
       'name': new FormControl('', Validators.compose([Validators.required])),
@@ -50,9 +54,10 @@ export class RoomCreatorComponent implements OnInit {
     this.buildingsService.addRoomToBuildingById(buildingId, r)
       .subscribe(
         data => {
-          console.log('added room');
+          this.alertService.success('Room Added!');
+          this.router.navigate(['/dashboard']);
         }, error => {
-          console.error(error.name);
+          this.alertService.error('Error during room creation!');
         }
       );
   }

@@ -22,9 +22,9 @@ export class SnifferService {
         timeout(7500)
       );
   }
-  getSifferByName(name: string): Observable<any> {
+  getSnifferById(id: string): Observable<any> {
     return this.http
-      .get('http://' + host + ':' + port + '/sniffersapi/sniffers/' + name)
+      .get('http://' + host + ':' + port + '/sniffersapi/sniffers/' + id)
       .pipe(
         timeout(7500)
       );
@@ -36,9 +36,9 @@ export class SnifferService {
         timeout(7500)
       );
   }
-  updateSnifferByName(sniffer: Sniffer): Observable<any> {
+  updateSnifferById(sniffer: Sniffer): Observable<any> {
     return this.http
-      .put('http://' + host + ':' + port + '/sniffersapi/sniffers/' + sniffer.name, sniffer)
+      .put('http://' + host + ':' + port + '/sniffersapi/sniffers/' + sniffer.id, sniffer)
       .pipe(
         timeout(7500)
       );
