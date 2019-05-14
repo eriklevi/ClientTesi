@@ -1,2 +1,10 @@
-<app-counted-packets-chart></app-counted-packets-chart>
-
+<div fxLayout="row">
+  <div fxFlex="80">
+    <app-counted-packets-chart>
+    </app-counted-packets-chart>
+  </div>
+<div fxFlex="20">
+<button mat-button (click)="toggleCustomSelection()">Custom Selection</button>
+<app-custom-selection *ngIf="showCustomSelection"></app-custom-selection>
+</div>
+</div>

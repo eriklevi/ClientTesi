@@ -34,7 +34,11 @@ import {
   MatListModule,
   MatCardModule,
   MatDividerModule,
-  MatCheckboxModule, MatMenuModule, MatInputModule, MatProgressSpinnerModule, MatTableModule, MatDialogModule, MatSnackBarModule, MatSliderModule
+  MatCheckboxModule,
+  MatMenuModule,
+  MatInputModule,
+  MatProgressSpinnerModule,
+  MatTableModule, MatDialogModule, MatSnackBarModule, MatSliderModule, MatDatepickerModule
 } from '@angular/material';
 import {BuildingService} from './_services/building.service';
 import {RoomService} from './_services/room.service';
@@ -49,6 +53,8 @@ import {ChartsModule} from 'ng2-charts';
 import { CountedPacketsChartComponent } from './counted-packets-chart/counted-packets-chart.component';
 import { SnifferUpdaterComponent } from './sniffer-updater/sniffer-updater.component';
 import { CustomSelectionComponent } from './custom-selection/custom-selection.component';
+import {CountedPacketsService} from './_services/counted-packets.service';
+import {MatMomentDateModule} from '@angular/material-moment-adapter';
 
 @NgModule({
   declarations: [
@@ -100,7 +106,9 @@ import { CustomSelectionComponent } from './custom-selection/custom-selection.co
     MatDialogModule,
     MatSnackBarModule,
     MatSliderModule,
-    ChartsModule
+    ChartsModule,
+    MatDatepickerModule,
+    MatMomentDateModule
   ],
   providers: [
     UserService,
@@ -109,9 +117,10 @@ import { CustomSelectionComponent } from './custom-selection/custom-selection.co
     AlertService,
     BuildingService,
     RoomService,
+    CountedPacketsService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
