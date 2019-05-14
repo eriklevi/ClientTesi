@@ -1,14 +1,14 @@
 <div class="chartWrapper">
   <div class=" chartAreaWrapper">
     <div style="display: block">
-      <canvas baseChart
+      <canvas *ngIf="dataReady" baseChart
               [datasets]="barChartData"
               [labels]="barChartLabels"
               [options]="barChartOptions"
-
               [legend]="barChartLegend"
               [chartType]="barChartType">
       </canvas>
+      <button mat-button (click)="loadData()">Hola</button>
     </div>
   </div>
 </div>

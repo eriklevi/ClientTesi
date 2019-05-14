@@ -48,6 +48,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {ChartsModule} from 'ng2-charts';
 import { CountedPacketsChartComponent } from './counted-packets-chart/counted-packets-chart.component';
 import { SnifferUpdaterComponent } from './sniffer-updater/sniffer-updater.component';
+import { CustomSelectionComponent } from './custom-selection/custom-selection.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { SnifferUpdaterComponent } from './sniffer-updater/sniffer-updater.compo
     SnifferDetailComponent,
     CountedPacketsChartComponent,
     SnifferUpdaterComponent,
+    CustomSelectionComponent,
   ],
   imports: [
     BrowserModule,

@@ -29,6 +29,7 @@
     "jquery": "^2.2.4",
     "jwt-decode": "^2.2.0",
     "materialize-css": "^0.100.2",
+    "ng-pick-datetime": "^7.0.0",
     "ng2-charts": "^2.2.3",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
