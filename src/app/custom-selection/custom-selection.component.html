@@ -1,0 +1,39 @@
+<mat-card class="customSelector">
+  <form [formGroup]="group">
+
+          <mat-form-field>
+            <mat-select  placeholder="Building"  formControlName="building" (selectionChange)="[fetchRooms($event), updateSnifferList()]" (valueChange)="[fetchRooms($event)]">
+              <mat-option *ngFor="let b of buildings" [value]="b.id">
+                {{b.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-select placeholder="Room"  formControlName="room" (selectionChange)="updateSnifferList()">
+              <mat-option *ngFor="let r of rooms" [value]="r.id">
+                {{r.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-select placeholder="Sniffer name"  formControlName="name">
+              <mat-option *ngFor="let s of shownSniffers" [value]="s.id">
+                {{s.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput placeholder="From" [matDatepicker]="myDatepicker">
+            <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+            <mat-datepicker #myDatepicker></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="To" [matDatepicker]="myDatepicker2">
+            <mat-datepicker-toggle matSuffix [for]="myDatepicker2"></mat-datepicker-toggle>
+            <mat-datepicker #myDatepicker2></mat-datepicker>
+          </mat-form-field>
+  </form>
+</mat-card>
