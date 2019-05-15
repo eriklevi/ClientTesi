@@ -16,7 +16,6 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-
           <mat-form-field>
             <mat-select placeholder="Sniffer name"  formControlName="name">
               <mat-option *ngFor="let s of shownSniffers" [value]="s.id">
@@ -24,16 +23,28 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-
-          <mat-form-field>
+          <mat-slide-toggle [(ngModel)]="toggle" [ngModelOptions]="{standalone: true}">Range Selection</mat-slide-toggle>
+    <mat-form-field *ngIf="!toggle">
+      <input matInput placeholder="Date" [matDatepicker]="myDatepicker">
+      <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+      <mat-datepicker #myDatepicker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field *ngIf="toggle">
             <input matInput placeholder="From" [matDatepicker]="myDatepicker">
             <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
             <mat-datepicker #myDatepicker></mat-datepicker>
           </mat-form-field>
-          <mat-form-field>
+          <mat-form-field *ngIf="toggle">
             <input matInput placeholder="To" [matDatepicker]="myDatepicker2">
             <mat-datepicker-toggle matSuffix [for]="myDatepicker2"></mat-datepicker-toggle>
             <mat-datepicker #myDatepicker2></mat-datepicker>
           </mat-form-field>
+    <mat-form-field>
+      <input matInput formControlName="startTime" type="time" placeholder="from" min="00:00" max="23:59">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput formControlName="endTime" type="time" placeholder="to" min="00:00" max="23:59">
+    </mat-form-field>
   </form>
+  <mat-card-actions></mat-card-actions>
 </mat-card>

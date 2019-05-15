@@ -38,7 +38,7 @@ import {
   MatMenuModule,
   MatInputModule,
   MatProgressSpinnerModule,
-  MatTableModule, MatDialogModule, MatSnackBarModule, MatSliderModule, MatDatepickerModule
+  MatTableModule, MatDialogModule, MatSnackBarModule, MatSliderModule, MatDatepickerModule, MatSlideToggleModule
 } from '@angular/material';
 import {BuildingService} from './_services/building.service';
 import {RoomService} from './_services/room.service';
@@ -108,7 +108,8 @@ import {MatMomentDateModule} from '@angular/material-moment-adapter';
     MatSliderModule,
     ChartsModule,
     MatDatepickerModule,
-    MatMomentDateModule
+    MatMomentDateModule,
+    MatSlideToggleModule
   ],
   providers: [
     UserService,

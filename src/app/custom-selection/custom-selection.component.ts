@@ -21,6 +21,7 @@ export class CustomSelectionComponent implements OnInit {
   public rooms: Room[];
   public sniffers: Sniffer[];
   public shownSniffers: Sniffer[];
+  public toggle = false;
 
   constructor(
     private snifferService: SnifferService,
@@ -32,7 +33,8 @@ export class CustomSelectionComponent implements OnInit {
     this.group = new FormGroup({
       'name': new FormControl(null),
       'building': new FormControl(null),
-      'room': new FormControl(null)
+      'room': new FormControl(null),
+      'startTime': new FormControl('00:00', Validators.required)
     });
   }
 

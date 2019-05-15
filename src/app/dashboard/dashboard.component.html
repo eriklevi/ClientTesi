@@ -1,10 +1,14 @@
-<div fxLayout="row">
-  <div fxFlex="80">
+<div fxLayout="row" fxLayoutGap="20px">
+  <div fxLayoutAlign="end center" fxFlex>
+    <button mat-button color="primary" (click)="toggleCustomSelection()">Custom Selection</button>
+  </div>
+</div>
+<div fxLayout="row" fxLayout.sm="column" style="background-color: green">
+  <div  [fxFlex]="chartWidth" fxFlex.sm="100">
     <app-counted-packets-chart>
     </app-counted-packets-chart>
   </div>
-<div fxFlex="20">
-<button mat-button (click)="toggleCustomSelection()">Custom Selection</button>
-<app-custom-selection *ngIf="showCustomSelection"></app-custom-selection>
-</div>
+  <div [fxShow]="showCustomSelection" [fxFlex]="100-chartWidth">
+    <app-custom-selection></app-custom-selection>
+  </div>
 </div>

@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class DashboardComponent implements OnInit {
 
   private showCustomSelection = false;
+  chartWidth = 100;
 
   constructor() { }
 
@@ -16,5 +17,6 @@ export class DashboardComponent implements OnInit {
 
   toggleCustomSelection() {
     this.showCustomSelection = !this.showCustomSelection;
+    this.showCustomSelection ? this.chartWidth = 80 : this.chartWidth = 100;
   }
 }
