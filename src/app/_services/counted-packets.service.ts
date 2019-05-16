@@ -45,9 +45,10 @@ export class CountedPacketsService {
       .set('from', from.toString())
       .set('to', to.toString())
       .set('resolution', resolution)
-      .set('type', 'hola');
+      .set('type', 'hola')
+      .set('sniffer', snifferId );
     return this.http
-      .get('http://' + host + ':' + port + '/packetsapi/counted/' + buildingId + '/' + roomId + '/' + snifferId, {params})
+      .get('http://' + host + ':' + port + '/packetsapi/counted/' + buildingId + '/' + roomId, {params})
       .pipe(
         timeout(7500)
       );

@@ -4,6 +4,9 @@ import {Label} from 'ng2-charts';
 import {CountedPacketsService} from '../_services/counted-packets.service';
 import {map} from 'rxjs/operators';
 import {AlertService} from '../_services/alert.service';
+import {DataRequestService} from '../_services/data-request.service';
+import {Subscription} from 'rxjs';
+import {DataRequest} from '../_models/dataRequest';
 
 @Component({
   selector: 'app-counted-packets-chart',
@@ -21,13 +24,23 @@ export class CountedPacketsChartComponent implements OnInit {
   public barChartLegend = true;
   public barChartData: ChartDataSets[];
   dataReady = false;
+  private subscription: Subscription;
 
   constructor(
     private countedPacketsService: CountedPacketsService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private dataRequestService: DataRequestService
   ) { }
 
   ngOnInit() {
+    this.subscription = this.dataRequestService.getRequestBehaviourSubject().subscribe(
+      req => {
+        if (req.valid) {
+          this.loadData(req);
+        }
+      }, error => {
+        console.log('errore!');
+    });
   }
 
   public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
@@ -39,13 +52,14 @@ export class CountedPacketsChartComponent implements OnInit {
   }
 
 
-  loadData() {
-    this.countedPacketsService.getCountedPacketsBySniffer('5c5989848d07418ded788aea'
-      , '5c59bae38d07419256f6326d'
-      , '5c64309d8d074152f93b5231'
-      , Math.floor(Date.now()) - 3600000
-      , Math.floor(Date.now())
-      , 'fifteenMinute').subscribe(
+  loadData(req: DataRequest) {
+    console.log(req);
+    this.countedPacketsService.getCountedPacketsBySniffer(req.buildingId
+      , req.roomId
+      , req.snifferName
+      , req.fromTimestamp
+      , req.toTimestamp
+      , req.resolution).subscribe(
         next => {
           this.barChartData = [{data: next.map(item => item.avgEstimatedDevices)}];
           this.barChartLabels = next.map(item => item.startTimestamp.toString());
