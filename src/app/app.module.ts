@@ -55,6 +55,7 @@ import { SnifferUpdaterComponent } from './sniffer-updater/sniffer-updater.compo
 import { CustomSelectionComponent } from './custom-selection/custom-selection.component';
 import {CountedPacketsService} from './_services/counted-packets.service';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
+import { CustomSelectionPageComponent } from './custom-selection-page/custom-selection-page.component';
 
 @NgModule({
   declarations: [
@@ -78,6 +79,7 @@ import {MatMomentDateModule} from '@angular/material-moment-adapter';
     CountedPacketsChartComponent,
     SnifferUpdaterComponent,
     CustomSelectionComponent,
+    CustomSelectionPageComponent,
   ],
   imports: [
     BrowserModule,

@@ -16,6 +16,36 @@ export class CountedPacketsService {
     private http: HttpClient
   ) { }
 
+  getTotalParsedPacketsBySnifferName(snifferName: string): Observable<any> {
+    const params = new HttpParams()
+      .set('name', snifferName);
+    return this.http
+      .get('http://' + host + ':' + port + '/packetsapi/parsed', {params})
+      .pipe(
+        timeout(7500)
+      );
+  }
+
+  getGlobalParsedPacketsBySnifferName(snifferName: string): Observable<any> {
+    const params = new HttpParams()
+      .set('name', snifferName);
+    return this.http
+      .get('http://' + host + ':' + port + '/packetsapi/parsed/global', {params})
+      .pipe(
+        timeout(7500)
+      );
+  }
+
+  getLocalParsedPacketsBySnifferName(snifferName: string): Observable<any> {
+    const params = new HttpParams()
+      .set('name', snifferName);
+    return this.http
+      .get('http://' + host + ':' + port + '/packetsapi/parsed/local', {params})
+      .pipe(
+        timeout(7500)
+      );
+  }
+
   getCountedPacketsByBuilding(buildingId: string, from: number, to: number, resolution: string): Observable<any> {
     const params = new HttpParams()
       .set('from', from.toString())
@@ -34,7 +64,7 @@ export class CountedPacketsService {
       .set('to', to.toString())
       .set('resolution', resolution);
     return this.http
-      .get('http://' + host + ':' + port + '7packetsapi/counted/' + buildingId + '/' + roomId, {params})
+      .get('http://' + host + ':' + port + '/packetsapi/counted/' + buildingId + '/' + roomId, {params})
       .pipe(
         timeout(7500)
       );

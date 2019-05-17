@@ -1,14 +1,36 @@
-<div fxLayout="row" fxLayoutGap="20px">
-  <div fxLayoutAlign="end center" fxFlex>
-    <button mat-button color="primary" (click)="toggleCustomSelection()">Custom Selection</button>
+<div fxLayout="row" fxLayout.sm="column" fxLayoutGap="20px">
+  <div fxFlex>
+    <mat-card>
+      <mat-card-title>
+        <span >Mqtt clients</span>
+      </mat-card-title>
+      <mat-card-content>
+        <mat-divider></mat-divider>
+        <ul style="list-style-type:none;" *ngFor="let c of mqttConnectedClients">
+          <li>{{c}}</li>
+        </ul>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="this.fetchConnectedClients()">
+          Reload
+        </button>
+      </mat-card-actions>
+    </mat-card>
   </div>
-</div>
-<div fxLayout="row" fxLayout.sm="column">
-  <div  [fxFlex]="chartWidth" fxFlex.sm="100">
-    <app-counted-packets-chart>
-    </app-counted-packets-chart>
+  <div fxFlex>
+    <mat-card class="card">
+      <mat-card-title>
+        <span >Stats</span>
+      </mat-card-title>
+      <mat-card-content>
+        <mat-divider></mat-divider>
+        Total collected packets: {{this.totalParsedPackets}}
+      </mat-card-content>
+      <mat-card-actions>
+      </mat-card-actions>
+    </mat-card>
   </div>
-  <div [fxShow]="showCustomSelection" [fxFlex]="100-chartWidth">
-    <app-custom-selection></app-custom-selection>
+  <div fxFlex>
+
   </div>
 </div>

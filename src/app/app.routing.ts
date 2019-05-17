@@ -16,11 +16,13 @@ import {BuildingListComponent} from './building-list/building-list.component';
 import {UserUpdaterComponent} from './user-updater/user-updater.component';
 import {SnifferDetailComponent} from './sniffer-detail/sniffer-detail.component';
 import {SnifferUpdaterComponent} from './sniffer-updater/sniffer-updater.component';
+import {CustomSelectionPageComponent} from './custom-selection-page/custom-selection-page.component';
 
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard], children: [
       { path: 'dashboard', component: DashboardComponent },
+      { path: 'dashboard/coutedgraph', component: CustomSelectionPageComponent},
       { path: 'users', component: UsersListComponent, canActivate: [AdminGuard] },
       { path: 'users/:id/update', component: UserUpdaterComponent, canActivate: [AdminGuard]},
       { path: 'users/:id', component: UserDetailComponent, canActivate: [AdminGuard]},

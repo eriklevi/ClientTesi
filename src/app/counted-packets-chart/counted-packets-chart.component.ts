@@ -7,6 +7,7 @@ import {AlertService} from '../_services/alert.service';
 import {DataRequestService} from '../_services/data-request.service';
 import {Subscription} from 'rxjs';
 import {DataRequest} from '../_models/dataRequest';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-counted-packets-chart',
@@ -62,7 +63,9 @@ export class CountedPacketsChartComponent implements OnInit {
       , req.resolution).subscribe(
         next => {
           this.barChartData = [{data: next.map(item => item.avgEstimatedDevices)}];
-          this.barChartLabels = next.map(item => item.startTimestamp.toString());
+          this.barChartLabels = next.map( item => {
+            return moment(item.startTimestamp).locale('it').format('llll').toString();
+          });
           this.dataReady = true;
         },
       error => {
