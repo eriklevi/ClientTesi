@@ -16,6 +16,8 @@ export class SnifferListComponent implements OnInit {
   searchString: string;
   errorMessage: string;
   connectedClients: string[];
+  displayedColumns: string[] = ['name', 'mac', 'buildingName', 'roomName', 'details', 'update', 'delete' ];
+
 
   constructor(
     private snifferService: SnifferService,

@@ -20,6 +20,51 @@
     </div>
   </div>
 </div>
+<div fxLayout="row">
+  <div fxFlex="100">
+    <table mat-table [dataSource]="snifferList">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let element" >{{element.name}}</td>
+      </ng-container>
+      <ng-container matColumnDef="mac">
+        <th mat-header-cell *matHeaderCellDef>Mac Adress</th>
+        <td mat-cell *matCellDef="let element">{{element.mac}}</td>
+      </ng-container>
+      <ng-container matColumnDef="buildingName">
+        <th mat-header-cell *matHeaderCellDef>Building</th>
+        <td mat-cell *matCellDef="let element">{{element.buildingName}}</td>
+      </ng-container>
+      <ng-container matColumnDef="roomName">
+        <th mat-header-cell *matHeaderCellDef>Room</th>
+        <td mat-cell *matCellDef="let element">{{element.roomName}}</td>
+      </ng-container>
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Building</th>
+        <td mat-cell *matCellDef="let element">{{element.status}}</td>
+      </ng-container>
+      <ng-container matColumnDef="details">
+        <th mat-header-cell *matHeaderCellDef>Details</th>
+        <td mat-cell *matCellDef="let element"><mat-icon [routerLink]="['/sniffers', element.id]" color="primary">search</mat-icon></td>
+      </ng-container>
+      <ng-container matColumnDef="update">
+        <th mat-header-cell *matHeaderCellDef>Update</th>
+        <td mat-cell *matCellDef="let element"><mat-icon [routerLink]="['/sniffers', element.id, 'update']" color="accent">autorenew</mat-icon></td>
+      </ng-container>
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef>Delete</th>
+        <td mat-cell *matCellDef="let element"><mat-icon color="warn">delete</mat-icon></td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+</div>
+
+
+
+
+<!--
 <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="1%" fxLayoutAlign="left" fxLayoutAlign.sm="center center">
   <div *ngFor="let s of snifferList" fxFlex.sm="100">
     <mat-card class="card">
@@ -51,3 +96,4 @@
     </mat-card>
   </div>
 </div>
+-->
