@@ -22,7 +22,7 @@ import {CustomSelectionPageComponent} from './custom-selection-page/custom-selec
 const appRoutes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard], children: [
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'dashboard/coutedgraph', component: CustomSelectionPageComponent},
+      { path: 'dashboard/countedgraph', component: CustomSelectionPageComponent},
       { path: 'users', component: UsersListComponent, canActivate: [AdminGuard] },
       { path: 'users/:id/update', component: UserUpdaterComponent, canActivate: [AdminGuard]},
       { path: 'users/:id', component: UserDetailComponent, canActivate: [AdminGuard]},

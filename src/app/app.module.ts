@@ -111,7 +111,8 @@ import { CustomSelectionPageComponent } from './custom-selection-page/custom-sel
     ChartsModule,
     MatDatepickerModule,
     MatMomentDateModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     UserService,

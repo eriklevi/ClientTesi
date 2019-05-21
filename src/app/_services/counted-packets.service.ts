@@ -16,31 +16,17 @@ export class CountedPacketsService {
     private http: HttpClient
   ) { }
 
-  getTotalParsedPacketsBySnifferName(snifferName: string): Observable<any> {
-    const params = new HttpParams()
-      .set('name', snifferName);
+  getTotalParsedPackets(): Observable<any> {
     return this.http
-      .get('http://' + host + ':' + port + '/packetsapi/parsed', {params})
+      .get('http://' + host + ':' + port + '/packetsapi/general/parsed')
       .pipe(
         timeout(7500)
       );
   }
 
-  getGlobalParsedPacketsBySnifferName(snifferName: string): Observable<any> {
-    const params = new HttpParams()
-      .set('name', snifferName);
+  getTotalParsedPacketsBySnifferName(snifferId: string): Observable<any> {
     return this.http
-      .get('http://' + host + ':' + port + '/packetsapi/parsed/global', {params})
-      .pipe(
-        timeout(7500)
-      );
-  }
-
-  getLocalParsedPacketsBySnifferName(snifferName: string): Observable<any> {
-    const params = new HttpParams()
-      .set('name', snifferName);
-    return this.http
-      .get('http://' + host + ':' + port + '/packetsapi/parsed/local', {params})
+      .get('http://' + host + ':' + port + '/packetsapi/general/parsed/' + snifferId)
       .pipe(
         timeout(7500)
       );
@@ -82,5 +68,9 @@ export class CountedPacketsService {
       .pipe(
         timeout(7500)
       );
+  }
+
+  getLastEstimationBySnifferId(id: string): Observable<any> {
+    return null;
   }
 }

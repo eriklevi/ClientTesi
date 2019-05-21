@@ -1,27 +1,21 @@
-<div fxLayout="row wrap" fxLayoutGap="1%" fxLayout.xs="column">
-  <div  fxLayout="row" fxFill>
-    <div fxLayoutGap="20px" fxLayoutAlign="end center" fxFlex="100" fxFlex.sm="100">
-    <mat-form-field>
-      <input matInput placeholder="Search Sniffer" type="text" [(ngModel)]="searchString">
-    </mat-form-field>
+<div fxLayout="column" fxLayoutGap="10px">
+  <div fxFlex>
+    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center">
+      <mat-form-field>
+        <input matInput placeholder="Search Sniffer" type="text" [(ngModel)]="searchString">
+      </mat-form-field>
       <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="searchByMac()">Mac address</button>
         <button mat-menu-item (click)="searchByName()">Name</button>
         <button mat-menu-item (click)="searchByBuilding()">Building</button>
         <button mat-menu-item (click)="searchByRoom()">Room</button>
       </mat-menu>
-    <button mat-raised-button color="primary" [matMenuTriggerFor]="menu">Search by...</button>
+      <button mat-raised-button color="primary" [matMenuTriggerFor]="menu">Search by...</button>
+      <button mat-raised-button color="primary" [routerLink]="['/create/sniffer']">New sniffer</button>
+      <button mat-raised-button color="primary" (click)="fetchSniffers()">Reload</button>
     </div>
   </div>
-  <div fxLayout="row" fxFill>
-    <div fxLayoutAlign="end center"  fxFlex.sm="100" fxFlex="100" >
-        <button mat-raised-button color="primary" [routerLink]="['/create/sniffer']">New sniffer</button>
-        <button mat-raised-button color="primary" (click)="fetchSniffers()">Reload</button>
-    </div>
-  </div>
-</div>
-<div fxLayout="row">
-  <div fxFlex="100">
+  <div fxFlex>
     <table mat-table [dataSource]="snifferList">
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>Name</th>
@@ -63,37 +57,3 @@
 
 
 
-
-<!--
-<div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="1%" fxLayoutAlign="left" fxLayoutAlign.sm="center center">
-  <div *ngFor="let s of snifferList" fxFlex.sm="100">
-    <mat-card class="card">
-      <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column">
-        <span >{{s.name}}</span>
-      </mat-card-title>
-      <mat-card-subtitle>
-        <span >{{s.mac | uppercase}}</span>
-      </mat-card-subtitle>
-      <mat-card-content>
-        <mat-divider></mat-divider>
-        <mat-list>
-          <mat-list-item>
-            Building: {{s.buildingName}}
-          </mat-list-item>
-          <mat-list-item>
-            Room: {{s.roomName}}
-          </mat-list-item>
-          <mat-divider></mat-divider>
-          <mat-list-item>
-            Status: {{s.status}}
-          </mat-list-item>
-        </mat-list>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-raised-button color="primary" [routerLink]="['/sniffers', s.id]">Details</button>
-        <button mat-raised-button color="primary" [routerLink]="['/sniffers', s.id, 'update']">Update</button>
-      </mat-card-actions>
-    </mat-card>
-  </div>
-</div>
--->

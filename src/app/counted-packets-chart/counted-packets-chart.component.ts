@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {ChartDataSets, ChartOptions, ChartType} from 'chart.js';
 import {Label} from 'ng2-charts';
 import {CountedPacketsService} from '../_services/counted-packets.service';
-import {map} from 'rxjs/operators';
 import {AlertService} from '../_services/alert.service';
 import {DataRequestService} from '../_services/data-request.service';
 import {Subscription} from 'rxjs';
@@ -22,10 +21,19 @@ export class CountedPacketsChartComponent implements OnInit {
   };
   public barChartLabels: Label[];
   public barChartType: ChartType = 'bar';
-  public barChartLegend = true;
+  public barChartLegend = false;
   public barChartData: ChartDataSets[];
   dataReady = false;
   private subscription: Subscription;
+  colors: Array<any> = [
+    { // first color
+      backgroundColor: 'rgba(0,255,0,1)',
+      borderColor: 'rgba(225,10,24,0.2)',
+      pointBackgroundColor: 'rgba(225,10,24,0.2)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(225,10,24,0.2)'
+    }];
 
   constructor(
     private countedPacketsService: CountedPacketsService,
