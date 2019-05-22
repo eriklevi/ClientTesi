@@ -24,6 +24,7 @@ export class DashboardComponent implements OnInit {
   public loadingStats = false;
   displayedColumns = ['name', 'building', 'room', 'total'];
   lastCountedPackets: CountResult[];
+  mqttClientsLoaded = false;
 
   /*
   ------------- chart variables
@@ -69,9 +70,11 @@ export class DashboardComponent implements OnInit {
     this.snifferService.getConnectedSniffers().subscribe( data => {
         this.mqttConnectedClients = data;
         this.loadingComplete++;
+        this.mqttClientsLoaded = true;
       }, error => {
         this.alertService.error('Unable to fetch connected clients!');
         this.loadingComplete++;
+        this.mqttClientsLoaded = true;
     });
   }
 

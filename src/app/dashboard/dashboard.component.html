@@ -1,26 +1,26 @@
-<div *ngIf="loadingComplete < 3" fxLayout="column" fxLayoutAlign="center center">
-  <div fxFill >
-    <mat-spinner></mat-spinner>
-  </div>
-</div>
-<div *ngIf="loadingComplete === 3" fxLayout="row" fxLayout.sm="column" fxLayoutGap="20px">
+<div fxLayout="row" fxLayout.sm="column" fxLayoutGap="20px">
   <div fxFlex fxFlexOrder="3">
     <mat-card>
       <mat-card-title>
         <span >Mqtt clients</span>
       </mat-card-title>
-      <mat-card-content>
-        <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center start">
-          <div fxFlex *ngFor="let c of mqttConnectedClients">
-            {{c}}
+      <div *ngIf="!mqttClientsLoaded">
+        <mat-spinner></mat-spinner>
+      </div>
+      <div *ngIf="mqttClientsLoaded">
+        <mat-card-content>
+          <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center start">
+            <div fxFlex *ngFor="let c of mqttConnectedClients">
+              {{c}}
+            </div>
           </div>
-        </div>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-raised-button color="primary" (click)="this.fetchConnectedClients()">
-          Reload
-        </button>
-      </mat-card-actions>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" (click)="this.fetchConnectedClients()">
+            Reload
+          </button>
+        </mat-card-actions>
+      </div>
     </mat-card>
   </div>
   <div fxFlex fxFlexOrder="2">
