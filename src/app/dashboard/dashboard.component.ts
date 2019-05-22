@@ -100,7 +100,7 @@ export class DashboardComponent implements OnInit {
         data => {
           this.snifferList = data;
           this.loadingComplete++;
-          this.fetchLastEstimation();
+          //this.fetchLastEstimation();
         },
         error1 => {
           this.alertService.error('Impossible to fetch sniffer data');
@@ -151,7 +151,7 @@ export class DashboardComponent implements OnInit {
         }
       );
   }
-
+/*
   private fetchLastEstimation() {
     for (const s of this.snifferList) {
       this.countedPacketsService.getLastEstimationBySnifferId(s.id)
@@ -163,5 +163,5 @@ export class DashboardComponent implements OnInit {
           }
         );
     }
-  }
+  }*/
 }

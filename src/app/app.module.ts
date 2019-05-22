@@ -38,7 +38,7 @@ import {
   MatMenuModule,
   MatInputModule,
   MatProgressSpinnerModule,
-  MatTableModule, MatDialogModule, MatSnackBarModule, MatSliderModule, MatDatepickerModule, MatSlideToggleModule
+  MatTableModule, MatDialogModule, MatSnackBarModule, MatSliderModule, MatDatepickerModule, MatSlideToggleModule, MatChipsModule
 } from '@angular/material';
 import {BuildingService} from './_services/building.service';
 import {RoomService} from './_services/room.service';
@@ -56,6 +56,9 @@ import { CustomSelectionComponent } from './custom-selection/custom-selection.co
 import {CountedPacketsService} from './_services/counted-packets.service';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
 import { CustomSelectionPageComponent } from './custom-selection-page/custom-selection-page.component';
+import { ComparePageComponent } from './compare-page/compare-page.component';
+import { CustomMultipleSelectionComponent } from './custom-multiple-selection/custom-multiple-selection.component';
+import { CompareChartComponent } from './compare-chart/compare-chart.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +83,9 @@ import { CustomSelectionPageComponent } from './custom-selection-page/custom-sel
     SnifferUpdaterComponent,
     CustomSelectionComponent,
     CustomSelectionPageComponent,
+    ComparePageComponent,
+    CustomMultipleSelectionComponent,
+    CompareChartComponent,
   ],
   imports: [
     BrowserModule,
@@ -112,7 +118,8 @@ import { CustomSelectionPageComponent } from './custom-selection-page/custom-sel
     MatDatepickerModule,
     MatMomentDateModule,
     MatSlideToggleModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatChipsModule
   ],
   providers: [
     UserService,

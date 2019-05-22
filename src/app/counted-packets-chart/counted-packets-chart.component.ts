@@ -19,21 +19,12 @@ export class CountedPacketsChartComponent implements OnInit {
     responsive: true,
     scales: {xAxes: [{}], yAxes: [{}]}
   };
-  public barChartLabels: Label[];
+  public barChartLabels: Label[] = [];
   public barChartType: ChartType = 'bar';
-  public barChartLegend = false;
-  public barChartData: ChartDataSets[];
+  public barChartLegend = true;
+  public barChartData: ChartDataSets[] = [];
   dataReady = false;
   private subscription: Subscription;
-  colors: Array<any> = [
-    { // first color
-      backgroundColor: 'rgba(0,255,0,1)',
-      borderColor: 'rgba(225,10,24,0.2)',
-      pointBackgroundColor: 'rgba(225,10,24,0.2)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(225,10,24,0.2)'
-    }];
 
   constructor(
     private countedPacketsService: CountedPacketsService,
@@ -70,7 +61,7 @@ export class CountedPacketsChartComponent implements OnInit {
       , req.toTimestamp
       , req.resolution).subscribe(
         next => {
-          this.barChartData = [{data: next.map(item => item.avgEstimatedDevices)}];
+          this.barChartData = [{data: next.map(item => item.avgEstimatedDevices), label: req.snifferName}];
           this.barChartLabels = next.map( item => {
             return moment(item.startTimestamp).locale('it').format('llll').toString();
           });

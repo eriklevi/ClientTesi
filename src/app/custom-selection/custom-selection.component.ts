@@ -192,7 +192,7 @@ export class CustomSelectionComponent implements OnInit {
       const momentTo: Moment = this.group.get('dataTo').value;
       const startTimeVector: number[] = this.group.get('startTime').value.split(':').map(n => parseInt(n, 10));
       const endTimeVector: number[] = this.group.get('endTime').value.split(':').map(n => parseInt(n, 10));
-      if (momentFrom.unix() === momentTo.unix()){
+      if (momentFrom.unix() === momentTo.unix()) {
         if (endTimeVector[0] < startTimeVector[0]) {
           this.alertService.error('Invalid time selection!');
           return;
