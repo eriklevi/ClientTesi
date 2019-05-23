@@ -1,0 +1,14 @@
+<div *ngIf="dataReady" class="chartWrapper">
+  <div class=" chartAreaWrapper">
+    <div style="display: block">
+      <canvas  baseChart
+              [datasets]="barChartData"
+              [labels]="barChartLabels"
+              [options]="barChartOptions"
+              [legend]="barChartLegend"
+              [chartType]="barChartType"
+               [plugins]="barChartPlugins">
+      </canvas>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,82 @@
+<mat-card class="customSelector">
+  <div fxLayout="column">
+    <div fxFlex>
+      <form [formGroup]="group">
+        <div fxLayout="column" fxLayoutGap="10px">
+          <div fxFlex>
+            <div fxLayout="row" fxLayoutGap="10px">
+              <mat-form-field>
+                <mat-select placeholder="Sniffer name" formControlName="name" [(value)]="selectedSniffer">
+                  <mat-option *ngFor="let s of shownSniffers" [value]="s">
+                    {{s.buildingName}}, {{s.roomName}}, {{s.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <button mat-icon-button (click)="addSnifferToSelectedSniffers()" color="primary"><mat-icon>add_circle</mat-icon></button>
+            </div>
+          </div>
+          <div fxFlex *ngIf="selectedSniffersList">
+            <mat-chip-list>
+              <mat-chip color="primary" *ngFor="let s of selectedSniffersList"  selected
+                        [removable]="true" (removed)="remove(s)">{{s.buildingName}}, {{s.roomName}}, {{s.name}}<mat-icon matChipRemove>cancel</mat-icon></mat-chip>
+            </mat-chip-list>
+          </div>
+          <div fxFlex>
+            <mat-slide-toggle [(ngModel)]="toggle" [ngModelOptions]="{standalone: true}" (click)="validateDataSingola()">Range Selection</mat-slide-toggle>
+          </div>
+          <div fxFlex>
+            <mat-form-field *ngIf="!toggle">
+              <input matInput placeholder="Date" [matDatepicker]="myDatepicker" [max]="maxDate" formControlName="dataSingola">
+              <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+              <mat-datepicker #myDatepicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div fxFlex>
+            <mat-form-field *ngIf="toggle">
+              <input matInput placeholder="From" [matDatepicker]="myDatepicker" (dateChange)="setFromMinDate()" [max]="maxDate" formControlName="dataFrom">
+              <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+              <mat-datepicker #myDatepicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div fxFlex>
+            <mat-form-field *ngIf="toggle">
+              <input matInput placeholder="To" [matDatepicker]="myDatepicker2" [max]="maxDate" [min]="fromDate" formControlName="dataTo">
+              <mat-datepicker-toggle matSuffix [for]="myDatepicker2"></mat-datepicker-toggle>
+              <mat-datepicker #myDatepicker2></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div fxFlex>
+            <mat-form-field>
+              <input matInput formControlName="startTime" type="time" placeholder="from" min="00:00" max="23:59">
+            </mat-form-field>
+          </div>
+          <div fxFlex>
+            <mat-form-field>
+              <input matInput formControlName="endTime" type="time" placeholder="to" (min)="setEndtimeMinValue()" max="23:59">
+            </mat-form-field>
+          </div>
+          <div fxFlex>
+            <mat-form-field>
+              <mat-select placeholder="Resolution" formControlName="resolution">
+                <mat-option value="fiveMinute">5 Minuti</mat-option>
+                <mat-option value="fifteenMinute">15 Minuti</mat-option>
+                <mat-option value="thirtyMinute">30 Minuti</mat-option>
+                <mat-option value="hour">1 Ora</mat-option>
+                <mat-option value="twoHour">2 Ore</mat-option>
+                <mat-option value="fourHour">4 Ore</mat-option>
+                <mat-option value="sixHour">6 Ore</mat-option>
+                <mat-option value="twelveHour">12 Ore</mat-option>
+                <mat-option value="boh">Giorno</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+  <mat-card-actions>
+    <button mat-raised-button color="accent" (click)="prepareData()">Confirm</button>
+    <button mat-raised-button color="accent" (click)="resetAll()">Reset</button>
+  </mat-card-actions>
+</mat-card>
