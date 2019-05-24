@@ -49,6 +49,7 @@ export class StatisticsChartComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.fetchGeneralStats();
   }
 
   private fetchGeneralStats() {
