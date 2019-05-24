@@ -25,6 +25,6 @@ export class DataRequestService {
   }
 
   getResetChart() {
-    return this.dataRequest;
+    return this.resetChart;
   }
 }

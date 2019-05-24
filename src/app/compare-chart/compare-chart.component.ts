@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ChartDataSets, ChartOptions, ChartType} from 'chart.js';
 import {Label} from 'ng2-charts';
 import {Subscription} from 'rxjs';
@@ -13,7 +13,7 @@ import * as moment from 'moment';
   templateUrl: './compare-chart.component.html',
   styleUrls: ['./compare-chart.component.css']
 })
-export class CompareChartComponent implements OnInit {
+export class CompareChartComponent implements OnInit, OnDestroy {
 
   public barChartOptions: ChartOptions = {
     responsive: true,
@@ -73,5 +73,9 @@ export class CompareChartComponent implements OnInit {
       }
     );
     console.log(this.barChartData);
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

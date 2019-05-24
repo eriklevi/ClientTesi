@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ChartDataSets, ChartOptions, ChartType} from 'chart.js';
 import {Label} from 'ng2-charts';
 import {CountedPacketsService} from '../_services/counted-packets.service';
@@ -13,7 +13,7 @@ import * as moment from 'moment';
   templateUrl: './counted-packets-chart.component.html',
   styleUrls: ['./counted-packets-chart.component.css']
 })
-export class CountedPacketsChartComponent implements OnInit {
+export class CountedPacketsChartComponent implements OnInit, OnDestroy {
 
   public barChartOptions: ChartOptions = {
     responsive: true,
@@ -72,5 +72,9 @@ export class CountedPacketsChartComponent implements OnInit {
       }
     );
     console.log(this.barChartData);
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }
