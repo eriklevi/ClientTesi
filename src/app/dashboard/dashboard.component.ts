@@ -15,56 +15,19 @@ import {CountResult} from '../_models/countResult';
 export class DashboardComponent implements OnInit {
 
   mqttConnectedClients: string;
-  totalParsedPackets: number;
-  totalLocalParsedPackets: number;
-  totalGlobalParsedPackets: number;
-  globalPercent: number;
-  localPercent: number;
   snifferList: Sniffer[];
   loadingComplete = 0;
-  selectorValue = 'Total';
-  public loadingStats = false;
   displayedColumns = ['name', 'building', 'room', 'total'];
   lastCountedPackets: CountResult[];
   mqttClientsLoaded = false;
 
-  /*
-  ------------- chart variables
-   */
-
-  public pieChartOptions: ChartOptions = {
-    responsive: true,
-    legend: {
-      position: 'top',
-    },
-    plugins: {
-      datalabels: {
-        formatter: (value, ctx) => {
-          const label = ctx.chart.data.labels[ctx.dataIndex];
-          return label;
-        },
-      },
-    }
-  };
-  public pieChartLabels: Label[] = ['Local', 'Global'];
-  public pieChartData: number[];
-  public pieChartType: ChartType = 'pie';
-  public pieChartLegend = true;
-  public pieChartColors = [
-    {
-      backgroundColor: ['rgba(0,255,0,0.3)', 'rgba(0,0,255,0.3)'],
-    },
-  ];
-
   constructor(
     private snifferService: SnifferService,
-    private alertService: AlertService,
-    private countedPacketsService: CountedPacketsService
+    private alertService: AlertService
   ) { }
 
   ngOnInit() {
     this.fetchConnectedClients();
-    this.fetchGeneralStats();
     this.fetchSniffers();
   }
 
@@ -80,34 +43,13 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  private fetchGeneralStats() {
-    this.loadingStats = true;
-    this.countedPacketsService.getTotalParsedPackets()
-      .subscribe(
-        data => {
-          this.totalLocalParsedPackets = data.local;
-          this.totalGlobalParsedPackets = data.global;
-          this.pieChartData = [data.local, data.global];
-          this.totalParsedPackets = data.local + data.global;
-          this.globalPercent = (data.global / (data.local + data.global)) * 100;
-          this.localPercent = (data.local / (data.local + data.global)) * 100;
-          this.loadingComplete++;
-          this.loadingStats = false;
-        }, error1 => {
-          this.alertService.error('Impossible to retrieve packets statistics');
-          this.loadingComplete++;
-          this.loadingStats = false;
-        }
-      );
-  }
-
   private fetchSniffers() {
     this.snifferService.getSniffers()
       .subscribe(
         data => {
           this.snifferList = data;
           this.loadingComplete++;
-          //this.fetchLastEstimation();
+          // this.fetchLastEstimation();
         },
         error1 => {
           this.alertService.error('Impossible to fetch sniffer data');
@@ -116,52 +58,6 @@ export class DashboardComponent implements OnInit {
       );
   }
 
-  fetchStatsOnChange() {
-    if (this.selectorValue === 'Total') {
-      this.fetchGeneralStatsOnChange();
-    } else {
-      this.fetchStatsBySnifferId(this.selectorValue);
-    }
-  }
-
-  private fetchStatsBySnifferId(selectorValue: string) {
-    this.loadingStats = true;
-    this.countedPacketsService.getTotalParsedPacketsBySnifferName(selectorValue)
-      .subscribe(
-        data => {
-          this.totalLocalParsedPackets = data.local;
-          this.totalGlobalParsedPackets = data.global;
-          this.totalParsedPackets = data.local + data.global;
-          this.globalPercent = (data.global / (data.local + data.global)) * 100;
-          this.localPercent = (data.local / (data.local + data.global)) *100;
-          this.pieChartData = [data.local, data.global];
-          this.loadingStats = false;
-        },
-        error1 => {
-          this.alertService.error('Impossible to retrieve packet statistics');
-          this.loadingStats = false;
-        }
-      );
-  }
-
-  private fetchGeneralStatsOnChange() {
-    this.loadingStats = true;
-    this.countedPacketsService.getTotalParsedPackets()
-      .subscribe(
-        data => {
-          this.totalLocalParsedPackets = data.local;
-          this.totalGlobalParsedPackets = data.global;
-          this.totalParsedPackets = data.local + data.global;
-          this.globalPercent = (data.global / (data.local + data.global)) * 100;
-          this.localPercent = (data.local / (data.local + data.global)) * 100;
-          this.pieChartData = [data.local, data.global];
-          this.loadingStats = false;
-        }, error1 => {
-          this.alertService.error('Impossible to retrieve packets statistics');
-          this.loadingStats = false;
-        }
-      );
-  }
 /*
   private fetchLastEstimation() {
     for (const s of this.snifferList) {
