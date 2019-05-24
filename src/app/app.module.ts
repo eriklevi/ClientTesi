@@ -59,6 +59,8 @@ import { CustomSelectionPageComponent } from './custom-selection-page/custom-sel
 import { ComparePageComponent } from './compare-page/compare-page.component';
 import { CustomMultipleSelectionComponent } from './custom-multiple-selection/custom-multiple-selection.component';
 import { CompareChartComponent } from './compare-chart/compare-chart.component';
+import { DashboardSideNavComponent } from './dashboard-side-nav/dashboard-side-nav.component';
+import { StatisticsChartComponent } from './statistics-chart/statistics-chart.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +88,8 @@ import { CompareChartComponent } from './compare-chart/compare-chart.component';
     ComparePageComponent,
     CustomMultipleSelectionComponent,
     CompareChartComponent,
+    DashboardSideNavComponent,
+    StatisticsChartComponent,
   ],
   imports: [
     BrowserModule,

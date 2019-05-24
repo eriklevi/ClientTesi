@@ -1,31 +1,7 @@
 <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="10px">
   <div fxFlex="20">
     <div>
-      <mat-nav-list>
-        <h3 mat-subheader>Actions</h3>
-        <mat-list-item>
-          <mat-icon mat-list-icon>search</mat-icon>
-            <h4 mat-line routerLink="/dashboard/countedgraph">Detailed view</h4>
-        </mat-list-item>
-        <mat-list-item>
-          <mat-icon mat-list-icon>search</mat-icon>
-          <h4 mat-line routerLink="/dashboard/comparegraph">Compare view</h4>
-        </mat-list-item>
-        <mat-divider></mat-divider>
-        <h3 mat-subheader>MQTT Broker</h3>
-        <mat-list-item>
-          <mat-icon mat-list-icon>pause_circle_filled</mat-icon>
-          <h4 mat-line (click)="stopBroker()">Stop data collection</h4>
-        </mat-list-item>
-        <mat-list-item>
-          <mat-icon mat-list-icon>play_circle_filled</mat-icon>
-          <h4 mat-line (click)="stopBroker()">Start data collection</h4>
-        </mat-list-item>
-        <mat-list-item>
-          <mat-icon mat-list-icon>cached</mat-icon>
-          <h4 mat-line (click)="stopBroker()">Reset sniffers</h4>
-        </mat-list-item>
-      </mat-nav-list>
+      <app-dashboard-side-nav></app-dashboard-side-nav>
     </div>
   </div>
   <div fxFlex="80">
@@ -55,59 +31,7 @@
         </mat-card>
       </div>
       <div fxFlex fxFlexOrder="2">
-        <mat-card class="card">
-          <mat-card-title>
-            <span >Stats</span>
-          </mat-card-title>
-          <mat-card-content>
-            <div fxLayout="column" fxLayoutGap="10px">
-              <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-                <div *ngIf="!loadingStats" fxFlex>
-                  <mat-form-field>
-                    <mat-label></mat-label>
-                    <mat-select [(value)]="selectorValue">
-                      <mat-option value="Total">Total</mat-option>
-                      <mat-option *ngFor="let s of snifferList" [value]="s.id">
-                        {{s.buildingName}}, {{s.roomName}}, {{s.name}}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-                <div *ngIf="!loadingStats" fxFlex>
-                  <button mat-raised-button color="primary" (click)="fetchStatsOnChange()">Select</button>
-                </div>
-              </div>
-              <div *ngIf="!loadingStats" fxFlex>
-                Total collected packets: {{this.totalParsedPackets}}
-              </div>
-              <div *ngIf="!loadingStats"fxFlex>
-                Global : {{this.totalGlobalParsedPackets}} = {{this.globalPercent | number:'2.2-2'}} %
-              </div>
-              <div *ngIf="!loadingStats" FxFlex>
-                Local: {{this.totalLocalParsedPackets}} = {{this.localPercent | number:'2.2-2'}} %
-              </div>
-              <div *ngIf="!loadingStats" fxFlex>
-                <div class="chart">
-                  <canvas baseChart
-                          [data]="pieChartData"
-                          [labels]="pieChartLabels"
-                          [chartType]="pieChartType"
-                          [options]="pieChartOptions"
-                          [colors]="pieChartColors"
-                          [legend]="pieChartLegend">
-                  </canvas>
-                </div>
-              </div>
-              <div *ngIf="loadingStats" fxLayout="row" fxLayoutAlign="center center">
-                <div fxFill>
-                  <mat-spinner></mat-spinner>
-                </div>
-              </div>
-            </div>
-          </mat-card-content>
-          <mat-card-actions>
-          </mat-card-actions>
-        </mat-card>
+
       </div>
       <div fxFlex fxFlexOrder="1">
         <mat-card>
