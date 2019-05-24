@@ -18,6 +18,8 @@ export class DashboardComponent implements OnInit {
   totalParsedPackets: number;
   totalLocalParsedPackets: number;
   totalGlobalParsedPackets: number;
+  globalPercent: number;
+  localPercent: number;
   snifferList: Sniffer[];
   loadingComplete = 0;
   selectorValue = 'Total';
@@ -87,6 +89,8 @@ export class DashboardComponent implements OnInit {
           this.totalGlobalParsedPackets = data.global;
           this.pieChartData = [data.local, data.global];
           this.totalParsedPackets = data.local + data.global;
+          this.globalPercent = (data.global / (data.local + data.global)) * 100;
+          this.localPercent = (data.local / (data.local + data.global)) * 100;
           this.loadingComplete++;
           this.loadingStats = false;
         }, error1 => {
@@ -128,6 +132,8 @@ export class DashboardComponent implements OnInit {
           this.totalLocalParsedPackets = data.local;
           this.totalGlobalParsedPackets = data.global;
           this.totalParsedPackets = data.local + data.global;
+          this.globalPercent = (data.global / (data.local + data.global)) * 100;
+          this.localPercent = (data.local / (data.local + data.global)) *100;
           this.pieChartData = [data.local, data.global];
           this.loadingStats = false;
         },
@@ -146,6 +152,8 @@ export class DashboardComponent implements OnInit {
           this.totalLocalParsedPackets = data.local;
           this.totalGlobalParsedPackets = data.global;
           this.totalParsedPackets = data.local + data.global;
+          this.globalPercent = (data.global / (data.local + data.global)) * 100;
+          this.localPercent = (data.local / (data.local + data.global)) * 100;
           this.pieChartData = [data.local, data.global];
           this.loadingStats = false;
         }, error1 => {
@@ -167,4 +175,7 @@ export class DashboardComponent implements OnInit {
         );
     }
   }*/
+  stopBroker() {
+
+  }
 }
