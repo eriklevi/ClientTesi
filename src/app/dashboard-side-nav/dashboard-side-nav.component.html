@@ -1,0 +1,25 @@
+<mat-nav-list>
+  <h3 mat-subheader>Actions</h3>
+  <mat-list-item>
+    <mat-icon mat-list-icon>search</mat-icon>
+    <h4 mat-line routerLink="/dashboard/countedgraph">Detailed view</h4>
+  </mat-list-item>
+  <mat-list-item>
+    <mat-icon mat-list-icon>search</mat-icon>
+    <h4 mat-line routerLink="/dashboard/comparegraph">Compare view</h4>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+  <h3 mat-subheader>MQTT Broker</h3>
+  <mat-list-item>
+    <mat-icon mat-list-icon>pause_circle_filled</mat-icon>
+    <h4 mat-line (click)="stopBroker()">Stop data collection</h4>
+  </mat-list-item>
+  <mat-list-item>
+    <mat-icon mat-list-icon>play_circle_filled</mat-icon>
+    <h4 mat-line (click)="stopBroker()">Start data collection</h4>
+  </mat-list-item>
+  <mat-list-item>
+    <mat-icon mat-list-icon>cached</mat-icon>
+    <h4 mat-line (click)="stopBroker()">Reset sniffers</h4>
+  </mat-list-item>
+</mat-nav-list>
