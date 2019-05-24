@@ -135,4 +135,9 @@ export class StatisticsChartComponent implements OnInit {
         }
       );
   }
+
+  private getColor(): string{
+
+  }
+
 }
