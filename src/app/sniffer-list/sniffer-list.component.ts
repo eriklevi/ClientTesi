@@ -16,7 +16,7 @@ export class SnifferListComponent implements OnInit {
   searchString: string;
   errorMessage: string;
   connectedClients: string[];
-  displayedColumns: string[] = ['name', 'mac', 'buildingName', 'roomName', 'status', 'details', 'update', 'delete' ];
+  displayedColumns: string[] = ['name', 'mac', 'buildingName', 'roomName', 'status', 'details', 'update', 'delete', 'reset'];
 
 
   constructor(
@@ -105,5 +105,18 @@ export class SnifferListComponent implements OnInit {
         this.alertService.error('Unable to fetch connected clients!');
       });
 
+  }
+
+  private resetSnifferById(macID: string) {
+    this.snifferService.resetSniffersById(macID)
+      .subscribe(
+        next => {
+          this.alertService.success('Sniffer is resetting');
+          this.snifferList.find(s => s.macID === macID).status = 'resetting';
+        },
+        error1 => {
+          this.alertService.error('An error occurred during reset!\n' + error1.error);
+        }
+      );
   }
 }

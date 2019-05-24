@@ -57,4 +57,18 @@ export class SnifferService {
         timeout(7500)
       );
   }
+  resetSniffers(): Observable<any> {
+    return this.http
+      .get('http://' + host + ':' + port + '/packetsapi/reset')
+      .pipe(
+        timeout(7500)
+      );
+  }
+  resetSniffersById(id: string): Observable<any> {
+    return this.http
+      .get('http://' + host + ':' + port + '/packetsapi/reset/' + id)
+      .pipe(
+        timeout(7500)
+      );
+  }
 }
