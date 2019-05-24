@@ -3,6 +3,8 @@ import {ChartOptions, ChartType} from 'chart.js';
 import {Label} from 'ng2-charts';
 import {AlertService} from '../_services/alert.service';
 import {CountedPacketsService} from '../_services/counted-packets.service';
+import {Sniffer} from '../_models/sniffer';
+import {SnifferService} from '../_services/sniffer.service';
 
 @Component({
   selector: 'app-statistics-chart',
@@ -19,6 +21,7 @@ export class StatisticsChartComponent implements OnInit {
   localPercent: number;
   public loadingStats = false;
   selectorValue = 'Total';
+  snifferList: Sniffer[];
   public pieChartOptions: ChartOptions = {
     responsive: true,
     legend: {
@@ -45,11 +48,26 @@ export class StatisticsChartComponent implements OnInit {
 
   constructor(
     private alertService: AlertService,
+    private snifferService: SnifferService,
     private countedPacketsService: CountedPacketsService
   ) { }
 
   ngOnInit() {
+    this.fetchSniffers();
     this.fetchGeneralStats();
+  }
+
+  private fetchSniffers() {
+    this.snifferService.getSniffers()
+      .subscribe(
+        data => {
+          this.snifferList = data;
+          // this.fetchLastEstimation();
+        },
+        error1 => {
+          this.alertService.error('Impossible to fetch sniffer data');
+        }
+      );
   }
 
   private fetchGeneralStats() {
