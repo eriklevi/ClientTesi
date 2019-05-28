@@ -5,6 +5,7 @@ import {AlertService} from '../_services/alert.service';
 import {CountedPacketsService} from '../_services/counted-packets.service';
 import {Sniffer} from '../_models/sniffer';
 import {SnifferService} from '../_services/sniffer.service';
+import {DataRequestService} from '../_services/data-request.service';
 
 @Component({
   selector: 'app-statistics-chart',
@@ -49,7 +50,7 @@ export class StatisticsChartComponent implements OnInit {
   constructor(
     private alertService: AlertService,
     private snifferService: SnifferService,
-    private countedPacketsService: CountedPacketsService
+    private countedPacketsService: CountedPacketsService,
   ) { }
 
   ngOnInit() {
@@ -136,8 +137,5 @@ export class StatisticsChartComponent implements OnInit {
       );
   }
 
-  private getColor(): string{
-
-  }
 
 }

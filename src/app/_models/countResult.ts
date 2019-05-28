@@ -7,6 +7,8 @@ export class CountResult {
   globalPackets: number;
   localPackets: number;
   avgEstimatedDevices: number;
+  distinctMacAddresses: string;
+  distinctFingerprint: string;
   startTimestamp: number;
   year: number;
   month: number;

@@ -62,7 +62,7 @@ export class CompareChartComponent implements OnInit, OnDestroy {
       , req.toTimestamp
       , req.resolution).subscribe(
       next => {
-        this.barChartData.push({data: next.map(item => item.avgEstimatedDevices), label: req.snifferName, backgroundColor: 'rgba(math)'});
+        this.barChartData.push({data: next.map(item => item.avgEstimatedDevices), label: req.snifferName});
         this.barChartLabels = next.map( item => {
           return moment(item.startTimestamp).locale('it').format('llll').toString();
         });
@@ -77,5 +77,6 @@ export class CompareChartComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    this.resetChartSubscription.unsubscribe();
   }
 }

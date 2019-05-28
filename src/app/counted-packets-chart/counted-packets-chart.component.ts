@@ -17,7 +17,13 @@ export class CountedPacketsChartComponent implements OnInit, OnDestroy {
 
   public barChartOptions: ChartOptions = {
     responsive: true,
-    scales: {xAxes: [{}], yAxes: [{}]}
+    scales: {xAxes: [{
+        stacked: true
+      }], yAxes: [{
+        ticks: {
+          min: 0
+        }
+      }]}
   };
   public barChartLabels: Label[] = [];
   public barChartType: ChartType = 'bar';
@@ -25,6 +31,7 @@ export class CountedPacketsChartComponent implements OnInit, OnDestroy {
   public barChartData: ChartDataSets[] = [];
   dataReady = false;
   private subscription: Subscription;
+  private resetChartSubscription: Subscription;
 
   constructor(
     private countedPacketsService: CountedPacketsService,
@@ -41,6 +48,14 @@ export class CountedPacketsChartComponent implements OnInit, OnDestroy {
       }, error => {
         console.log('errore!');
     });
+    this.resetChartSubscription = this.dataRequestService.getResetChart()
+      .subscribe(
+        req => {
+          this.barChartData = [];
+          this.barChartLabels = [];
+          this.dataReady = false;
+        }
+      );
   }
 
   public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
@@ -61,6 +76,7 @@ export class CountedPacketsChartComponent implements OnInit, OnDestroy {
       , req.toTimestamp
       , req.resolution).subscribe(
         next => {
+          console.log(next);
           this.barChartData = [{data: next.map(item => item.avgEstimatedDevices), label: req.snifferName}];
           this.barChartLabels = next.map( item => {
             return moment(item.startTimestamp).locale('it').format('llll').toString();
@@ -76,5 +92,6 @@ export class CountedPacketsChartComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    this.resetChartSubscription.unsubscribe();
   }
 }
