@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ChartDataSets, ChartOptions, ChartType} from 'chart.js';
-import {Label} from 'ng2-charts';
+import {defaultColors, Label} from 'ng2-charts';
 import {CountedPacketsService} from '../_services/counted-packets.service';
 import {AlertService} from '../_services/alert.service';
 import {DataRequestService} from '../_services/data-request.service';
@@ -22,7 +22,8 @@ export class CountedPacketsChartComponent implements OnInit, OnDestroy {
       }], yAxes: [{
         ticks: {
           min: 0
-        }
+        },
+        stacked: true
       }]}
   };
   public barChartLabels: Label[] = [];
@@ -77,7 +78,22 @@ export class CountedPacketsChartComponent implements OnInit, OnDestroy {
       , req.resolution).subscribe(
         next => {
           console.log(next);
-          this.barChartData = [{data: next.map(item => item.avgEstimatedDevices), label: req.snifferName}];
+          this.barChartData = [
+            {data: next.map(item => item.distinctMacAddresses)
+              , label: 'Distinct global Mac Adresses'
+              , stack: 'global'
+              , backgroundColor: 'rgba(0,255,0,0.3)'
+              , borderColor: 'rgba(0,255,0,1)'
+              , hoverBackgroundColor: undefined
+              , hoverBorderColor: undefined},
+            {data: next.map(item => item.distinctFingerprints)
+              , label: 'Estimated devices based on fingerprint'
+              , stack: 'global'
+              , backgroundColor: 'rgba(0,0,255,0.3)'
+              , borderColor: 'rgba(0,0,255,1)'
+              , hoverBackgroundColor: undefined
+              , hoverBorderColor: undefined}
+              ];
           this.barChartLabels = next.map( item => {
             return moment(item.startTimestamp).locale('it').format('llll').toString();
           });
