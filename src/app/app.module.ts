@@ -61,6 +61,9 @@ import { CustomMultipleSelectionComponent } from './custom-multiple-selection/cu
 import { CompareChartComponent } from './compare-chart/compare-chart.component';
 import { DashboardSideNavComponent } from './dashboard-side-nav/dashboard-side-nav.component';
 import { StatisticsChartComponent } from './statistics-chart/statistics-chart.component';
+import { TrackDevicePageComponent } from './track-device-page/track-device-page.component';
+import { TrackDeviceChartComponent } from './track-device-chart/track-device-chart.component';
+import { CustomSelectionTrackComponent } from './custom-selection-track/custom-selection-track.component';
 
 @NgModule({
   declarations: [
@@ -90,6 +93,9 @@ import { StatisticsChartComponent } from './statistics-chart/statistics-chart.co
     CompareChartComponent,
     DashboardSideNavComponent,
     StatisticsChartComponent,
+    TrackDevicePageComponent,
+    TrackDeviceChartComponent,
+    CustomSelectionTrackComponent,
   ],
   imports: [
     BrowserModule,
