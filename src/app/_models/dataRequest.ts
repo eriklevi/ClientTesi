@@ -7,8 +7,6 @@ export class DataRequest {
   private _resolution: string;
   private _valid: boolean;
 
-
-
   constructor(buildingId: string, roomId: string, snifferName: string, fromTimestamp: number, toTimestamp: number, resolution: string, valid: boolean) {
     this._buildingId = buildingId;
     this._roomId = roomId;

@@ -41,7 +41,7 @@ export class CountedPacketsChartComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.subscription = this.dataRequestService.getRequestBehaviourSubject().subscribe(
+    this.subscription = this.dataRequestService.getDataRequestSubject().subscribe(
       req => {
         if (req.valid) {
           this.loadData(req);
