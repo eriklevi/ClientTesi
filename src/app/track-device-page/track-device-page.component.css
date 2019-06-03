@@ -1,0 +1,7 @@
+.prova {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -15px; /* -1 * image width / 2 */
+  margin-top: -15px; /* -1 * image height / 2 */
+}

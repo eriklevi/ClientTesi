@@ -1,0 +1,15 @@
+<div *ngIf="!dataReady">
+  Nothing to display!
+</div>
+<div *ngIf="dataReady" class="chartWrapper">
+  <div class=" chartAreaWrapper">
+    <div style="display: block">
+      <canvas baseChart
+              [datasets]="scatterChartData"
+              [options]="scatterChartOptions"
+              [labels]="scatterChartLabels"
+              [chartType]="scatterChartType">
+      </canvas>
+    </div>
+  </div>
+</div>

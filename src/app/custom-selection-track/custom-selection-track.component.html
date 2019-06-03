@@ -1,0 +1,62 @@
+<mat-card>
+  <div fxLayout="column">
+    <div fxFlex>
+      <form [formGroup]="group">
+        <div fxLayout="column" fxLayoutGap="10px">
+          <div fxFlex>
+            <mat-form-field>
+              <input matInput formControlName="startTime" type="time" placeholder="from" min="00:00" max="23:00" step="3600">
+            </mat-form-field>
+          </div>
+          <div fxFlex>
+            <mat-form-field>
+              <input matInput placeholder="Date" [matDatepicker]="myDatepicker" [max]="maxDate" formControlName="dataSingola">
+              <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+              <mat-datepicker #myDatepicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div fxFlex>
+            <button mat-raised-button (click)="fetchDevices()">Get Devices</button>
+          </div>
+
+          <div fxFlex *ngIf="showOui">
+            <mat-form-field>
+              <mat-select  placeholder="Producer" formControlName="oui" (selectionChange)="getShownDevices()">
+                <mat-option *ngFor="let d of shownProducers" [value]="d">
+                  {{d}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div fxFlex *ngIf="showMacs">
+            <mat-form-field>
+              <mat-select  placeholder="Device mac" formControlName="mac">
+                <mat-option *ngFor="let d of shownDevices" [value]="d">
+                  {{d.mac}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div fxFlex *ngIf="showMacs">
+            <mat-form-field>
+              <input matInput placeholder="Change date" [matDatepicker]="myDatepicker2" [max]="maxDate" formControlName="cambioData" [valueAsDate]="this.group.get('dataSingola').value">
+              <mat-datepicker-toggle matSuffix [for]="myDatepicker2"></mat-datepicker-toggle>
+              <mat-datepicker #myDatepicker2></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div fxFlex *ngIf="loading">
+            <div>
+              <mat-spinner diameter="30" class="prova"></mat-spinner>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="sendData()">Confirm</button>
+    <button mat-raised-button color="primary" (click)="this.group.reset()">Reset</button>
+  </mat-card-actions>
+</mat-card>
+
