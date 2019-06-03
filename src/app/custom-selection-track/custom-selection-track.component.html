@@ -40,7 +40,7 @@
           </div>
           <div fxFlex *ngIf="showMacs">
             <mat-form-field>
-              <input matInput placeholder="Change date" [matDatepicker]="myDatepicker2" [max]="maxDate" formControlName="cambioData" [valueAsDate]="this.group.get('dataSingola').value">
+              <input matInput placeholder="Change date" [matDatepicker]="myDatepicker2" [max]="maxDate" formControlName="cambioData" [value]="this.group.get('dataSingola').value">
               <mat-datepicker-toggle matSuffix [for]="myDatepicker2"></mat-datepicker-toggle>
               <mat-datepicker #myDatepicker2></mat-datepicker>
             </mat-form-field>

@@ -85,6 +85,7 @@ export class CustomSelectionTrackComponent implements OnInit {
           );
         }
         , error1 => {
+          this.loading = false;
           this.alertService.error('Impossible to fetch devices info!');
         }, () => {
           this.loading = false;
@@ -103,6 +104,7 @@ export class CustomSelectionTrackComponent implements OnInit {
         this.shownDevices.push(x);
       },
       y => {
+        this.loading = false;
         this.alertService.error('Something went wrong!');
       },
       () => {
