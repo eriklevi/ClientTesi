@@ -17,7 +17,12 @@ export class CompareChartComponent implements OnInit, OnDestroy {
 
   public barChartOptions: ChartOptions = {
     responsive: true,
-    scales: {xAxes: [{}], yAxes: [{}]}
+    scales: {xAxes: [{
+      }], yAxes: [{
+        ticks: {
+          min: 0
+        }
+      }]}
   };
   public barChartLabels: Label[] = [];
   public barChartType: ChartType = 'bar';
@@ -27,6 +32,12 @@ export class CompareChartComponent implements OnInit, OnDestroy {
   dataReady = false;
   private subscription: Subscription;
   private resetChartSubscription: Subscription;
+  private colorIndex = 0;
+  private colorList: string[] = [
+    'rgba(255, 0, 0, 1)', 'rgba(0, 255, 0, 1)', 'rgba(0, 0, 255, 1)'
+    , 'rgba(255, 255, 0, 1)', 'rgba(0, 128, 128, 1)', 'rgba(128, 0, 0, 1)'
+  ];
+
 
   constructor(
     private countedPacketsService: CountedPacketsService,
@@ -62,7 +73,15 @@ export class CompareChartComponent implements OnInit, OnDestroy {
       , req.toTimestamp
       , req.resolution).subscribe(
       next => {
-        this.barChartData.push({data: next.map(item => item.avgEstimatedDevices), label: req.snifferName});
+        this.barChartData.push(
+          {
+            data: next.map(item => item.distinctMacAddresses + item.distinctFingerprints)
+            , label: req.snifferName
+            , backgroundColor : this.colorList[this.colorIndex % 6]
+            , borderColor : this.colorList[this.colorIndex++ % 6]
+            , hoverBackgroundColor: undefined
+            , hoverBorderColor: undefined
+          });
         this.barChartLabels = next.map( item => {
           return moment(item.startTimestamp).locale('it').format('llll').toString();
         });

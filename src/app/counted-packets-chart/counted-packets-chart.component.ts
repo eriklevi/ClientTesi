@@ -59,15 +59,6 @@ export class CountedPacketsChartComponent implements OnInit, OnDestroy {
       );
   }
 
-  public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
-    console.log(event, active);
-  }
-
-  public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
-    console.log(event, active);
-  }
-
-
   loadData(req: DataRequest) {
     console.log(req);
     this.countedPacketsService.getCountedPacketsBySniffer(req.buildingId
