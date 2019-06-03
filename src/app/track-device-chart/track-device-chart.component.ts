@@ -58,7 +58,7 @@ export class TrackDeviceChartComponent implements OnInit, OnDestroy {
           y => {
             this.positionsLabels.push(y);
           }
-        )
+        );
         const positions = e.map( x => x.snifferName);
         const timestamps = e.map( x => x.timestamp);
         const c: ChartDataSets = {
@@ -69,9 +69,15 @@ export class TrackDeviceChartComponent implements OnInit, OnDestroy {
                 y: this.positionsLabels.indexOf(e1.snifferName)
               };
             }
-          )
-        }
-       this.scatterChartData.push(c);
+          ),
+          pointBackgroundColor: 'rgba(0, 0, 255, 0.5 )',
+          pointBorderColor: 'rgba(0, 0, 255, 0.5 )',
+          pointRadius: 5,
+          pointHoverRadius: 6,
+          pointHoverBackgroundColor: 'rgba(0, 0, 255, 0.5 )',
+          pointHoverBorderColor: 'rgba(0, 0, 255, 0.5 )'
+        };
+        this.scatterChartData.push(c);
         this.scatterChartOptions = {
           responsive: true,
           legend: {
@@ -93,7 +99,14 @@ export class TrackDeviceChartComponent implements OnInit, OnDestroy {
                 callback: ( x => this.positionsLabels[x])
               }
             }]
-          }};
+          },
+          tooltips: {
+            callbacks: {
+              label: (tooltipItem) => {
+                return moment(tooltipItem.xLabel).locale('it').format('llll').toString();
+            }
+          }
+        }};
         this.dataReady = true;
       }, error1 => {
         this.alertService.error('Impossible to fetch device data!');

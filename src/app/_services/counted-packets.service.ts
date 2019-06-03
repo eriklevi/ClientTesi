@@ -20,7 +20,7 @@ export class CountedPacketsService {
     return this.http
       .get('http://' + host + ':' + port + '/packetsapi/general/parsed')
       .pipe(
-        timeout(7500)
+        timeout(15000)
       );
   }
 
@@ -28,7 +28,7 @@ export class CountedPacketsService {
     return this.http
       .get('http://' + host + ':' + port + '/packetsapi/general/parsed/' + snifferId)
       .pipe(
-        timeout(7500)
+        timeout(15000)
       );
   }
 

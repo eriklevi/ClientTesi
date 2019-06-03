@@ -69,9 +69,12 @@ export class CustomSelectionTrackComponent implements OnInit {
   fetchDevices() {
     this.shownProducers = [];
     this.loading = true;
+    this.showOui = false;
+    this.showMacs = false;
     const m: Moment = this.group.get('dataSingola').value;
     const startTimeVector: number[] = this.group.get('startTime').value.split(':').map(n => parseInt(n, 10));
     m.hour(startTimeVector[0]);
+    this.group.get('cambioData').setValue(this.group.get('dataSingola').value);
     this.trackingService.getDistinctMacAsDeviceInfoByHour(m.unix() * 1000, m.add(1, 'h').unix() * 1000)
       .subscribe(
         next => {
