@@ -53,20 +53,20 @@ export class TrackDeviceChartComponent implements OnInit, OnDestroy {
         this.positionsLabels.push('');
         from(e as DeviceData[]).pipe(
           distinct( x => x.snifferName)
-          , map( x => x.snifferName)
+          , map( x => x.snifferBuilding + ', ' + x.snifferRoom + ', ' + x.snifferId)
         ).subscribe(
           y => {
             this.positionsLabels.push(y);
           }
         );
-        const positions = e.map( x => x.snifferName);
+        const positions = e.map( x => x.snifferId);
         const timestamps = e.map( x => x.timestamp);
         const c: ChartDataSets = {
           data: e.map(
             e1 => {
               return {
                 x: e1.timestamp,
-                y: this.positionsLabels.indexOf(e1.snifferName)
+                y: this.positionsLabels.indexOf(e1.snifferBuilding + ', ' + e1.snifferRoom + ', ' + e1.snifferId)
               };
             }
           ),

@@ -61,37 +61,55 @@ export class CountedPacketsChartComponent implements OnInit, OnDestroy {
 
   loadData(req: DataRequest) {
     console.log(req);
+    switch (req.type) {
+      case 'building':
+        this.buildingRequest(req);
+        break;
+      case 'room':
+        this.roomRequest(req);
+        break;
+      case 'sniffer':
+        this.snifferRequest(req);
+        break;
+    }
+  }
+
+  buildingRequest(req: DataRequest) {
+    return null;
+  }
+
+  roomRequest(req: DataRequest) {
+    return null;
+  }
+
+  snifferRequest(req: DataRequest) {
     this.countedPacketsService.getCountedPacketsBySniffer(req.buildingId
-      , req.roomId
-      , req.snifferName
-      , req.fromTimestamp
-      , req.toTimestamp
-      , req.resolution).subscribe(
-        next => {
-          console.log(next);
-          this.barChartData = [
-            {data: next.map(item => item.distinctMacAddresses)
-              , label: 'Distinct global Mac Adresses'
-              , stack: 'global'
-              , backgroundColor: 'rgba(0,255,0,0.3)'
-              , borderColor: 'rgba(0,255,0,1)'
-              , hoverBackgroundColor: undefined
-              , hoverBorderColor: undefined},
-            {data: next.map(item => item.distinctFingerprints)
-              , label: 'Estimated devices based on fingerprint'
-              , stack: 'global'
-              , backgroundColor: 'rgba(0,0,255,0.3)'
-              , borderColor: 'rgba(0,0,255,1)'
-              , hoverBackgroundColor: undefined
-              , hoverBorderColor: undefined}
-              ];
-          this.barChartLabels = next.map( item => {
-            return moment(item.startTimestamp).locale('it').format('llll').toString();
-          });
-          this.dataReady = true;
-        },
+      , req.roomId, req.snifferId, req.fromTimestamp, req.toTimestamp, req.resolution).subscribe(
+      next => {
+        console.log(next);
+        this.barChartData = [
+          {data: next.map(item => item.distinctMacAddresses)
+            , label: 'Distinct global Mac Adresses'
+            , stack: 'global'
+            , backgroundColor: 'rgba(0,255,0,0.3)'
+            , borderColor: 'rgba(0,255,0,1)'
+            , hoverBackgroundColor: undefined
+            , hoverBorderColor: undefined},
+          {data: next.map(item => item.distinctFingerprints)
+            , label: 'Estimated devices based on fingerprint'
+            , stack: 'global'
+            , backgroundColor: 'rgba(0,0,255,0.3)'
+            , borderColor: 'rgba(0,0,255,1)'
+            , hoverBackgroundColor: undefined
+            , hoverBorderColor: undefined}
+        ];
+        this.barChartLabels = next.map( item => {
+          return moment(item.startTimestamp).locale('it').format('llll').toString();
+        });
+        this.dataReady = true;
+      },
       error => {
-          this.alertService.error('Unable to fetch data!');
+        this.alertService.error('Unable to fetch data!');
       }
     );
     console.log(this.barChartData);

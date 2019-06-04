@@ -19,6 +19,7 @@ import {SnifferUpdaterComponent} from './sniffer-updater/sniffer-updater.compone
 import {CustomSelectionPageComponent} from './custom-selection-page/custom-selection-page.component';
 import {ComparePageComponent} from './compare-page/compare-page.component';
 import {TrackDevicePageComponent} from './track-device-page/track-device-page.component';
+import {FlowMapComponent} from './flow-map/flow-map.component';
 
 
 const appRoutes: Routes = [
@@ -27,6 +28,7 @@ const appRoutes: Routes = [
       { path: 'dashboard/countedgraph', component: CustomSelectionPageComponent},
       { path: 'dashboard/comparegraph', component: ComparePageComponent},
       { path: 'dashboard/trackone', component: TrackDevicePageComponent},
+      { path: 'dashboard/flow', component: FlowMapComponent},
       { path: 'users', component: UsersListComponent, canActivate: [AdminGuard] },
       { path: 'users/:id/update', component: UserUpdaterComponent, canActivate: [AdminGuard]},
       { path: 'users/:id', component: UserDetailComponent, canActivate: [AdminGuard]},

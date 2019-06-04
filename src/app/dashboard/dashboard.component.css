@@ -2,3 +2,11 @@
 height: 200px;
 overflow: auto;
 }
+.centra_spinner {
+  position: inherit;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}

@@ -143,7 +143,8 @@ export class CustomMultipleSelectionComponent implements OnInit {
     const request = new DataRequest(null, null, null, null, null, null, false);
     request.buildingId = s.buildingId;
     request.roomId = s.roomId;
-    request.snifferName = s.name;
+    request.snifferId = s.id;
+    request.type = 'sniffer'
     if (!this.toggle) {
       /**
        * Parse and validate time

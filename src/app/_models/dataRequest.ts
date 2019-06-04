@@ -1,16 +1,17 @@
 export class DataRequest {
   private _buildingId: string;
   private _roomId: string;
-  private _snifferName: string;
+  private _snifferId: string;
   private _fromTimestamp: number;
   private _toTimestamp: number;
   private _resolution: string;
   private _valid: boolean;
+  private _type: string;
 
   constructor(buildingId: string, roomId: string, snifferName: string, fromTimestamp: number, toTimestamp: number, resolution: string, valid: boolean) {
     this._buildingId = buildingId;
     this._roomId = roomId;
-    this._snifferName = snifferName;
+    this._snifferId = snifferName;
     this._fromTimestamp = fromTimestamp;
     this._toTimestamp = toTimestamp;
     this._resolution = resolution;
@@ -33,12 +34,12 @@ export class DataRequest {
     this._roomId = value;
   }
 
-  get snifferName(): string {
-    return this._snifferName;
+  get snifferId(): string {
+    return this._snifferId;
   }
 
-  set snifferName(value: string) {
-    this._snifferName = value;
+  set snifferId(value: string) {
+    this._snifferId = value;
   }
 
   get fromTimestamp(): number {
@@ -71,5 +72,13 @@ export class DataRequest {
 
   set valid(value: boolean) {
     this._valid = value;
+  }
+
+  get type(): string {
+    return this._type;
+  }
+
+  set type(value: string) {
+    this._type = value;
   }
 }

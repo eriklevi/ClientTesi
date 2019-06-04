@@ -66,17 +66,12 @@ export class CompareChartComponent implements OnInit, OnDestroy {
 
   loadData(req: DataRequest) {
     console.log(req);
-    this.countedPacketsService.getCountedPacketsBySniffer(req.buildingId
-      , req.roomId
-      , req.snifferName
-      , req.fromTimestamp
-      , req.toTimestamp
-      , req.resolution).subscribe(
+    this.countedPacketsService.getCountedPacketsBySniffer(req.buildingId, req.roomId, req.snifferId, req.fromTimestamp, req.toTimestamp, req.resolution).subscribe(
       next => {
         this.barChartData.push(
           {
             data: next.map(item => item.distinctMacAddresses + item.distinctFingerprints)
-            , label: req.snifferName
+            , label: req.snifferId
             , backgroundColor : this.colorList[this.colorIndex % 6]
             , borderColor : this.colorList[this.colorIndex++ % 6]
             , hoverBackgroundColor: undefined

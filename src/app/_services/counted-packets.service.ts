@@ -56,15 +56,14 @@ export class CountedPacketsService {
       );
   }
 
-  getCountedPacketsBySniffer(buildingId: string, roomId: string, snifferId: string, from: number, to: number, resolution: string): Observable<any> {
+  getCountedPacketsBySniffer(buildingId: string, roomId: string, snifferId: string, from: number, to: number, resolution: string, mode: string = 'mean'): Observable<any> {
     const params = new HttpParams()
       .set('from', from.toString())
       .set('to', to.toString())
       .set('resolution', resolution)
-      .set('type', 'hola')
-      .set('sniffer', snifferId );
+      .set('mode', mode);
     return this.http
-      .get('http://' + host + ':' + port + '/packetsapi/counted/' + buildingId + '/' + roomId, {params})
+      .get('http://' + host + ':' + port + '/packetsapi/counted/' + buildingId + '/' + roomId + '/' + snifferId, {params})
       .pipe(
         timeout(7500)
       );

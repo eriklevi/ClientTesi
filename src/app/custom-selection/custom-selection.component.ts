@@ -142,21 +142,25 @@ export class CustomSelectionComponent implements OnInit {
     const request = new DataRequest(null, null, null, null, null, null, false);
     if (this.group.get('building').value) {
       request.buildingId = this.group.get('building').value;
+      request.type = 'building';
       if (this.group.get('room').value) {
         request.roomId = this.group.get('room').value;
+        request.type = 'room';
         if (this.group.get('name').value) {
           const s: Sniffer = this.sniffers.find( sn => sn.name === this.group.get('name').value);
-          request.snifferName = s.name;
+          request.snifferId = s.id;
           request.buildingId = s.buildingId;
           request.roomId = s.roomId;
+          request.type = 'sniffer';
         }
       }
     } else {
       if (this.group.get('name').value) {
         const s: Sniffer = this.sniffers.find( sn => sn.name === this.group.get('name').value);
-        request.snifferName = s.name;
+        request.snifferId = s.id;
         request.buildingId = s.buildingId;
         request.roomId = s.roomId;
+        request.type = 'sniffer';
       } else {
         this.alertService.error('Invalid selection!');
         return;

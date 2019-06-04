@@ -64,6 +64,10 @@ import { StatisticsChartComponent } from './statistics-chart/statistics-chart.co
 import { TrackDevicePageComponent } from './track-device-page/track-device-page.component';
 import { TrackDeviceChartComponent } from './track-device-chart/track-device-chart.component';
 import { CustomSelectionTrackComponent } from './custom-selection-track/custom-selection-track.component';
+import { DeviceEstimationCardComponent } from './device-estimation-card/device-estimation-card.component';
+import { FlowMapComponent } from './flow-map/flow-map.component';
+import { NgxHeatMapModule } from 'ngx-heatmap';
+
 
 @NgModule({
   declarations: [
@@ -96,6 +100,8 @@ import { CustomSelectionTrackComponent } from './custom-selection-track/custom-s
     TrackDevicePageComponent,
     TrackDeviceChartComponent,
     CustomSelectionTrackComponent,
+    DeviceEstimationCardComponent,
+    FlowMapComponent,
   ],
   imports: [
     BrowserModule,
@@ -129,7 +135,8 @@ import { CustomSelectionTrackComponent } from './custom-selection-track/custom-s
     MatMomentDateModule,
     MatSlideToggleModule,
     MatProgressSpinnerModule,
-    MatChipsModule
+    MatChipsModule,
+    NgxHeatMapModule
   ],
   providers: [
     UserService,
