@@ -1,37 +1,31 @@
-import {Component, NgModule, OnInit} from '@angular/core';
-import { NgxHeatMapModule } from 'ngx-heatmap';
+import {AfterViewInit, Component, NgModule, OnInit} from '@angular/core';
 
-@NgModule({
-  imports: [
-    NgxHeatMapModule
-  ]
-})
+declare const h337: any;
+
 @Component({
   selector: 'app-flow-map',
   templateUrl: './flow-map.component.html',
   styleUrls: ['./flow-map.component.css']
 })
-export class FlowMapComponent implements OnInit {
+export class FlowMapComponent implements OnInit, AfterViewInit {
 
-  private HeatmapConfig = {
-    defaultRadius: 40,
-    defaultRenderer: 'canvas2d',
-    defaultGradient: { 0.25: 'rgb(0,0,255)', 0.55: 'rgb(0,255,0)', 0.85: 'yellow', 1.0: 'rgb(255,0,0)'},
-    defaultMaxOpacity: 1,
-    defaultMinOpacity: 0,
-    defaultBlur: .85,
-    defaultXField: 'x',
-    defaultYField: 'y',
-    defaultValueField: 'value',
-    plugins: {}
-  };
-  private data: any = {x: 1, y: 1, value: 10};
-  private height = 400;
-  private width = 400;
+  ngAfterViewInit() {
+    const heatmap = h337.create({
+      container: window.document.querySelector('#heatmap')
+    });
+
+    heatmap.setData({
+      max: 20,
+      data: [{x: 500, y: 175, value: 20}, {x: 400, y: 175, value: 20}, {x: 600, y: 175, value: 20}, {x: 500, y: 100, value: 20}]
+    });
+  }
 
   constructor() { }
 
   ngOnInit() {
   }
+
+
+
 
 }
