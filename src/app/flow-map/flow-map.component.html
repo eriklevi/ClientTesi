@@ -1,2 +1,5 @@
 <div id="heatmap" style="width: 1000px; height: 350px; background-image: url('../../assets/Senzanome.png')">
 </div>
+<button [disabled]="!showHeatMap" mat-raised-button (click)="next()">next</button>
+<mat-slider [min]="from" [max]="to" [value]="currentValue"></mat-slider>
+<p>{{time}}</p>

@@ -7,4 +7,5 @@ export class DeviceData {
   snifferBuilding: string;
   snifferRoom: string;
   sequenceNumber: string;
+  rssi: number;
 }

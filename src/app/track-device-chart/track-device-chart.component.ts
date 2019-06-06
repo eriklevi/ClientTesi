@@ -53,7 +53,7 @@ export class TrackDeviceChartComponent implements OnInit, OnDestroy {
         this.positionsLabels.push('');
         from(e as DeviceData[]).pipe(
           distinct( x => x.snifferName)
-          , map( x => x.snifferBuilding + ', ' + x.snifferRoom + ', ' + x.snifferId)
+          , map( x => x.snifferBuilding + ', ' + x.snifferRoom + ', ' + x.snifferName)
         ).subscribe(
           y => {
             this.positionsLabels.push(y);
@@ -61,6 +61,79 @@ export class TrackDeviceChartComponent implements OnInit, OnDestroy {
         );
         const positions = e.map( x => x.snifferId);
         const timestamps = e.map( x => x.timestamp);
+        const cRed: ChartDataSets = {
+          data: e.map(
+            e1 => {
+              if (e1.rssi > -60) {
+                return {
+                  x: e1.timestamp,
+                  y: this.positionsLabels.indexOf(e1.snifferBuilding + ', ' + e1.snifferRoom + ', ' + e1.snifferName)
+                };
+              }
+            }
+          ),
+          pointBackgroundColor: 'rgba(255, 0, 0, 0.5 )',
+          pointBorderColor: 'rgba(255, 0, 0, 0.5 )',
+          pointRadius: 5,
+          pointHoverRadius: 6,
+          pointHoverBackgroundColor: 'rgba(255, 0, 0, 0.5 )',
+          pointHoverBorderColor: 'rgba(255, 0, 0, 0.5 )'
+        }
+        const cGreen: ChartDataSets = {
+          data: e.map(
+            e1 => {
+              if (e1.rssi > -90 && e1.rssi <= -75) {
+                return {
+                  x: e1.timestamp,
+                  y: this.positionsLabels.indexOf(e1.snifferBuilding + ', ' + e1.snifferRoom + ', ' + e1.snifferName)
+                };
+              }
+            }
+          ),
+          pointBackgroundColor: 'rgba(0, 255, 0, 0.5 )',
+          pointBorderColor: 'rgba(0, 255, 0, 0.5 )',
+          pointRadius: 5,
+          pointHoverRadius: 6,
+          pointHoverBackgroundColor: 'rgba(0, 255, 0, 0.5 )',
+          pointHoverBorderColor: 'rgba(0, 255, 0, 0.5 )'
+        }
+        const cYellow: ChartDataSets = {
+          data: e.map(
+            e1 => {
+              if (e1.rssi > -75 && e1.rssi <= -60) {
+                return {
+                  x: e1.timestamp,
+                  y: this.positionsLabels.indexOf(e1.snifferBuilding + ', ' + e1.snifferRoom + ', ' + e1.snifferName)
+                };
+              }
+            }
+          ),
+          pointBackgroundColor: 'rgba(255, 255, 0, 0.5 )',
+          pointBorderColor: 'rgba(255, 255, 0, 0.5 )',
+          pointRadius: 5,
+          pointHoverRadius: 6,
+          pointHoverBackgroundColor: 'rgba(255, 255, 0, 0.5 )',
+          pointHoverBorderColor: 'rgba(255, 255, 0, 0.5 )'
+        }
+        const cBlue: ChartDataSets = {
+          data: e.map(
+            e1 => {
+              if (e1.rssi <= -90) {
+                return {
+                  x: e1.timestamp,
+                  y: this.positionsLabels.indexOf(e1.snifferBuilding + ', ' + e1.snifferRoom + ', ' + e1.snifferName)
+                };
+              }
+            }
+          ),
+          pointBackgroundColor: 'rgba(0, 0, 255, 0.5 )',
+          pointBorderColor: 'rgba(0, 0, 255, 0.5 )',
+          pointRadius: 5,
+          pointHoverRadius: 6,
+          pointHoverBackgroundColor: 'rgba(0, 0, 255, 0.5 )',
+          pointHoverBorderColor: 'rgba(0, 0, 255, 0.5 )'
+        }
+        /*
         const c: ChartDataSets = {
           data: e.map(
             e1 => {
@@ -76,8 +149,20 @@ export class TrackDeviceChartComponent implements OnInit, OnDestroy {
           pointHoverRadius: 6,
           pointHoverBackgroundColor: 'rgba(0, 0, 255, 0.5 )',
           pointHoverBorderColor: 'rgba(0, 0, 255, 0.5 )'
-        };
-        this.scatterChartData.push(c);
+        };*/
+        if (!cRed.data) {
+          cRed.data = [];
+        }
+        if (!cYellow.data) {
+          cYellow.data = [];
+        }
+        if (!cGreen.data) {
+          cGreen.data = [];
+        }
+        if (!cBlue.data) {
+          cBlue.data = [];
+        }
+        this.scatterChartData = [cRed, cBlue, cGreen, cYellow];
         this.scatterChartOptions = {
           responsive: true,
           legend: {
@@ -96,6 +181,7 @@ export class TrackDeviceChartComponent implements OnInit, OnDestroy {
               },
               ticks: {
                 min: 0,
+                max: this.positionsLabels.length,
                 callback: ( x => this.positionsLabels[x])
               }
             }]
