@@ -1,21 +1,26 @@
 export class CountResult {
+  id: string;
   snifferMac: string;
+  snifferId: string;
   snifferName: string;
   buildingName: string;
+  buildingId: string;
   roomName: string;
-  totalPackets: number;
-  globalPackets: number;
-  localPackets: number;
-  avgEstimatedDevices: number;
-  distinctMacAddresses: string;
-  distinctFingerprint: string;
-  startTimestamp: number;
-  year: number;
-  month: number;
-  weekOfYear: number;
+  roomId: string;
   dayOfMonth: number;
   dayOfWeek: number;
+  fiveMinute: number;
+  globalPackets: number;
   hour: number;
-  fiveMInute: number;
+  localPackets: number;
   minute: number;
+  month: number;
+  startTimestamp: number;
+  totalDistinctFingerprints: number;
+  totalDistinctMacAddresses: number;
+  totalEstimatedDevices: number;
+  totalPackets: number;
+  weekOfYear: number;
+  year: number;
+  mean: number;
 }

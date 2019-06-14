@@ -20,6 +20,7 @@ import {CustomSelectionPageComponent} from './custom-selection-page/custom-selec
 import {ComparePageComponent} from './compare-page/compare-page.component';
 import {TrackDevicePageComponent} from './track-device-page/track-device-page.component';
 import {FlowMapComponent} from './flow-map/flow-map.component';
+import {PositionFlowComponent} from './position-flow/position-flow.component';
 
 
 const appRoutes: Routes = [
@@ -29,6 +30,7 @@ const appRoutes: Routes = [
       { path: 'dashboard/comparegraph', component: ComparePageComponent},
       { path: 'dashboard/trackone', component: TrackDevicePageComponent},
       { path: 'dashboard/flow', component: FlowMapComponent},
+      { path: 'dashboard/flow2', component: PositionFlowComponent},
       { path: 'users', component: UsersListComponent, canActivate: [AdminGuard] },
       { path: 'users/:id/update', component: UserUpdaterComponent, canActivate: [AdminGuard]},
       { path: 'users/:id', component: UserDetailComponent, canActivate: [AdminGuard]},

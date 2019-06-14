@@ -59,6 +59,7 @@ export class TrackDeviceChartComponent implements OnInit, OnDestroy {
             this.positionsLabels.push(y);
           }
         );
+        this.positionsLabels.sort();
         const positions = e.map( x => x.snifferId);
         const timestamps = e.map( x => x.timestamp);
         const cRed: ChartDataSets = {
@@ -78,7 +79,7 @@ export class TrackDeviceChartComponent implements OnInit, OnDestroy {
           pointHoverRadius: 6,
           pointHoverBackgroundColor: 'rgba(255, 0, 0, 0.5 )',
           pointHoverBorderColor: 'rgba(255, 0, 0, 0.5 )'
-        }
+        };
         const cGreen: ChartDataSets = {
           data: e.map(
             e1 => {
@@ -96,7 +97,7 @@ export class TrackDeviceChartComponent implements OnInit, OnDestroy {
           pointHoverRadius: 6,
           pointHoverBackgroundColor: 'rgba(0, 255, 0, 0.5 )',
           pointHoverBorderColor: 'rgba(0, 255, 0, 0.5 )'
-        }
+        };
         const cYellow: ChartDataSets = {
           data: e.map(
             e1 => {
@@ -114,7 +115,7 @@ export class TrackDeviceChartComponent implements OnInit, OnDestroy {
           pointHoverRadius: 6,
           pointHoverBackgroundColor: 'rgba(255, 255, 0, 0.5 )',
           pointHoverBorderColor: 'rgba(255, 255, 0, 0.5 )'
-        }
+        };
         const cBlue: ChartDataSets = {
           data: e.map(
             e1 => {
@@ -132,7 +133,7 @@ export class TrackDeviceChartComponent implements OnInit, OnDestroy {
           pointHoverRadius: 6,
           pointHoverBackgroundColor: 'rgba(0, 0, 255, 0.5 )',
           pointHoverBorderColor: 'rgba(0, 0, 255, 0.5 )'
-        }
+        };
         /*
         const c: ChartDataSets = {
           data: e.map(

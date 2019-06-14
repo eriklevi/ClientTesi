@@ -32,11 +32,12 @@ export class CountedPacketsService {
       );
   }
 
-  getCountedPacketsByBuilding(buildingId: string, from: number, to: number, resolution: string): Observable<any> {
+  getCountedPacketsByBuilding(buildingId: string, from: number, to: number, resolution: string, mode: string = 'mean'): Observable<any> {
     const params = new HttpParams()
       .set('from', from.toString())
       .set('to', to.toString())
-      .set('resolution', resolution);
+      .set('resolution', resolution)
+      .set('mode', mode);
     return this.http
       .get('http://' + host + ':' + port + '/packetsapi/counted/' + buildingId, {params})
       .pipe(
@@ -44,11 +45,12 @@ export class CountedPacketsService {
       );
   }
 
-  getCountedPacketsByRoom(buildingId: string, roomId: string, from: number, to: number, resolution: string): Observable<any> {
+  getCountedPacketsByRoom(buildingId: string, roomId: string, from: number, to: number, resolution: string, mode: string = 'mean'): Observable<any> {
     const params = new HttpParams()
       .set('from', from.toString())
       .set('to', to.toString())
-      .set('resolution', resolution);
+      .set('resolution', resolution)
+      .set('mode', mode);
     return this.http
       .get('http://' + host + ':' + port + '/packetsapi/counted/' + buildingId + '/' + roomId, {params})
       .pipe(
@@ -70,6 +72,18 @@ export class CountedPacketsService {
   }
 
   getLastEstimationBySnifferId(id: string): Observable<any> {
-    return null;
+    return this.http.get('http://' + host + ':' + port + '/packetsapi/general/counted/' + id + '/last')
+      .pipe(
+        timeout(7500)
+      );
+  }
+
+  getMeanBySnifferId(id: string, timestamp: number): Observable<any> {
+    const params = new HttpParams()
+      .set('timestamp', timestamp.toString());
+    return this.http.get('http://' + host + ':' + port + '/packetsapi/general/counted/' + id + '/mean', {params})
+      .pipe(
+        timeout(10000)
+      );
   }
 }

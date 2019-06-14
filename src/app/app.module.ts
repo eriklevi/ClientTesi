@@ -67,6 +67,7 @@ import { CustomSelectionTrackComponent } from './custom-selection-track/custom-s
 import { DeviceEstimationCardComponent } from './device-estimation-card/device-estimation-card.component';
 import { FlowMapComponent } from './flow-map/flow-map.component';
 import { NgxHeatMapModule } from 'ngx-heatmap';
+import { PositionFlowComponent } from './position-flow/position-flow.component';
 
 
 @NgModule({
@@ -102,6 +103,7 @@ import { NgxHeatMapModule } from 'ngx-heatmap';
     CustomSelectionTrackComponent,
     DeviceEstimationCardComponent,
     FlowMapComponent,
+    PositionFlowComponent,
   ],
   imports: [
     BrowserModule,

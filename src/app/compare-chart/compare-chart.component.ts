@@ -34,8 +34,8 @@ export class CompareChartComponent implements OnInit, OnDestroy {
   private resetChartSubscription: Subscription;
   private colorIndex = 0;
   private colorList: string[] = [
-    'rgba(255, 0, 0, 1)', 'rgba(0, 255, 0, 1)', 'rgba(0, 0, 255, 1)'
-    , 'rgba(255, 255, 0, 1)', 'rgba(0, 128, 128, 1)', 'rgba(128, 0, 0, 1)'
+    'rgba(255, 0, 0, 0.3)', 'rgba(0, 255, 0, 0.3)', 'rgba(0, 0, 255, 0.3)'
+    , 'rgba(255, 255, 0, 0.3)', 'rgba(0, 128, 128, 0.3)', 'rgba(128, 0, 0, 0.3)'
   ];
 
 

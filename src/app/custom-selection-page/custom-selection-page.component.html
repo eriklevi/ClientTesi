@@ -2,13 +2,17 @@
   <div fxFlex="20">
     <app-custom-selection></app-custom-selection>
   </div>
-  <div fxFlex fxFlexOrder="1">
-    <mat-card>
-      <mat-card-content>
-        <app-counted-packets-chart>
-        </app-counted-packets-chart>
-      </mat-card-content>
-    </mat-card>
+  <div fxFlex>
+    <div fxLayout="column">
+      <div fxFill>
+        <mat-card>
+          <mat-card-content>
+            <app-counted-packets-chart>
+            </app-counted-packets-chart>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
   </div>
 </div>
 

@@ -75,11 +75,69 @@ export class CountedPacketsChartComponent implements OnInit, OnDestroy {
   }
 
   buildingRequest(req: DataRequest) {
-    return null;
+    this.countedPacketsService.getCountedPacketsByBuilding(req.buildingId, req.fromTimestamp, req.toTimestamp, req.resolution)
+      .subscribe(
+      next => {
+        console.log(next);
+        this.barChartData = [
+          {data: next.map(item => item.distinctMacAddresses)
+            , label: 'Distinct global Mac Adresses'
+            , stack: 'global'
+            , backgroundColor: 'rgba(0,255,0,0.3)'
+            , borderColor: 'rgba(0,255,0,1)'
+            , hoverBackgroundColor: undefined
+            , hoverBorderColor: undefined},
+          {data: next.map(item => item.distinctFingerprints)
+            , label: 'Estimated devices based on fingerprint'
+            , stack: 'global'
+            , backgroundColor: 'rgba(0,0,255,0.3)'
+            , borderColor: 'rgba(0,0,255,1)'
+            , hoverBackgroundColor: undefined
+            , hoverBorderColor: undefined}
+        ];
+        this.barChartLabels = next.map( item => {
+          return moment(item.startTimestamp).locale('it').format('llll').toString();
+        });
+        this.dataReady = true;
+      },
+      error => {
+        this.alertService.error('Unable to fetch data!');
+      }
+    );
+    console.log(this.barChartData);
   }
 
   roomRequest(req: DataRequest) {
-    return null;
+    this.countedPacketsService.getCountedPacketsByRoom(req.buildingId
+      , req.roomId, req.fromTimestamp, req.toTimestamp, req.resolution).subscribe(
+      next => {
+        console.log(next);
+        this.barChartData = [
+          {data: next.map(item => item.distinctMacAddresses)
+            , label: 'Distinct global Mac Adresses'
+            , stack: 'global'
+            , backgroundColor: 'rgba(0,255,0,0.3)'
+            , borderColor: 'rgba(0,255,0,1)'
+            , hoverBackgroundColor: undefined
+            , hoverBorderColor: undefined},
+          {data: next.map(item => item.distinctFingerprints)
+            , label: 'Estimated devices based on fingerprint'
+            , stack: 'global'
+            , backgroundColor: 'rgba(0,0,255,0.3)'
+            , borderColor: 'rgba(0,0,255,1)'
+            , hoverBackgroundColor: undefined
+            , hoverBorderColor: undefined}
+        ];
+        this.barChartLabels = next.map( item => {
+          return moment(item.startTimestamp).locale('it').format('llll').toString();
+        });
+        this.dataReady = true;
+      },
+      error => {
+        this.alertService.error('Unable to fetch data!');
+      }
+    );
+    console.log(this.barChartData);
   }
 
   snifferRequest(req: DataRequest) {

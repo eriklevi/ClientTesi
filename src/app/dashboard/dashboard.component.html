@@ -1,41 +1,49 @@
-<div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="10px">
-  <div fxFlex="20">
-    <div>
-      <app-dashboard-side-nav></app-dashboard-side-nav>
-    </div>
-  </div>
-  <div fxFlex="80">
-    <div fxLayout="row" fxLayout.sm="column" fxLayoutGap="20px">
-      <div fxFlex fxFlexOrder="3">
-        <mat-card>
-          <mat-card-title>
-            <span >Mqtt connected clients</span>
-          </mat-card-title>
-          <div *ngIf="!mqttClientsLoaded">
-            <mat-spinner class="centra_spinner" diameter="30"></mat-spinner>
-          </div>
-          <div *ngIf="mqttClientsLoaded">
-            <mat-card-content>
-              <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center start">
-                <div fxFlex *ngFor="let c of mqttConnectedClients">
-                  {{c}}
-                </div>
-              </div>
-            </mat-card-content>
-            <mat-card-actions>
-              <button mat-raised-button color="primary" (click)="this.fetchConnectedClients()">
-                Reload
-              </button>
-            </mat-card-actions>
-          </div>
-        </mat-card>
-      </div>
-      <div fxFlex fxFlexOrder="2">
-        <app-statistics-chart></app-statistics-chart>
-      </div>
-      <div fxFlex fxFlexOrder="1">
-
-      </div>
-    </div>
-  </div>
+<div style="position: fixed; overflow: auto; height: 100%; width: 240px;">
+  <app-dashboard-side-nav></app-dashboard-side-nav>
 </div>
+<div style="position: fixed; height: calc(100% - 74px); width: calc(100% - 470px); margin-left: 240px; padding-left: 10px; padding-top: 10px;">
+    <div fxLayout="row" fxLayout.sm="column" fxLayoutGap="10px" fxLayoutAlign="start stretch">
+      <div fxFlex="70" fxFlexOrder="1" fxFlexAlign="stretch">
+        <div fxLayout="column">
+          <div fxFlex="100">
+            <app-device-estimation-card></app-device-estimation-card>
+          </div>
+        </div>
+      </div>
+      <div fxFlex="30" fxFlexOrder="2">
+        <div fxLayout="column" fxLayoutGap="10px">
+          <div fxFlex fxFlexOrder="2">
+            <mat-card>
+              <mat-card-title>
+                <span >Mqtt connected clients</span>
+              </mat-card-title>
+              <div *ngIf="!mqttClientsLoaded">
+                <mat-spinner class="centra_spinner" diameter="30"></mat-spinner>
+              </div>
+              <div *ngIf="mqttClientsLoaded">
+                <mat-card-content style="overflow: auto; max-height: 150px">
+                  <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center start">
+                    <div fxFlex *ngFor="let c of mqttConnectedClients">
+                      {{c}}
+                    </div>
+                    <div fxFlex *ngFor="let c of mqttConnectedClients">
+                      {{c}}
+                    </div>
+                  </div>
+                </mat-card-content>
+                <mat-card-actions>
+                  <button mat-raised-button color="primary" (click)="this.fetchConnectedClients()">
+                    Reload
+                  </button>
+                </mat-card-actions>
+              </div>
+            </mat-card>
+          </div>
+          <div fxFlex fxFlexOrder="1">
+            <app-statistics-chart></app-statistics-chart>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+

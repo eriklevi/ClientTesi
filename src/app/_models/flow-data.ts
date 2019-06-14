@@ -6,4 +6,6 @@ export class FlowData {
   hour: number;
   fiveMinute: number;
   heat: number[];
+  distinctFingerprints: number[];
+  distinctMacs: number[];
 }

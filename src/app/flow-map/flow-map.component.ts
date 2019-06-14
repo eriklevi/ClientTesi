@@ -6,7 +6,7 @@ import {concatMap, delay, mergeMap} from 'rxjs/operators';
 
 import * as moment from 'moment';
 import {Moment} from 'moment';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatSliderChange} from '@angular/material';
 import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
 
 declare const h337: any;
@@ -26,11 +26,11 @@ export class FlowMapComponent implements OnInit, AfterViewInit {
   private maxHeat: number;
   private showHeatMap = false;
   private heatmap: any;
-  private fdIndex = 0;
   from: number;
   to: number;
   currentValue: number;
   time: string;
+  disableSlider = false;
 
   constructor(
     private flowService: FlowService
@@ -38,7 +38,7 @@ export class FlowMapComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.from = 0;
-    this.flowService.getFlow(1559577469000, 1559663869000).subscribe(
+    this.flowService.getFlow(1559685600000, 1559772000000).subscribe(
       data => {
         this.flowData = data;
         let max = 0;
@@ -61,19 +61,21 @@ export class FlowMapComponent implements OnInit, AfterViewInit {
    mapIdToXY(id: string): any {
     switch (id) {
       case '5c64309d8d074152f93b5231':
-        return {x: 750, y: 150};
+        return {x: 783, y: 78};
       case '5cd45fa09469df2250bfe3a3':
-        return {x: 300, y: 175};
+        return {x: 559, y: 119};
       case '5cd588a89194be0001367cdf':
-        return {x: 950, y: 340};
+        return {x: 962, y: 176};
       case '5cdc21480e8e3d0001a471aa':
-        return {x: 50, y: 175};
+        return {x: 287, y: 116};
     }
   }
 
   updateHeatMap(flowData: FlowData) {
     const heat = flowData.heat;
     const ids = flowData.snifferId;
+    const macs = flowData.distinctMacs;
+    const fp = flowData.distinctFingerprints
     const points: any = [];
     for ( let i in ids) {
       points.push({
@@ -108,7 +110,7 @@ export class FlowMapComponent implements OnInit, AfterViewInit {
         // make observable to emit each element of the array (not the whole array)
         mergeMap((x: [any]) => from(x)),
         // delay each element by 1 sec
-        concatMap(x => of(x).pipe(delay(300)))
+        concatMap(x => of(x).pipe(delay(150)))
       )
       .subscribe(x => {
         this.updateHeatMap(x);
@@ -121,5 +123,19 @@ export class FlowMapComponent implements OnInit, AfterViewInit {
           , m: (x.fiveMinute - 1) * 5
         }).locale('it').format('llll').toString();
       });
+  }
+
+  onInputChange(event: MatSliderChange) {
+    console.log('This is emitted as the thumb slides');
+    console.log(event.value);
+    const x = this.flowData[event.value];
+    this.updateHeatMap(x);
+    this.time = moment({
+      y: x.year
+      , M: x.month - 1
+      , d: x.dayOfMonth
+      , h: x.hour
+      , m: (x.fiveMinute - 1) * 5
+    }).locale('it').format('llll').toString();
   }
 }
