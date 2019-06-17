@@ -24,4 +24,14 @@ export class FlowService {
         timeout(15000)
       );
   }
+
+  getPositionFlow(from: number, to: number): Observable<any> {
+    const params = new HttpParams()
+      .set('from', from.toString())
+      .set('to', to.toString());
+    return this.httpClient.get('http://' + host + ':' + port + '/packetsapi/flow2/', {params})
+      .pipe(
+        timeout(30000)
+      );
+  }
 }

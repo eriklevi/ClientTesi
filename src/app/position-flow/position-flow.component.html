@@ -1,3 +1,10 @@
-<p>
-  position-flow works!
-</p>
+<div id="heatmap" style="width: 1000px; height: 185px; background-image: url('../../assets/boellaPianoTerra.png')"></div>
+<div *ngIf="!loaded">
+  <mat-spinner class="centra_spinner" diameter="30"></mat-spinner>
+</div>
+<div *ngIf="loaded">
+  <button [disabled]="!loaded" mat-raised-button (click)="play()">play</button>
+  <button [disabled]="!loaded" mat-raised-button (click)="visualize()">next</button>
+  <mat-slider thumbLabel [min]="from" [max]="to" [disabled]="disableSlider"></mat-slider>
+  <p>{{time}}</p>
+</div>
