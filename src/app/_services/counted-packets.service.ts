@@ -74,7 +74,7 @@ export class CountedPacketsService {
   getLastEstimationBySnifferId(id: string): Observable<any> {
     return this.http.get('http://' + host + ':' + port + '/packetsapi/general/counted/' + id + '/last')
       .pipe(
-        timeout(7500)
+        timeout(30000)
       );
   }
 

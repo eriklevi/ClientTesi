@@ -42,7 +42,7 @@ export class PositionFlowComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit() {
-    this.flowService.getPositionFlow(1560747600000, 1560754800000)
+    this.flowService.getPositionFlow(1560852000000, 1560855600000)
       .subscribe(
         data => {
           this.positionFlowData = data;
@@ -62,7 +62,7 @@ export class PositionFlowComponent implements OnInit, AfterViewInit {
   }
 
   calculateDistance(rssi: number): number {
-    return Math.pow(10, (rssi + 50) / -20);
+    return (Math.pow(10, (rssi + 50) / -20)) * 14;
   }
 
   getNagonPoints(n: number, radius: number, xc: number, yc: number): any[] {
@@ -71,7 +71,7 @@ export class PositionFlowComponent implements OnInit, AfterViewInit {
       const point = {
         x: (radius * Math.cos((i * 6.28) / n)) + xc,
         y: (radius * Math.sin((i * 6.28) / n)) + yc,
-        value: 1 / n,
+        value: (1 / n) * 100,
         radius: 40
       };
       points.push(point);
@@ -95,13 +95,15 @@ export class PositionFlowComponent implements OnInit, AfterViewInit {
   play() {
     this.dataToVisualize = [];
     for (let e of this.positionFlowData) {
+      if (!this.dataToVisualize[e.minute - 1]) {
+        this.dataToVisualize[e.minute - 1] = {dataPoints: []};
+      }
       for (let dp of e.data) {
         const snifferPos = this.mapIdToXY(dp.snifferId);
         const dist = this.calculateDistance(dp.rssi);
-        this.getNagonPoints( Math.ceil(dist / 2), dist, snifferPos.x, snifferPos.y)
+        this.getNagonPoints( Math.ceil(dist / 5), dist, snifferPos.x, snifferPos.y)
           .map( elem => {
-            this.dataToVisualize[e.minute] = {dataPoints: []};
-            this.dataToVisualize[e.minute].dataPoints.push(elem);
+            this.dataToVisualize[e.minute - 1].dataPoints.push(elem);
           });
       }
     }
@@ -109,9 +111,10 @@ export class PositionFlowComponent implements OnInit, AfterViewInit {
   }
 
   visualize() {
-    if (this.completed) {
+    if (this.completed && this.fc < this.dataToVisualize.length) {
       this.heatmap.setData({
-        max: 1,
+        max: 100,
+        min: 0,
         data: this.dataToVisualize[this.fc++].dataPoints
       });
     }

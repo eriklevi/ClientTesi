@@ -56,9 +56,6 @@ export class DeviceEstimationCardComponent implements OnInit {
                 data2 => {
                   data1.mean = data2.mean;
                   this.lastCountedPackets.push(data1);
-                  this.lastCountedPackets.push(data1);
-                  this.lastCountedPackets.push(data1);
-                  this.lastCountedPackets.push(data1);
                   this.table.renderRows();
                 },
                 errore => {

@@ -31,7 +31,7 @@ export class FlowService {
       .set('to', to.toString());
     return this.httpClient.get('http://' + host + ':' + port + '/packetsapi/flow2/', {params})
       .pipe(
-        timeout(30000)
+        timeout(60000)
       );
   }
 }
