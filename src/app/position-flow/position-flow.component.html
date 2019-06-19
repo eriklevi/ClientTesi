@@ -1,10 +1,25 @@
-<div id="heatmap" style="width: 1000px; height: 185px; background-image: url('../../assets/boellaPianoTerra.png')"></div>
-<div *ngIf="!loaded">
-  <mat-spinner class="centra_spinner" diameter="30"></mat-spinner>
-</div>
-<div *ngIf="loaded">
-  <button [disabled]="!loaded" mat-raised-button (click)="play()">play</button>
-  <button [disabled]="!loaded" mat-raised-button (click)="visualize()">next</button>
-  <mat-slider thumbLabel [min]="from" [max]="to" [disabled]="disableSlider"></mat-slider>
-  <p>{{fc}}</p>
+<div fxLayout="column" fxLayoutGap="10px">
+  <div fxFlex="20">
+    <form [formGroup]="group">
+      <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center">
+        <mat-form-field>
+          <input matInput formControlName="startTime" type="time" placeholder="from" min="00:00" max="23:00" step="3600">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Date" [matDatepicker]="myDatepicker" [max]="maxDate" formControlName="dataSingola">
+          <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+          <mat-datepicker #myDatepicker></mat-datepicker>
+        </mat-form-field>
+        <button mat-raised-button (click)="fetchData()" color="primary">Get Data</button>
+        <button *ngIf="loaded" [disabled]="!loaded" mat-raised-button (click)="visualize()">next</button>
+        <p>{{fc}}</p>
+      </div>
+    </form>
+  </div>
+  <div fxFlex *ngIf="requestStart">
+    <mat-spinner class="centra_spinner" diameter="30"></mat-spinner>
+  </div>
+  <div fxFlex>
+    <div id="heatmap" style="width: 1000px; height: 185px; background-image: url('../../assets/boellaPianoTerra.png')"></div>
+  </div>
 </div>

@@ -1,12 +1,21 @@
-<div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end stretch">
-  <div fxFlex="20">
-    <app-custom-selection-track></app-custom-selection-track>
-  </div>
-  <div fxFlex fxFlexOrder="1">
-    <mat-card>
-      <mat-card-content>
-        <app-track-device-chart></app-track-device-chart>
-      </mat-card-content>
-    </mat-card>
-  </div>
-</div>
+<mat-tab-group>
+  <mat-tab label="Estimated Position">
+    <app-position-flow-by-mac></app-position-flow-by-mac>
+  </mat-tab>
+  <mat-tab label="Track Device">
+    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end stretch">
+      <div fxFlex="20">
+        <app-custom-selection-track></app-custom-selection-track>
+      </div>
+      <div fxFlex fxFlexOrder="1">
+        <mat-card>
+          <mat-card-content>
+            <app-track-device-chart></app-track-device-chart>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </mat-tab>
+
+</mat-tab-group>
+

@@ -34,4 +34,15 @@ export class FlowService {
         timeout(60000)
       );
   }
+
+  getPositionFlowByMac(from: number, to: number, mac: string): Observable<any> {
+    const params = new HttpParams()
+      .set('from', from.toString())
+      .set('to', to.toString())
+      .set('mac', mac);
+    return this.httpClient.get('http://' + host + ':' + port + '/packetsapi/flow2/', {params})
+      .pipe(
+        timeout(60000)
+      );
+  }
 }

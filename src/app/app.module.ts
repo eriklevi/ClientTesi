@@ -38,7 +38,14 @@ import {
   MatMenuModule,
   MatInputModule,
   MatProgressSpinnerModule,
-  MatTableModule, MatDialogModule, MatSnackBarModule, MatSliderModule, MatDatepickerModule, MatSlideToggleModule, MatChipsModule
+  MatTableModule,
+  MatDialogModule,
+  MatSnackBarModule,
+  MatSliderModule,
+  MatDatepickerModule,
+  MatSlideToggleModule,
+  MatChipsModule,
+  MatTabsModule
 } from '@angular/material';
 import {BuildingService} from './_services/building.service';
 import {RoomService} from './_services/room.service';
@@ -68,6 +75,9 @@ import { DeviceEstimationCardComponent } from './device-estimation-card/device-e
 import { FlowMapComponent } from './flow-map/flow-map.component';
 import { NgxHeatMapModule } from 'ngx-heatmap';
 import { PositionFlowComponent } from './position-flow/position-flow.component';
+import { PositionFlowByMacComponent } from './position-flow-by-mac/position-flow-by-mac.component';
+import {DataRequestService} from './_services/data-request.service';
+import {FlowService} from './_services/flow.service';
 
 
 @NgModule({
@@ -104,6 +114,7 @@ import { PositionFlowComponent } from './position-flow/position-flow.component';
     DeviceEstimationCardComponent,
     FlowMapComponent,
     PositionFlowComponent,
+    PositionFlowByMacComponent,
   ],
   imports: [
     BrowserModule,
@@ -138,7 +149,8 @@ import { PositionFlowComponent } from './position-flow/position-flow.component';
     MatSlideToggleModule,
     MatProgressSpinnerModule,
     MatChipsModule,
-    NgxHeatMapModule
+    NgxHeatMapModule,
+    MatTabsModule
   ],
   providers: [
     UserService,
@@ -148,6 +160,8 @@ import { PositionFlowComponent } from './position-flow/position-flow.component';
     BuildingService,
     RoomService,
     CountedPacketsService,
+    DataRequestService,
+    FlowService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
   ],
