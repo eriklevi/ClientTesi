@@ -1,63 +1,96 @@
-<div fxLayout="column" fxLayoutGap="25px">
+<div style="height: 10px;">
+  <mat-progress-bar *ngIf="requestStart" mode="indeterminate" color="warn"></mat-progress-bar>
+</div>
+<div fxLayout="column" fxLayoutGap="10px">
   <div fxFlex="20">
-    <form [formGroup]="group">
-      <div fxLayout="column" fxLayoutGap="10px">
-        <div fxFlex>
-          <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center">
-            <mat-form-field>
-              <input matInput formControlName="startTime" type="time" placeholder="from" min="00:00" max="23:00" step="3600">
-            </mat-form-field>
-            <mat-form-field>
-              <input matInput placeholder="Date" [matDatepicker]="myDatepicker" [max]="maxDate" formControlName="dataSingola">
-              <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
-              <mat-datepicker #myDatepicker></mat-datepicker>
-            </mat-form-field>
-            <button mat-raised-button (click)="fetchDevices()" color="primary">Get Devices</button>
-            <button *ngIf="loaded" [disabled]="!loaded" mat-raised-button (click)="visualize()">next</button>
+    <mat-card>
+        <form [formGroup]="group">
+          <div fxLayout="column" fxLayoutGap="10px">
+            <div fxFlex>
+              <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center">
+                <mat-form-field>
+                  <input matInput formControlName="startTime" type="time" placeholder="from" min="00:00" max="23:00" step="3600">
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput placeholder="Date" [matDatepicker]="myDatepicker" [max]="maxDate" formControlName="dataSingola">
+                  <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+                  <mat-datepicker #myDatepicker></mat-datepicker>
+                </mat-form-field>
+                <button mat-raised-button (click)="fetchDevices()" color="primary">Get Devices</button>
+              </div>
+            </div>
+            <div fxFlex *ngIf="showOui">
+              <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center">
+                <div *ngIf="showOui">
+                  <mat-form-field>
+                    <mat-select  placeholder="Producer" formControlName="oui" (selectionChange)="getShownDevices()">
+                      <mat-option *ngFor="let d of shownProducers" [value]="d">
+                        {{d}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div  *ngIf="showOui">
+                  <mat-form-field>
+                    <mat-select  placeholder="Device mac" formControlName="mac">
+                      <mat-option *ngFor="let d of shownDevices" [value]="d">
+                        {{d.mac}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div>
+                  <mat-form-field>
+                    <input matInput placeholder="Change date" [matDatepicker]="myDatepicker2" [max]="maxDate" formControlName="cambioData" [value]="this.group.get('dataSingola').value">
+                    <mat-datepicker-toggle matSuffix [for]="myDatepicker2"></mat-datepicker-toggle>
+                    <mat-datepicker #myDatepicker2></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div>
+                  <button mat-raised-button (click)="fetchData()" color="primary">Get Data</button>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div fxFlex *ngIf="showOui">
-          <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center">
-            <div *ngIf="showOui">
-              <mat-form-field>
-                <mat-select  placeholder="Producer" formControlName="oui" (selectionChange)="getShownDevices()">
-                  <mat-option *ngFor="let d of shownProducers" [value]="d">
-                    {{d}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div  *ngIf="showOui">
-              <mat-form-field>
-                <mat-select  placeholder="Device mac" formControlName="mac">
-                  <mat-option *ngFor="let d of shownDevices" [value]="d">
-                    {{d.mac}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div>
-              <mat-form-field>
-                <input matInput placeholder="Change date" [matDatepicker]="myDatepicker2" [max]="maxDate" formControlName="cambioData" [value]="this.group.get('dataSingola').value">
-                <mat-datepicker-toggle matSuffix [for]="myDatepicker2"></mat-datepicker-toggle>
-                <mat-datepicker #myDatepicker2></mat-datepicker>
-              </mat-form-field>
-            </div>
-            <div>
-              <button mat-raised-button (click)="fetchData()" color="primary">Get Data</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </form>
+        </form>
+    </mat-card>
   </div>
+  <!--
   <div fxFlex *ngIf="requestStart">
     <mat-spinner class="centra_spinner" diameter="30"></mat-spinner>
-  </div>
+  </div>-->
   <div fxFlex>
-    <div id="heatmap" style="width: 1000px; height: 185px; background-image: url('../../assets/boellaPianoTerra.png')" class="centra_spinner"></div>
-  </div>
-  <div fxFlex>
-    Current time: {{t}};
+    <mat-card>
+      <mat-card-content>
+        <div fxLayout="row" fxLayoutGap="10px">
+          <div fxFlex>
+            <div id="heatmap" style="width: 1000px; height: 185px; background-image: url('../../assets/boellaPianoTerra.png')" class="centra_spinner">
+              <canvas #myCanvas width = "1000" height="185" ></canvas>
+            </div>
+            <div>
+              Inizio Corridoio <mat-icon style="color: fuchsia">lens</mat-icon> <br>
+              Metà Corridoio <mat-icon style="color: #00ff00">lens</mat-icon> <br>
+              Scrivania <mat-icon style="color: red">lens</mat-icon> <br>
+              Ingresso Sala Conferenze <mat-icon style="color: blue">lens</mat-icon>
+            </div>
+          </div>
+          <div fxFlex>
+            <div fxLayout="column" fxLayoutAlign="end start" fxLayoutGap="10px">
+              <div fxFlex>
+                <button *ngIf="loaded" [disabled]="!loaded || fc >= dataToVisualize.length" mat-raised-button (click)="visualizeNext()" color="primary"><mat-icon>arrow_forward_ios</mat-icon></button>
+              </div>
+              <div fxFlex>
+                <button *ngIf="loaded" [disabled]="!loaded || fc < 2" mat-raised-button (click)="visualizePrevious()" color="primary"><mat-icon >arrow_back_ios</mat-icon></button>
+              </div>
+              <div>
+                <div fxFlex *ngIf="showTime">
+                  Current time: {{t}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
   </div>
 </div>

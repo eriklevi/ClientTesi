@@ -45,7 +45,7 @@ import {
   MatDatepickerModule,
   MatSlideToggleModule,
   MatChipsModule,
-  MatTabsModule
+  MatTabsModule, MatProgressBarModule
 } from '@angular/material';
 import {BuildingService} from './_services/building.service';
 import {RoomService} from './_services/room.service';
@@ -150,7 +150,8 @@ import {FlowService} from './_services/flow.service';
     MatProgressSpinnerModule,
     MatChipsModule,
     NgxHeatMapModule,
-    MatTabsModule
+    MatTabsModule,
+    MatProgressBarModule
   ],
   providers: [
     UserService,

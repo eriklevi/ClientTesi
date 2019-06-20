@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FlowService} from '../_services/flow.service';
 import {AlertService} from '../_services/alert.service';
 import {PositionFlowData} from '../_models/position-flow-data';
@@ -9,6 +9,8 @@ import {from} from 'rxjs';
 import {distinct, filter} from 'rxjs/operators';
 import {TrackingServiceService} from '../_services/tracking-service.service';
 import {DeviceInfo} from '../_models/device-info';
+import {isWhiteSpace} from 'tslint';
+import {formatNumber} from '@angular/common';
 
 declare const h337: any;
 
@@ -17,6 +19,7 @@ class DataPoint {
   y: number;
   value: number;
   radius: number;
+  snifferId: string;
 }
 
 class DataToVisualize {
@@ -30,6 +33,7 @@ class DataToVisualize {
 })
 export class PositionFlowByMacComponent implements OnInit, AfterViewInit {
 
+  @ViewChild('myCanvas') canvasRef: ElementRef;
   private positionFlowData: PositionFlowData[];
   private dataToVisualize: DataToVisualize[] = [];
   private maxHeat: number;
@@ -53,6 +57,8 @@ export class PositionFlowByMacComponent implements OnInit, AfterViewInit {
   public devices: DeviceInfo[];
   public shownDevices: DeviceInfo[] = [];
   private t: any;
+  private ctx: CanvasRenderingContext2D;
+  showTime = false;
 
   constructor(
     private flowService: FlowService,
@@ -77,38 +83,42 @@ export class PositionFlowByMacComponent implements OnInit, AfterViewInit {
     this.heatmap = h337.create({
       container: window.document.querySelector('#heatmap')
     });
+   this.ctx = this.canvasRef.nativeElement.getContext('2d');
   }
 
   calculateDistance(rssi: number): number {
-    return (Math.pow(10, (rssi + 50) / -20)) * 14;
+    return Math.round((Math.pow(10, (rssi + 50) / -20)) * 14);
   }
 
-  getNagonPoints(n: number, radius: number, xc: number, yc: number): any[] {
+  getNagonPoints(n: number, radius: number, xc: number, yc: number, id: string): any[] {
     const points: any[] = [];
     for (let i = 0; i < n; i++ ) {
       let point = {};
       if (radius / 14 <= 6) {
         point = {
-          x: (radius * Math.cos((i * 2 * Math.PI) / n)) + xc,
-          y: (radius * Math.sin((i * 2 * Math.PI) / n)) + yc,
+          x: Math.round((radius * Math.cos((i * 2 * Math.PI) / n)) + xc),
+          y: Math.round((radius * Math.sin((i * 2 * Math.PI) / n)) + yc),
           value: 100 / n,
-          radius: 3 * 14
+          radius: 3 * 14,
+          snifferId: id
         };
       }
       if (radius / 14 > 6 && radius / 14 <= 12) {
         point = {
-          x: (radius * Math.cos((i * 2 * Math.PI) / n)) + xc,
-          y: (radius * Math.sin((i * 2 * Math.PI) / n)) + yc,
+          x: Math.round((radius * Math.cos((i * 2 * Math.PI) / n)) + xc),
+          y: Math.round((radius * Math.sin((i * 2 * Math.PI) / n)) + yc),
           value: 100 / n,
-          radius: 4 * 14
+          radius: 4 * 14,
+          snifferId: id
         };
       }
       if (radius / 14 > 12 && radius / 14 <= 20) {
         point = {
-          x: (radius * Math.cos((i * 2 * Math.PI) / n)) + xc,
-          y: (radius * Math.sin((i * 2 * Math.PI) / n)) + yc,
-          value: 100 / n,
-          radius: 8 * 14
+          x: Math.round((radius * Math.cos((i * 2 * Math.PI) / n)) + xc),
+          y: Math.round((radius * Math.sin((i * 2 * Math.PI) / n)) + yc),
+          value: Math.round(100 / n),
+          radius: 8 * 14,
+          snifferId: id
         };
       }
       points.push(point);
@@ -138,7 +148,7 @@ export class PositionFlowByMacComponent implements OnInit, AfterViewInit {
       for (let dp of this.positionFlowData[e].data) {
         const snifferPos = this.mapIdToXY(dp.snifferId);
         const dist = this.calculateDistance(dp.rssi);
-        this.getNagonPoints( Math.ceil(dist / 2), dist, snifferPos.x, snifferPos.y)
+        this.getNagonPoints( Math.ceil(dist / 2), dist, snifferPos.x, snifferPos.y, dp.snifferId)
           .map( elem => {
             if (elem.x <= 1000 && elem.y <= 185 && elem.x >= 0 && elem.y >= 0) {
               this.dataToVisualize[e].dataPoints.push(elem);
@@ -149,24 +159,82 @@ export class PositionFlowByMacComponent implements OnInit, AfterViewInit {
     this.completed = true;
   }
 
-  visualize() {
+  visualizeNext() {
+    this.showTime = true;
     if (this.completed && this.fc < this.dataToVisualize.length) {
+      this.ctx.fillStyle = 'rgba(255 ,255, 255, 0)';
+      this.ctx.clearRect(0, 0, 1000, 185);
       this.heatmap.setData({
         max: 100,
         min: 0,
         data: this.dataToVisualize[this.fc].dataPoints
       });
-      this.t = this.positionFlowData[this.fc].hour.toString() + ':' + this.positionFlowData[this.fc].minute.toString();
+      this.t = formatNumber(this.positionFlowData[this.fc].hour, 'en-US', '2.0-0') + ':' + formatNumber(this.positionFlowData[this.fc].minute, 'en-US', '2.0-0');
+      for (const el of this.dataToVisualize[this.fc].dataPoints) {
+        switch (el.snifferId) {
+          case '5c64309d8d074152f93b5231':
+            this.ctx.fillStyle = 'rgb(255 ,0, 0)';
+            break;
+          case '5cd45fa09469df2250bfe3a3':
+            this.ctx.fillStyle = 'rgb(0,255,0)';
+            break;
+          case '5cd588a89194be0001367cdf':
+            this.ctx.fillStyle = 'rgb(0 ,0, 255)';
+            break;
+          case '5cdc21480e8e3d0001a471aa':
+            this.ctx.fillStyle = 'rgb(255 ,0, 255)';
+            break;
+        }
+        this.ctx.fillRect(el.x - 3, el.y - 3, 3, 3);
+      }
       this.fc ++;
      }
   }
 
+  visualizePrevious() {
+    if (this.fc < 2) {
+      return;
+    }
+    this.fc -= 2;
+    if (this.completed && this.fc >= 0) {
+      this.ctx.fillStyle = 'rgba(255 ,255, 255, 0)';
+      this.ctx.clearRect(0, 0, 1000, 185);
+      this.heatmap.setData({
+        max: 100,
+        min: 0,
+        data: this.dataToVisualize[this.fc].dataPoints
+      });
+      this.t =  formatNumber(this.positionFlowData[this.fc].hour, 'en-US', '2.0-0')  + ':' + formatNumber(this.positionFlowData[this.fc].minute, 'en-US', '2.0-0');
+      for (const el of this.dataToVisualize[this.fc].dataPoints) {
+        switch (el.snifferId) {
+          case '5c64309d8d074152f93b5231':
+            this.ctx.fillStyle = 'rgb(255 ,0, 0)';
+            break;
+          case '5cd45fa09469df2250bfe3a3':
+            this.ctx.fillStyle = 'rgb(0,255,0)';
+            break;
+          case '5cd588a89194be0001367cdf':
+            this.ctx.fillStyle = 'rgb(0 ,0, 255)';
+            break;
+          case '5cdc21480e8e3d0001a471aa':
+            this.ctx.fillStyle = 'rgb(255 ,0, 255)';
+            break;
+        }
+        this.ctx.fillRect(el.x - 3, el.y - 3, 3, 3);
+      }
+      this.fc ++;
+    }
+  }
+
   fetchData() {
+    this.showTime = false;
     if (!this.group.get('mac').value) {
       this.alertService.error('Invalid selection!');
       return;
     }
     this.fc = 0;
+    this.ctx.fillStyle = 'rgba(255 ,255, 255, 0)';
+    this.ctx.clearRect(0, 0, 1000, 185);
     this.heatmap.setData({
       max: 100,
       min: 0,
@@ -198,6 +266,7 @@ export class PositionFlowByMacComponent implements OnInit, AfterViewInit {
 
   fetchDevices() {
     this.shownProducers = [];
+    this.requestStart = true;
     this.loading = true;
     this.showOui = false;
     this.showMacs = false;
@@ -214,15 +283,18 @@ export class PositionFlowByMacComponent implements OnInit, AfterViewInit {
           ).subscribe(
             next1 => {
               this.shownProducers.push(next1.ouiCompleteName);
+              this.requestStart = false;
             }
           );
         }
         , error1 => {
           this.loading = false;
+          this.requestStart = false;
           this.alertService.error('Impossible to fetch devices info!');
         }, () => {
           this.loading = false;
           this.showOui = true;
+          this.requestStart = false;
         }
       );
   }
