@@ -1,15 +1,25 @@
 <mat-nav-list style="width: 100%; position: relative">
-  <h3 mat-subheader>Actions</h3>
+  <h3 mat-subheader>Devices Estimation</h3>
   <mat-list-item>
-    <mat-icon mat-list-icon>search</mat-icon>
-    <h4 mat-line routerLink="/dashboard/countedgraph">Detailed view</h4>
+    <mat-icon mat-list-icon>assessment</mat-icon>
+    <h4 mat-line routerLink="/dashboard/countedgraph">Detailed Chart</h4>
   </mat-list-item>
   <mat-list-item>
-    <mat-icon mat-list-icon>search</mat-icon>
-    <h4 mat-line routerLink="/dashboard/comparegraph">Compare view</h4>
+    <mat-icon mat-list-icon>assessment</mat-icon>
+    <h4 mat-line routerLink="/dashboard/comparegraph">Compare Charts</h4>
   </mat-list-item>
   <mat-divider></mat-divider>
-  <h3 mat-subheader>MQTT Broker</h3>
+  <h3 mat-subheader>Devices Tracking</h3>
+  <mat-list-item>
+    <mat-icon mat-list-icon>search</mat-icon>
+    <h4 mat-line routerLink="/dashboard/trackone">Track Device</h4>
+  </mat-list-item>
+  <mat-list-item>
+    <mat-icon mat-list-icon>search</mat-icon>
+    <h4 mat-line routerLink="/dashboard/flow2">General Flow</h4>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+  <h3 mat-subheader>MQTT Broker Controls</h3>
   <mat-list-item>
     <mat-icon mat-list-icon>pause_circle_filled</mat-icon>
     <h4 mat-line (click)="stopBroker()">Stop data collection</h4>
@@ -21,17 +31,5 @@
   <mat-list-item>
     <mat-icon mat-list-icon>cached</mat-icon>
     <h4 mat-line (click)="resetSniffers()">Reset sniffers</h4>
-  </mat-list-item>
-  <mat-list-item>
-    <mat-icon mat-list-icon>test</mat-icon>
-    <h4 mat-line routerLink="/dashboard/trackone">test</h4>
-  </mat-list-item>
-  <mat-list-item>
-    <mat-icon mat-list-icon>test2</mat-icon>
-    <h4 mat-line routerLink="/dashboard/flow">test2</h4>
-  </mat-list-item>
-  <mat-list-item>
-    <mat-icon mat-list-icon>test22</mat-icon>
-    <h4 mat-line routerLink="/dashboard/flow2">test2</h4>
   </mat-list-item>
 </mat-nav-list>
