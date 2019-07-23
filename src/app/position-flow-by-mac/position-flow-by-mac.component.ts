@@ -90,8 +90,15 @@ export class PositionFlowByMacComponent implements OnInit, AfterViewInit {
     return Math.round((Math.pow(10, (rssi + 50) / -20)) * 14);
   }
 
-  getNagonPoints(n: number, radius: number, xc: number, yc: number, id: string): any[] {
+  getNagonPoints(n: number, radius: number, xc: number, yc: number, id: string): /*any[]*/ any {
     const points: any[] = [];
+    return {
+      x : xc,
+      y : yc,
+      value: Math.round(100 / (radius / 14)),
+      snifferId: id,
+      radius : radius
+    }
     for (let i = 0; i < n; i++ ) {
       let point = {};
       if (radius / 14 <= 6) {
@@ -148,12 +155,13 @@ export class PositionFlowByMacComponent implements OnInit, AfterViewInit {
       for (let dp of this.positionFlowData[e].data) {
         const snifferPos = this.mapIdToXY(dp.snifferId);
         const dist = this.calculateDistance(dp.rssi);
-        this.getNagonPoints( Math.ceil(dist / 2), dist, snifferPos.x, snifferPos.y, dp.snifferId)
+        this.dataToVisualize[e].dataPoints.push(this.getNagonPoints( Math.ceil(dist / 2), dist, snifferPos.x, snifferPos.y, dp.snifferId));
+        /*this.getNagonPoints( Math.ceil(dist / 2), dist, snifferPos.x, snifferPos.y, dp.snifferId)
           .map( elem => {
             if (elem.x <= 1000 && elem.y <= 185 && elem.x >= 0 && elem.y >= 0) {
               this.dataToVisualize[e].dataPoints.push(elem);
             }
-          });
+          });*/
       }
     }
     this.completed = true;

@@ -26,6 +26,7 @@
               "src/styles.css"
             ],
             "scripts": [
+              "src/assets/heatmap.min.js"
             ]
           },
           "configurations": {

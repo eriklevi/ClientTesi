@@ -78,6 +78,7 @@ import { PositionFlowComponent } from './position-flow/position-flow.component';
 import { PositionFlowByMacComponent } from './position-flow-by-mac/position-flow-by-mac.component';
 import {DataRequestService} from './_services/data-request.service';
 import {FlowService} from './_services/flow.service';
+import { Flow3Component } from './flow3/flow3.component';
 
 
 @NgModule({
@@ -115,6 +116,7 @@ import {FlowService} from './_services/flow.service';
     FlowMapComponent,
     PositionFlowComponent,
     PositionFlowByMacComponent,
+    Flow3Component,
   ],
   imports: [
     BrowserModule,
