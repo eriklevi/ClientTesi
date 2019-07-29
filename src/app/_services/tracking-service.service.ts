@@ -26,7 +26,7 @@ export class TrackingServiceService {
     return this.http
       .get('http://' + host + ':' + port + '/packetsapi/track', {params})
       .pipe(
-        timeout(10000)
+        timeout(15000)
       );
   }
 
@@ -37,7 +37,7 @@ export class TrackingServiceService {
     return this.http
       .get('http://' + host + ':' + port + '/packetsapi/track/deviceinfo', {params})
       .pipe(
-        timeout(10000)
+        timeout(15000)
       );
   }
 }

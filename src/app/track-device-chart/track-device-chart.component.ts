@@ -47,6 +47,7 @@ export class TrackDeviceChartComponent implements OnInit, OnDestroy {
   fetchData(request: TrackDataRequest) {
     this.positionsLabels = [];
     this.loadingDataToDisplay = true;
+    this.dataReady = false;
     this.scatterChartData = [];
     this.trackingService.trackDeviceByDayAndMac(request.mac, request.timestampFrom, request.timestampTo).subscribe(
       e => {
@@ -195,8 +196,10 @@ export class TrackDeviceChartComponent implements OnInit, OnDestroy {
           }
         }};
         this.dataReady = true;
+        this.loadingDataToDisplay = false;
       }, error1 => {
         this.alertService.error('Impossible to fetch device data!');
+        this.loadingDataToDisplay = false;
       }
     );
   }
