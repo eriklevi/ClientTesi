@@ -19,7 +19,7 @@ export class UserCreatorComponent implements OnInit {
       'mail': new FormControl('', Validators.compose([Validators.required, Validators.email])),
       'username': new FormControl('', Validators.compose([Validators.required])),
       'password': new FormControl('', Validators.compose([Validators.required, Validators.minLength(8)])),
-      'makeAdmin': new FormControl()
+      'role': new FormControl()
     });
   }
 
@@ -35,7 +35,7 @@ export class UserCreatorComponent implements OnInit {
     user.username = this.newUser.get('username').value;
     user.mail = this.newUser.get('mail').value;
     if (this.newUser.get('makeAdmin').value === true ) {
-      user.roles = ['USER', 'ADMIN', 'SNIFFER'];
+      this.userService.restrictedCreateAdmin(user).subscribe
     } else {
       user.roles = ['USER'];
     }

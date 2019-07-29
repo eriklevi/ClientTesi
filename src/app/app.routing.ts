@@ -46,7 +46,7 @@ const appRoutes: Routes = [
       { path: 'create/room', component: RoomCreatorComponent, canActivate: [AdminGuard] },
     ]},
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  { path: 'restrictedCreateUser', component: RegisterComponent },
   // otherwise redirect to home
   { path: '**', redirectTo: '' }
 ];

@@ -55,7 +55,7 @@ export class RegisterComponent implements OnInit {
     user.mail = this.registerForm.get('mail').value;
     user.password = this.registerForm.get('password').value;
     user.roles = ['USER', 'ADMIN', 'SNIFFER'];
-    this.userService.register(user)
+    this.userService.restrictedCreateUser(user)
       .pipe(first())
       .subscribe(
         data => {

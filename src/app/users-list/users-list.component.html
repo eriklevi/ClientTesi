@@ -1,37 +1,43 @@
-<div fxLayout="row">
-  <div fxLayoutAlign="end center" fxFlex="100">
-    <button mat-raised-button color="primary" routerLink="/create/user">New User</button>
+<div style="height: 10px;">
+  <mat-progress-bar *ngIf="requestStart" mode="indeterminate" color="warn"></mat-progress-bar>
+</div>
+<div fxLayout="column" fxLayoutGap="10px">
+  <div fxFlex>
+    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center">
+      <button mat-raised-button color="primary" routerLink="/create/user">New User</button>
+    </div>
+  </div>
+  <div fxFlex>
+    <div style="overflow: auto;max-height: calc(100vh - 158px); position: relative;">
+      <table mat-table [dataSource]="userList">
+        <ng-container matColumnDef="username">
+          <th mat-header-cell *matHeaderCellDef>Username</th>
+          <td mat-cell *matCellDef="let element" >{{element.username}}</td>
+        </ng-container>
+        <ng-container matColumnDef="mail">
+          <th mat-header-cell *matHeaderCellDef>Email</th>
+          <td mat-cell *matCellDef="let element">{{element.mail}}</td>
+        </ng-container>
+        <ng-container matColumnDef="roles">
+          <th mat-header-cell *matHeaderCellDef>Roles</th>
+          <td mat-cell *matCellDef="let element">{{element.roles}}</td>
+        </ng-container>
+        <ng-container matColumnDef="details">
+          <th mat-header-cell *matHeaderCellDef>Details</th>
+          <td mat-cell *matCellDef="let element"><mat-icon (click)="deleteUser(element.id)" color="primary">search</mat-icon></td>
+        </ng-container>
+        <ng-container matColumnDef="update">
+          <th mat-header-cell *matHeaderCellDef>Update</th>
+          <td mat-cell *matCellDef="let element"><mat-icon (click)="deleteUser(element.id)" color="accent">autorenew</mat-icon></td>
+        </ng-container>
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef>Delete</th>
+          <td mat-cell *matCellDef="let element"><mat-icon (click)="deleteUser(element.id)" color="warn">delete</mat-icon></td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
   </div>
 </div>
-<div fxLayout="row">
-  <div fxFlex="100">
-    <table mat-table [dataSource]="userList">
-      <ng-container matColumnDef="username">
-        <th mat-header-cell *matHeaderCellDef>Username</th>
-        <td mat-cell *matCellDef="let element" >{{element.username}}</td>
-      </ng-container>
-      <ng-container matColumnDef="mail">
-        <th mat-header-cell *matHeaderCellDef>Email</th>
-        <td mat-cell *matCellDef="let element">{{element.mail}}</td>
-      </ng-container>
-      <ng-container matColumnDef="roles">
-        <th mat-header-cell *matHeaderCellDef>Roles</th>
-        <td mat-cell *matCellDef="let element">{{element.roles}}</td>
-      </ng-container>
-      <ng-container matColumnDef="details">
-        <th mat-header-cell *matHeaderCellDef>Details</th>
-        <td mat-cell *matCellDef="let element"><mat-icon (click)="deleteUser(element.id)" color="primary">search</mat-icon></td>
-      </ng-container>
-      <ng-container matColumnDef="update">
-        <th mat-header-cell *matHeaderCellDef>Update</th>
-        <td mat-cell *matCellDef="let element"><mat-icon (click)="deleteUser(element.id)" color="accent">autorenew</mat-icon></td>
-      </ng-container>
-      <ng-container matColumnDef="delete">
-        <th mat-header-cell *matHeaderCellDef>Delete</th>
-        <td mat-cell *matCellDef="let element"><mat-icon (click)="deleteUser(element.id)" color="warn">delete</mat-icon></td>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    </table>
-  </div>
-</div>
+

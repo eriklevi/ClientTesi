@@ -15,9 +15,25 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  register(user: User) {
+  restrictedCreateUser(user: User) {
     return this.http
       .post('http://' + host + ':' + port + '/usersapi/restricted/users', user)
+      .pipe(
+        timeout(7500)
+      );
+  }
+
+  restrictedCreateAdmin(user: User) {
+    return this.http
+      .post('http://' + host + ':' + port + '/usersapi/restricted/admins', user)
+      .pipe(
+        timeout(7500)
+      );
+  }
+
+  restrictedCreateSniffer(user: User) {
+    return this.http
+      .post('http://' + host + ':' + port + '/usersapi/restricted/sniffers', user)
       .pipe(
         timeout(7500)
       );

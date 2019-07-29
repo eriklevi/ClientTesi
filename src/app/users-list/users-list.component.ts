@@ -3,6 +3,7 @@ import {UserService} from '../_services/user.service';
 import {User} from '../_models/user';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../_services/authentication.service';
+import {AlertService} from '../_services/alert.service';
 
 @Component({
   selector: 'app-user-viewer',
@@ -13,12 +14,14 @@ export class UsersListComponent implements OnInit {
 
   userList: User[];
   displayedColumns: string[] = ['username', 'mail', 'roles', 'details', 'update', 'delete' ];
+  requestStart = false;
 
 
   constructor(
     private userService: UserService,
     private router: Router,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private alertService: AlertService
   ) {
   }
 
@@ -27,6 +30,7 @@ export class UsersListComponent implements OnInit {
   }
 
   fetchUsers(): void {
+    this.requestStart = true;
     this.userService
       .getUsers()
       .subscribe(
@@ -37,8 +41,10 @@ export class UsersListComponent implements OnInit {
           if (index > -1) {
             this.userList.splice(index, 1);
           }
+          this.requestStart = false;
         }, error => {
-          console.log(error.name);
+          this.alertService.error('Impossible to fetch users details!');
+          this.requestStart = false;
         }
       );
   }
@@ -48,12 +54,17 @@ export class UsersListComponent implements OnInit {
   }
 
   deleteUser(id: string) {
+    this.requestStart = true;
+    const index: number = this.userList.findIndex(user => user.id === id);
+    const userName: string = this.userList[index].username;
     this.userService.deleteUser(id).subscribe(
       data => {
-        const index: number = this.userList.findIndex(user => user.id === id);
         this.userList.splice(index, 1);
+        this.requestStart = false;
+        this.alertService.success('User ' + userName + ' deleted!' );
       }, error => {
-        console.log(error.name);
+        this.alertService.error('Impossible to delete the selected user!');
+        this.requestStart = false;
       }
     );
   }
