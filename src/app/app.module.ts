@@ -79,6 +79,7 @@ import { PositionFlowByMacComponent } from './position-flow-by-mac/position-flow
 import {DataRequestService} from './_services/data-request.service';
 import {FlowService} from './_services/flow.service';
 import { Flow3Component } from './flow3/flow3.component';
+import {BrokerService} from './_services/broker.service';
 
 
 @NgModule({
@@ -165,6 +166,7 @@ import { Flow3Component } from './flow3/flow3.component';
     CountedPacketsService,
     DataRequestService,
     FlowService,
+    BrokerService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
   ],

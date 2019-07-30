@@ -12,7 +12,7 @@ import {AlertService} from '../_services/alert.service';
 })
 export class SnifferListComponent implements OnInit {
 
-  snifferList: Sniffer[]; // the sniffers displayed
+  displayedSniffers: Sniffer[]; // the sniffers displayed
   fetchedSniffersList: Sniffer[]; // the sniffers fetched, to avoid multiple useless calls
   searchString: string;
   errorMessage: string;
@@ -39,11 +39,8 @@ export class SnifferListComponent implements OnInit {
       .subscribe(
         sniffers => {
           this.fetchedSniffersList = sniffers;
-          this.snifferList = sniffers;
-          this.snifferList = this.snifferList.concat(this.snifferList);
-          this.snifferList = this.snifferList.concat(this.snifferList);
-          this.snifferList = this.snifferList.concat(this.snifferList);
           this.fetchConnectedClients();
+          this.displayedSniffers = this.fetchedSniffersList;
           this.requestStart = false;
         }, error => {
           console.error(error.name);
@@ -56,8 +53,8 @@ export class SnifferListComponent implements OnInit {
     this.snifferService.deleteSnifferById(id)
       .subscribe(
         data => {
-          const index: number = this.snifferList.findIndex( sniffer => sniffer.id === id);
-          this.snifferList.splice(index, 1);
+          const index: number = this.displayedSniffers.findIndex( sniffer => sniffer.id === id);
+          this.displayedSniffers.splice(index, 1);
         }, error => {
           console.error(error.name);
         }
@@ -65,18 +62,21 @@ export class SnifferListComponent implements OnInit {
   }
 
   searchByMac() {
+    if (this.searchString === undefined) {
+      return;
+    }
     this.requestStart = true;
     let result: Sniffer[] = null;
     if (this.searchString.match('^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$')) {
       let proxy = this.searchString;
       proxy = proxy.toLowerCase(); // mac address are stored lowercase in db
-      result = this.snifferList.filter( x => x.mac === proxy);
+      result = this.displayedSniffers.filter( x => x.mac === proxy);
       if (result.length === 0) {
         this.errorMessage = 'No results!';
         this.showOkSnackBar(this.errorMessage);
         this.requestStart = false;
       } else {
-        this.snifferList = result;
+        this.displayedSniffers = result;
         this.requestStart = false;
       }
     } else {
@@ -87,11 +87,14 @@ export class SnifferListComponent implements OnInit {
   }
 
   searchByName() {
+    if (this.searchString === undefined) {
+      return;
+    }
     this.requestStart = true;
     let result: Sniffer[] = null;
-    result = this.snifferList.filter(x => x.name === this.searchString);
+    result = this.displayedSniffers.filter(x => x.name === this.searchString);
     if (result.length > 0) {
-      this.snifferList = result;
+      this.displayedSniffers = result;
       this.requestStart = false;
     } else {
       this.errorMessage = 'No results!';
@@ -101,11 +104,14 @@ export class SnifferListComponent implements OnInit {
   }
 
   searchByBuilding() {
+    if (this.searchString === undefined) {
+      return;
+    }
     this.requestStart = true;
     let result: Sniffer[] = null;
-    result = this.snifferList.filter(x => x.buildingName === this.searchString);
+    result = this.displayedSniffers.filter(x => x.buildingName === this.searchString);
     if (result.length > 0) {
-      this.snifferList = result;
+      this.displayedSniffers = result;
       this.requestStart = false;
     } else {
       this.errorMessage = 'No results!';
@@ -115,11 +121,14 @@ export class SnifferListComponent implements OnInit {
   }
 
   searchByRoom() {
+    if (this.searchString === undefined) {
+      return;
+    }
     this.requestStart = false;
     let result: Sniffer[] = null;
-    result = this.snifferList.filter(x => x.roomName === this.searchString);
+    result = this.displayedSniffers.filter(x => x.roomName === this.searchString);
     if (result.length > 0) {
-      this.snifferList = result;
+      this.displayedSniffers = result;
       this.requestStart = false;
     } else {
       this.errorMessage = 'No results!';
@@ -137,11 +146,13 @@ export class SnifferListComponent implements OnInit {
       .getConnectedSniffers()
       .subscribe( data => {
         this.connectedClients = data;
-        this.snifferList.forEach(sniffer => {
-          if (this.connectedClients.includes(sniffer.macID) && sniffer.status == null) {
+        this.fetchedSniffersList.forEach(sniffer => {
+          if (sniffer.status == null) {
+            if (this.connectedClients.includes(sniffer.macID)) {
               sniffer.status = 'Connected';
-          } else {
-            sniffer.status = 'Disconnected';
+            } else {
+              sniffer.status = 'Disconnected';
+            }
           }
         });
       }, error => {
@@ -156,7 +167,7 @@ export class SnifferListComponent implements OnInit {
       .subscribe(
         next => {
           this.alertService.success('Sniffer is resetting');
-          this.snifferList.find(s => s.macID === macID).status = 'resetting';
+          this.displayedSniffers.find(s => s.macID === macID).status = 'resetting';
           this.requestStart = false;
         },
         error1 => {
@@ -167,6 +178,6 @@ export class SnifferListComponent implements OnInit {
   }
 
   reloadSniffers() {
-    this.snifferList = this.fetchedSniffersList;
+    this.displayedSniffers = this.fetchedSniffersList;
   }
 }
