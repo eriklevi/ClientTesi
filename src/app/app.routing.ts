@@ -22,6 +22,7 @@ import {TrackDevicePageComponent} from './track-device-page/track-device-page.co
 import {FlowMapComponent} from './flow-map/flow-map.component';
 import {PositionFlowComponent} from './position-flow/position-flow.component';
 import {Flow3Component} from './flow3/flow3.component';
+import {LocationsComponent} from './locations/locations.component';
 
 
 const appRoutes: Routes = [
@@ -44,6 +45,7 @@ const appRoutes: Routes = [
       { path: 'buildings', component: BuildingListComponent, canActivate: [AdminGuard] },
       { path: 'create/building', component: BuildingCreatorComponent, canActivate: [AdminGuard] },
       { path: 'create/room', component: RoomCreatorComponent, canActivate: [AdminGuard] },
+      { path: 'locations', component: LocationsComponent, canActivate: [AdminGuard] },
     ]},
   { path: 'login', component: LoginComponent },
   { path: 'restrictedCreateUser', component: RegisterComponent },

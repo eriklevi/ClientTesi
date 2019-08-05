@@ -1,0 +1,73 @@
+<div style="height: 10px;">
+  <mat-progress-bar *ngIf="requestStart" mode="indeterminate" color="warn"></mat-progress-bar>
+</div>
+<div fxLayout="row" fxLayoutGap="10px">
+  <div fxFlex>
+    <mat-card>
+      <mat-card-title>
+        <span>Buildings</span>
+      </mat-card-title>
+      <mat-card-content>
+        <div fxLayout="column" fxLayoutGap="10px">
+          <div fxFlex>
+            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center">
+              <mat-form-field>
+                <input matInput placeholder="New Building" type="text" [(ngModel)]="name">
+              </mat-form-field>
+              <button mat-raised-button color="primary" (click)="createBuilding()">Add New Building</button>
+              <button mat-raised-button color="primary" (click)="fetchBuildings()">Reload</button>
+            </div>
+          </div>
+          <div fxFlex>
+            <div style="overflow: auto; height:  calc(100vh - 210px)">
+              <mat-nav-list>
+                <mat-list-item *ngFor="let b of buildingList" (click)="fetchRooms(b)">
+                  <mat-icon mat-list-icon>location_city</mat-icon>
+                  <h4 mat-line>{{b?.name}}</h4>
+                  <p mat-line *ngIf="b?.rooms == null">Number of rooms: 0</p>
+                  <p mat-line *ngIf="b?.rooms != null">Number of rooms: {{b?.rooms.length}} </p>
+                </mat-list-item>
+              </mat-nav-list>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex>
+    <mat-card>
+      <mat-card-title>
+        <span>Rooms</span>
+      </mat-card-title>
+      <mat-card-content *ngIf="currentBuilding == null">
+        <p>No Building selected yet!</p>
+      </mat-card-content>
+      <mat-card-content *ngIf="currentBuilding != null">
+        <div fxLayout="column" fxLayoutGap="10px">
+          <div fxFlex>
+            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center">
+              <mat-form-field>
+                <input matInput placeholder="New Room" type="text" [(ngModel)]="roomName">
+              </mat-form-field>
+              <button mat-raised-button color="primary" (click)="createRoom()">Add New Room</button>
+              <button mat-raised-button color="primary" (click)="fetchBuildings()">Reload</button>
+            </div>
+          </div>
+          <div fxFlex>
+            <h1>{{currentBuilding.name}}</h1>
+            <div style="overflow: auto; height:  calc(100vh - 280px)">
+              <mat-list>
+                <mat-list-item *ngFor="let b of roomList">
+                  <mat-icon mat-list-icon>location_city</mat-icon>
+                  <h4 mat-line>{{b?.name}}</h4>
+                  <p mat-line *ngIf="b?.sniffers == null">Number of sniffers: 0</p>
+                  <p mat-line *ngIf="b?.sniffers != null">Number of sniffers: {{b?.sniffers.length}} </p>
+                </mat-list-item>
+              </mat-list>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

@@ -80,6 +80,7 @@ import {DataRequestService} from './_services/data-request.service';
 import {FlowService} from './_services/flow.service';
 import { Flow3Component } from './flow3/flow3.component';
 import {BrokerService} from './_services/broker.service';
+import { LocationsComponent } from './locations/locations.component';
 
 
 @NgModule({
@@ -118,6 +119,7 @@ import {BrokerService} from './_services/broker.service';
     PositionFlowComponent,
     PositionFlowByMacComponent,
     Flow3Component,
+    LocationsComponent,
   ],
   imports: [
     BrowserModule,
