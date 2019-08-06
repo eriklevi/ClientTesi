@@ -50,7 +50,8 @@ export class LocationsComponent implements OnInit {
       const s = this.name.trim();
       if (s && s !== '') {
         const b: Building = new Building();
-        b.name = this.name;
+        b.name = s;
+        this.name = '';
         this.buildingService.addBuilding(b)
           .subscribe(
             data => {
@@ -73,11 +74,53 @@ export class LocationsComponent implements OnInit {
   }
 
   createRoom() {
-
+    this.requestStart = true;
+    if (!this.roomName) {
+      this.requestStart = false;
+      this.alertService.error('A name is required!');
+      return;
+    }
+    const s = this.roomName.trim();
+    if (s && s !== '') {
+      const room: Room = new Room();
+      room.name = s;
+      this.roomName = '';
+      this.buildingService.addRoomToBuildingById(this.currentBuilding.id, room).subscribe(
+        next => {
+          this.alertService.success('Room ' +  room.name + ' correctly added to building ' + this.currentBuilding.name);
+          this.buildingService
+            .getBuildings()
+            .subscribe(
+              data => {
+                this.buildingList = data;
+                const building = this.buildingList.find(b => b.id === this.currentBuilding.id);
+                if (building) {
+                  this.currentBuilding = building;
+                  this.fetchRooms(building);
+                } else {
+                  // questo event non dovrebbe capitare mai
+                  this.alertService.error('No building matching!');
+                }
+              }, error1 => {
+                this.requestStart = false;
+                this.alertService.error('Impossible to fetch building ' + this.currentBuilding.name + ' info after update!')
+              }
+            );
+            }, error1 => {
+          this.alertService.error('Impossible to add the new room!');
+          this.requestStart = false;
+        }
+      );
+    } else {
+      this.requestStart = false;
+      this.alertService.error('A name is required!');
+    }
   }
 
   fetchRooms(b: Building) {
-    if (b.rooms.length === 0 ) {
+    this.currentBuilding = b;
+    if (!b.rooms) {
+      this.roomList = [];
       return;
     }
     this.requestStart = true;
@@ -89,11 +132,6 @@ export class LocationsComponent implements OnInit {
         .subscribe(
           next => {
             requestCounter ++;
-            this.roomList.push(next);
-            this.roomList.push(next);
-            this.roomList.push(next);
-            this.roomList.push(next);
-            this.roomList.push(next);
             this.roomList.push(next);
             if (requestCounter === b.rooms.length) {
               this.requestStart = false;

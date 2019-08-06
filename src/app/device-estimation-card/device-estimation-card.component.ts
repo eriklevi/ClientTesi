@@ -6,6 +6,7 @@ import {Sniffer} from '../_models/sniffer';
 import {CountedPacketsService} from '../_services/counted-packets.service';
 import {MatTable} from '@angular/material';
 import {CountResultMean} from '../_models/count-result-mean';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-device-estimation-card',
@@ -14,7 +15,7 @@ import {CountResultMean} from '../_models/count-result-mean';
 })
 export class DeviceEstimationCardComponent implements OnInit {
 
-  displayedColumns: string[] = ['name', 'building', 'room', 'total', 'mean'];
+  displayedColumns: string[] = ['name', 'building', 'room', 'time', 'total', 'mean'];
   snifferList: Sniffer[];
   lastCountedPackets: CountResult[] = [];
   means: CountResultMean[] = [];
@@ -51,7 +52,7 @@ export class DeviceEstimationCardComponent implements OnInit {
       this.countedPacketsService.getLastEstimationBySnifferId(s.id)
         .subscribe(
           data1 => {
-            this.countedPacketsService.getMeanBySnifferId(s.id, time)
+            this.countedPacketsService.getMeanBySnifferId(s.id, data1.startTimestamp)
               .subscribe(
                 data2 => {
                   data1.mean = data2.mean;
@@ -70,5 +71,9 @@ export class DeviceEstimationCardComponent implements OnInit {
           },
         );
     }
+  }
+
+  getTimestampAsZonedString(timestamp: number): string {
+    return moment(timestamp).locale('it').format('llll').toString();
   }
 }

@@ -50,13 +50,14 @@
                 <input matInput placeholder="New Room" type="text" [(ngModel)]="roomName">
               </mat-form-field>
               <button mat-raised-button color="primary" (click)="createRoom()">Add New Room</button>
-              <button mat-raised-button color="primary" (click)="fetchBuildings()">Reload</button>
+              <button mat-raised-button color="primary" (click)="fetchRooms(currentBuilding)">Reload</button>
             </div>
           </div>
           <div fxFlex>
             <h1>{{currentBuilding.name}}</h1>
             <div style="overflow: auto; height:  calc(100vh - 280px)">
-              <mat-list>
+              <p *ngIf="!currentBuilding.rooms">The building doesn't have rooms yet!</p>
+              <mat-list *ngIf="currentBuilding.rooms">
                 <mat-list-item *ngFor="let b of roomList">
                   <mat-icon mat-list-icon>location_city</mat-icon>
                   <h4 mat-line>{{b?.name}}</h4>

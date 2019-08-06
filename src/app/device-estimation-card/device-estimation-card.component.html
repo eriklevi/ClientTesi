@@ -23,6 +23,10 @@
                 <th mat-header-cell *matHeaderCellDef>Room</th>
                 <td mat-cell *matCellDef="let element">{{element.roomName}}</td>
               </ng-container>
+              <ng-container matColumnDef="time">
+                <th mat-header-cell *matHeaderCellDef>Time</th>
+                <td mat-cell *matCellDef="let element">{{getTimestampAsZonedString(element.startTimestamp)}}</td>
+              </ng-container>
               <ng-container matColumnDef="total">
                 <th mat-header-cell *matHeaderCellDef>Estimated Devices</th>
                 <td mat-cell *matCellDef="let element">{{element.totalEstimatedDevices}}</td>
