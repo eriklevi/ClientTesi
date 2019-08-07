@@ -6,3 +6,7 @@
   bottom: 0;
   margin: auto;
 }
+
+.card {
+  height: calc(100vh - 452px);
+}

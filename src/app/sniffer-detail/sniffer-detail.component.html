@@ -1,41 +1,66 @@
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>
-      Sniffer {{this.sniffer?.name}}
-
-    </mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <section class="example-section">
-      Mac Address: {{this.sniffer?.mac}}
-    </section>
-    <section class="example-section">
-      Broker Address: {{this.sniffer?.configuration.brokerAddress}}
-
-      Broker Port: {{this.sniffer?.configuration.brokerPort}}
-    </section>
-    <section class="example-section">
-      Last Will Topic: {{this.sniffer?.configuration.lwtTopic}}
-
-      Last Will Message: {{this.sniffer?.configuration.lwtMessage}}
-
-      Topic : {{this.sniffer?.configuration.topic}}
-    </section>
-    <section class="example-section">
-      Building: {{this.sniffer?.buildingName}}
-
-      Room: {{this.sniffer?.roomName}}
-    </section>
-    <section class="example-section">
-      Rssi Thrashold: {{this.sniffer?.configuration.powerThrashold}}
-    </section>
-    <section class="example-section">
-      <mat-checkbox color="primary" disabled="true" [checked]="sniffer?.configuration.dumpMode">Dump Mode</mat-checkbox>
-    </section>
-    <section class="example-section">
-      <mat-checkbox color="primary" disabled="true" [checked]="sniffer?.configuration.privacyMode">Privacy Mode</mat-checkbox>
-    </section>
-
-  </mat-card-content>
-</mat-card>
-
+<div fxLayout="row">
+  <div fxFlex>
+  </div>
+  <div fxFlex>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          Sniffer {{this.sniffer?.name}}
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <table>
+          <tr>
+            <td>
+              Mac Address: {{this.sniffer?.mac}}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Building: {{this.sniffer?.buildingName}}
+            </td>
+            <td>
+              Room: {{this.sniffer?.roomName}}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Broker Address: {{this.sniffer?.configuration.brokerAddress}}
+            </td>
+            <td>
+              Broker Port: {{this.sniffer?.configuration.brokerPort}}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Topic : {{this.sniffer?.configuration.topic}}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Rssi Thrashold: {{this.sniffer?.configuration.powerThrashold}}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Last Will Topic: {{this.sniffer?.configuration.lwtTopic}}
+            </td>
+            <td>
+              Last Will Message: {{this.sniffer?.configuration.lwtMessage}}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox color="primary" disabled="true" [checked]="sniffer?.configuration.dumpMode">Dump Mode</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox color="primary" disabled="true" [checked]="sniffer?.configuration.privacyMode">Privacy Mode</mat-checkbox>
+            </td>
+          </tr>
+        </table>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex>
+  </div>
+</div>

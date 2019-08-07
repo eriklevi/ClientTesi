@@ -21,7 +21,7 @@
                 <mat-spinner class="centra_spinner" diameter="30"></mat-spinner>
               </div>
               <div *ngIf="mqttClientsLoaded">
-                <mat-card-content style="overflow: auto; max-height: 150px">
+                <mat-card-content style="overflow: auto; height: 175px">
                   <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center start">
                     <div fxFlex *ngFor="let c of mqttConnectedClients">
                       {{c}}

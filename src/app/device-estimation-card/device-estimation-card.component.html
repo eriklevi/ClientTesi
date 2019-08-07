@@ -9,7 +9,7 @@
     <div *ngIf="loaded">
       <div fxLayout="column">
         <div fxFlex="100">
-          <div style="overflow: auto;max-height: calc(100vh - 158px); position: relative;">
+          <div style="overflow: auto;height: calc(100vh - 150px); position: relative;">
             <table mat-table [dataSource]="lastCountedPackets">
               <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef>Name</th>
