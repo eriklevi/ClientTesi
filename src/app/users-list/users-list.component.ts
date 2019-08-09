@@ -4,6 +4,8 @@ import {User} from '../_models/user';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../_services/authentication.service';
 import {AlertService} from '../_services/alert.service';
+import {MatDialog} from '@angular/material';
+import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-user-viewer',
@@ -21,7 +23,8 @@ export class UsersListComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private authenticationService: AuthenticationService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    public dialog: MatDialog
   ) {
   }
 
@@ -52,21 +55,14 @@ export class UsersListComponent implements OnInit {
   updateUser(id: string) {
     this.router.navigate(['users', id, 'update']);
   }
-
-  deleteUser(id: string) {
-    this.requestStart = true;
-    const index: number = this.userList.findIndex(user => user.id === id);
-    const userName: string = this.userList[index].username;
-    this.userService.deleteUser(id).subscribe(
-      data => {
-        this.userList.splice(index, 1);
-        this.requestStart = false;
-        this.alertService.success('User ' + userName + ' deleted!' );
-      }, error => {
-        this.alertService.error('Impossible to delete the selected user!');
-        this.requestStart = false;
+  openDialog(user: User): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {name: user.username, id: user.id}
+    });
+    dialogRef.afterClosed().subscribe(
+      res => {
+        this.fetchUsers();
       }
     );
   }
-
 }

@@ -73,7 +73,7 @@ export class UserService {
 
   deleteUser(id: string): Observable<any> {
     return this.http
-      .delete('http://' + host + ':' + port + '/usersapi/users/' + id)
+      .delete('http://' + host + ':' + port + '/usersapi/restricted/users/' + id)
       .pipe(
         timeout(7500)
       );

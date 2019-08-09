@@ -81,6 +81,7 @@ import {FlowService} from './_services/flow.service';
 import { Flow3Component } from './flow3/flow3.component';
 import {BrokerService} from './_services/broker.service';
 import { LocationsComponent } from './locations/locations.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 
 @NgModule({
@@ -120,6 +121,7 @@ import { LocationsComponent } from './locations/locations.component';
     PositionFlowByMacComponent,
     Flow3Component,
     LocationsComponent,
+    ConfirmDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -157,6 +159,9 @@ import { LocationsComponent } from './locations/locations.component';
     NgxHeatMapModule,
     MatTabsModule,
     MatProgressBarModule
+  ],
+  entryComponents: [
+    ConfirmDialogComponent
   ],
   providers: [
     UserService,
